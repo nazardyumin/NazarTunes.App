@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Assets\icon .ico" />
   </ItemGroup>
 
@@ -26,12 +22,6 @@
     <None Update="Models\Configurators\db.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 </Project>
