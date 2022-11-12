@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ConsoleTesting.Models.Configurators
+namespace NazarTunes.App.Models.Configurators
 {
     public static class DbConfig
     {

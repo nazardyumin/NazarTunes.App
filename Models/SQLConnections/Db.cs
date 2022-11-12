@@ -1,9 +1,8 @@
-﻿using ConsoleTesting.Models.Configurators;
-using Dapper;
+﻿using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace NazarTunes.Models.SQLConnections
+namespace NazarTunes.App.Models.SQLConnections
 {
     public class Db
     {
@@ -19,7 +18,7 @@ namespace NazarTunes.Models.SQLConnections
         }
 
         public void test(string login, string pass, int role, string fn, string ln)
-        {          
+        {
             _cmd.CommandText =
             $"CALL procedure_create_user_test('{login}', '{pass}',{role},'{fn}','{ln}')";
             _db.Open();
