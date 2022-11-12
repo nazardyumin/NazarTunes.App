@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NazarTunes.App", "NazarTunes.App.csproj", "{9C86F100-5F2D-4B76-8990-28BFE7E3B756}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NazarTunes", "NazarTunes.csproj", "{9C86F100-5F2D-4B76-8990-28BFE7E3B756}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTesting", "..\ConsoleTesting\ConsoleTesting.csproj", "{06629C5D-AC6F-4630-847D-310901A69066}"
 EndProject
