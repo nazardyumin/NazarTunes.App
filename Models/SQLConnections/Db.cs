@@ -45,6 +45,7 @@ namespace NazarTunes.Models.SQLConnections
         {
             _cmd.CommandText = "function_check_if_credentials_correct";
             _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
             _cmd.Parameters.Add("new_login", MySqlDbType.VarChar);
             _cmd.Parameters["new_login"].Value = login;
             _cmd.Parameters.Add("new_pass", MySqlDbType.VarChar);
