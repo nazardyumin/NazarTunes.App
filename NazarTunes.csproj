@@ -5,10 +5,20 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\icon .ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\icon .ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="MySql.Data" Version="8.0.31" />
   </ItemGroup>
 
@@ -16,6 +26,12 @@
     <None Update="Models\Configurators\db.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
