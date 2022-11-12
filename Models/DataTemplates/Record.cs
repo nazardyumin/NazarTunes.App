@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NazarTunes.Models.DataTemplates
 {
@@ -11,10 +10,10 @@ namespace NazarTunes.Models.DataTemplates
         public List<string>? Tracks { get; set; }
         public List<string>? Genres { get; set; }
         public List<string>? Performers { get; set; }
-        public DateOnly TotalDuration { get; set; }
+        public string? TotalDuration { get; set; }
         public string? Publisher { get; set; }
         public string? ReleaseYear { get; set; }
         public string? MediaFormat { get; set; }
-        public string? CoverPath { get; set; } 
+        public string? CoverPath { get; set; }
     }
 }
