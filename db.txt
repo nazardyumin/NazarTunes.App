@@ -1,0 +1,1 @@
+Server=localhost;Database=nazar_tunes;Uid=Nazar;Pwd=`12345678;
