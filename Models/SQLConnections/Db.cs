@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using NazarTunes.Models.Configurators;
 using NazarTunes.Models.DataTemplates;
+using System.Collections.Generic;
 using System.Data;
 
 namespace NazarTunes.Models.SQLConnections
@@ -176,6 +177,24 @@ namespace NazarTunes.Models.SQLConnections
                 else return (true, true, null);
             }
             return (false, true, null);
+        }
+
+        public List<string> GetRecordGenres(int record_id)
+        {
+            var list_genres = new List<string>();
+            _cmd.CommandText = $"CALL procedure_get_record_genres ({record_id})";
+            _cmd.CommandType = CommandType.Text;
+            _db.Open();
+            var result = _cmd.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    list_genres.Add(result.GetString("genre"));
+                }
+            }
+            _db.Close();
+            return list_genres;
         }
     }
 }
