@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
+using NazarTunes.Models.Configurators;
 using System.Data;
 
-namespace NazarTunes.App.Models.SQLConnections
+namespace NazarTunes.Models.SQLConnections
 {
     public class Db
     {

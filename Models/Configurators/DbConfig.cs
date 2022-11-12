@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace NazarTunes.App.Models.Configurators
+namespace NazarTunes.Models.Configurators
 {
     public static class DbConfig
     {

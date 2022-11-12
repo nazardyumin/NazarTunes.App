@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NazarTunes.App.Models.DataTemplates
+namespace NazarTunes.Models.DataTemplates
 {
     public class Record
     {
