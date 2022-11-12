@@ -56,5 +56,22 @@ namespace NazarTunes.Models.SQLConnections
             _db.Close();
             return (int)returnParameter.Value == 1;
         }
+
+        public string GetRole(string login, string password)
+        {
+            _cmd.CommandText = "function_get_role";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+            _cmd.Parameters.Add("new_login", MySqlDbType.VarChar);
+            _cmd.Parameters["new_login"].Value = login;
+            _cmd.Parameters.Add("new_pass", MySqlDbType.VarChar);
+            _cmd.Parameters["new_pass"].Value = password;
+            var returnParameter = _cmd.Parameters.Add("@ReturnVal", MySqlDbType.VarChar);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+            return (string)returnParameter.Value;
+        }
     }
 }
