@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NazarTunes.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace NazarTunes.Views
     /// </summary>
     public partial class NazarTunesWindow : Window
     {
+        public AuthorizationViewModel model { get; set; }   
         public NazarTunesWindow()
         {
+            model = new();
             InitializeComponent();
         }
+
     }
 }
