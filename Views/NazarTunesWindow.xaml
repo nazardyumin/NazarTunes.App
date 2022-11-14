@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:rules="clr-namespace:NazarTunes.ViewModels.Validations"
         xmlns:local="clr-namespace:NazarTunes.Views"
+        xmlns:VM="clr-namespace:NazarTunes.ViewModels"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,6 +19,9 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Border x:Name="AuthorizationLayer">
+            <Border.DataContext>
+                <VM:AuthorizationViewModel/>
+            </Border.DataContext>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -54,7 +58,7 @@
 
                     <TextBox materialDesign:ValidationAssist.HorizontalAlignment="Left">
                         <TextBox.Text>
-                            <Binding Path="model.Login"  UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Login"  UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
                                     <rules:ExistingLoginValidationRule ValidatesOnTargetUpdated="True" />

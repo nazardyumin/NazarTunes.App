@@ -20,10 +20,10 @@ namespace NazarTunes.Views
     /// </summary>
     public partial class NazarTunesWindow : Window
     {
-        public AuthorizationViewModel model { get; set; }   
+       
         public NazarTunesWindow()
         {
-            model = new();
+            
             InitializeComponent();
         }
 
