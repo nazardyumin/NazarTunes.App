@@ -1,4 +1,5 @@
 ﻿using NazarTunes.Models.DataTemplates;
+using NazarTunes.ViewModels.Notifiers;
 using System.Windows;
 
 namespace NazarTunes.ViewModels

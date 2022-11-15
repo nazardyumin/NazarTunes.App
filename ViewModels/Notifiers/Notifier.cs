@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace NazarTunes.ViewModels
+namespace NazarTunes.ViewModels.Notifiers
 {
     public abstract class Notifier : INotifyPropertyChanged
     {

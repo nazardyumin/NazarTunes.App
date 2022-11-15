@@ -1,21 +1,24 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
+using NazarTunes.ViewModels.Notifiers;
 using System.Windows;
 
 namespace NazarTunes.ViewModels
 {
     public class AuthorizationViewModel : Notifier
     {
-        private CommonViewModelData _data;
+        private readonly CommonViewModelData _data;
         private string? _login;
         public string Login
         {
             get => _login!;
             set
             {
+                value ??= string.Empty;
                 SetField(ref _login, value);
                 if (_login!.Length > 0) EnterHelperText = string.Empty;
+                RefreshCanPressEnterState();
             }
         }
 
@@ -25,11 +28,12 @@ namespace NazarTunes.ViewModels
             get => _password!;
             set
             {
+                value ??= string.Empty;
                 SetField(ref _password, value);
                 if (_password!.Length > 0) EnterHelperText = string.Empty;
+                RefreshCanPressEnterState();
             }
         }
-
         private string? _enterHelperText;
         public string EnterHelperText
         {
@@ -55,8 +59,12 @@ namespace NazarTunes.ViewModels
         public MyCommand CommandSwitchToRegistration { get; }
         public MyCommand CommandEnter { get; }
 
-
-
+        private bool _canPressEnter;
+        public bool CanPressEnter
+        {
+            get => _canPressEnter;
+            set => SetField(ref _canPressEnter, value);    
+        }
 
         public AuthorizationViewModel(ref CommonViewModelData data)
         {
@@ -75,10 +83,12 @@ namespace NazarTunes.ViewModels
                 RegistrationSectionVisibility = Visibility.Visible;
             }, _ => true);
 
+            CanPressEnter = false;
             CommandEnter = new(_ =>
             {
                 EnterFunction(Login, Password);
             }, _ => true);
+            
         }
 
         private void EnterFunction(string login, string password)
@@ -104,8 +114,12 @@ namespace NazarTunes.ViewModels
                     _data.ClientLayerVisibility = Visibility.Visible;
                 }
             }
+        }
 
-
+        private void RefreshCanPressEnterState()
+        {
+            if (Login == string.Empty || Password==string.Empty) CanPressEnter = false;
+            else CanPressEnter = true;
         }
     }
 }
