@@ -17,10 +17,14 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="NazarTunes" Height="768" Width="1366"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <ResourceDictionary Source="\Views\Styles\Styles.xaml" />
+    </Window.Resources>
+    
     <Grid>
-        <Border x:Name="AuthorizationLayer">
+        <Border x:Name="AuthorizationLayer" Visibility="{Binding ViewModelData.AuthorizationLayerVisibility}">
             <Border.DataContext>
-                <VM:AuthorizationViewModel/>
+                <VM:MainViewModel/>
             </Border.DataContext>
 
             <Grid>
@@ -31,47 +35,69 @@
                 <TextBlock Grid.Row="0" Text="Welcome to NazarTunes!" HorizontalAlignment="Center" VerticalAlignment="Center"
                            Style="{DynamicResource MaterialDesignHeadline4TextBlock}"/>
                 
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBox Width="200" 
-                             materialDesign:HintAssist.Hint="Login" materialDesign:HintAssist.IsFloating="True"
-                              materialDesign:TextFieldAssist.HasClearButton="True"
-                             
-                             />
+                
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding Authorization.LoginSectionVisibility}">
 
-                    <PasswordBox Width="200"
-                                 
+                    <TextBox Width="200"
+                             Text="{Binding Authorization.Login, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Login"
+                             materialDesign:HintAssist.IsFloating="True"
+                             materialDesign:TextFieldAssist.HasClearButton="True"/>
+                    <PasswordBox Width="200" 
+                                 materialDesign:PasswordBoxAssist.Password="{Binding Authorization.Password, UpdateSourceTrigger=PropertyChanged}"                             
                                  materialDesign:HintAssist.Hint="Password" materialDesign:HintAssist.IsFloating="True"
-                                 materialDesign:HintAssist.HelperText="Error! This account is deleted!"
+                                 materialDesign:TextFieldAssist.HasClearButton="True"/>
+                    <TextBlock Text="{Binding Authorization.EnterHelperText}" Style="{StaticResource EnterHelperTextStyle}"/>
+                    
+                    
 
-                                 materialDesign:TextFieldAssist.HasClearButton="True"
-                                 />
-
-                    <Button Content="Enter" Margin="0,20,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryLightBgButton}"/>
-
-
-                    <Button Content="No account? Register!" Margin="0,10,0,0" Style="{DynamicResource MaterialDesignFlatLightButton}"/>
+                    <Button Content="Enter" Margin="0,20,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryLightBgButton}"
+                            Command="{Binding Authorization.CommandEnter}"/>
 
 
+                    <Button Content="No account? Register!" Margin="0,10,0,0" 
+                            Style="{DynamicResource MaterialDesignFlatLightButton}"
+                            Command="{Binding Authorization.CommandSwitchToRegistration}"/>
+                </StackPanel>
 
 
 
+                <StackPanel Grid.Row="1" Visibility="{Binding Authorization.RegistrationSectionVisibility}">
 
-                    <TextBox materialDesign:ValidationAssist.HorizontalAlignment="Left">
+                    <TextBox Width="200" materialDesign:ValidationAssist.HorizontalAlignment="Left"
+                             materialDesign:HintAssist.Hint="Login"
+                             materialDesign:HintAssist.IsFloating="True"
+                             materialDesign:TextFieldAssist.HasClearButton="True">
                         <TextBox.Text>
-                            <Binding Path="Login"  UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Authorization.Login"  UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
-                                    <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
                                     <rules:ExistingLoginValidationRule ValidatesOnTargetUpdated="True" />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-
-
-
-
+                    <PasswordBox Width="200" 
+                                 materialDesign:HintAssist.Hint="Password" materialDesign:HintAssist.IsFloating="True"
+                                 materialDesign:HintAssist.HelperText=""
+                                 materialDesign:TextFieldAssist.HasClearButton="True"/>
 
                 </StackPanel>
+
+
+
+
+
+
+
+
+
+               
+
+
+
+
+
+               
 
             </Grid>
             

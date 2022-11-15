@@ -8,8 +8,12 @@ namespace NazarTunes.ViewModels.Validations
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var db = new AuthorizationSectionDb();
-            return db.IfLoginExists(value.ToString()!) ? new ValidationResult(false, "This login is occupied!") : ValidationResult.ValidResult;
+            if (value != null)
+            {
+                var db = new AuthorizationSectionDb();
+                return db.IfLoginExists(value.ToString()!) ? new ValidationResult(false, "This login is occupied!") : ValidationResult.ValidResult;
+            }
+            else return ValidationResult.ValidResult;
         }
     }
 }

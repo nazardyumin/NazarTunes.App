@@ -9,7 +9,7 @@ namespace NazarTunes.Models.MySQLConnections
         protected readonly MySqlConnection _db;
         protected readonly MySqlCommand _cmd;
 
-        protected AbsctractDb() 
+        protected AbsctractDb()
         {
             DefaultTypeMap.MatchNamesWithUnderscores = true;
             _db = new MySqlConnection(DbConfig.GetConnectionString("db.txt"));
