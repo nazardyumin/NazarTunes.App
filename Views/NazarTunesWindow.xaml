@@ -142,5 +142,20 @@
             </StackPanel>
             
         </Border>
+
+
+        
+        
+        
+        <Border x:Name="ClientLayer" Visibility="{Binding CommonViewModel.ClientLayerVisibility}">
+            <!--Visibility="{Binding CommonViewModel.ClientLayerVisibility}">-->
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding CommonViewModel.Client.User.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+
+        </Border>
+        
+        
     </Grid>
 </Window>

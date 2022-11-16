@@ -5,7 +5,12 @@ namespace NazarTunes.ViewModels
 {
     public class ClientLayerViewModel : Notifier
     {
-        public Client? User { get; set; }
+        private Client? _user;
+        public Client? User
+        {
+            get => _user;
+            set => SetField(ref _user, value);
+        }
 
         public ClientLayerViewModel(Client client)
         {
