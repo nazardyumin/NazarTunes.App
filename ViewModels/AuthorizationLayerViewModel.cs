@@ -10,6 +10,8 @@ namespace NazarTunes.ViewModels
     {
         private readonly CommonViewModel _commonViewModel;
 
+        private readonly AuthorizationLayerDb _db;
+
         private string? _login;
         public string Login
         {
@@ -84,7 +86,6 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _helperText, value);
         }
 
-
         private Visibility _loginSectionVisibility;
         public Visibility LoginSectionVisibility
         {
@@ -124,12 +125,9 @@ namespace NazarTunes.ViewModels
         {
             _commonViewModel = commonViewModel;
 
-            Login = string.Empty;
-            Password = string.Empty;
-            PasswordRepeat = string.Empty;
-            FirstName = string.Empty;
-            LastName = string.Empty;
-            HelperText = string.Empty;
+            _db = new AuthorizationLayerDb();
+
+            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
 
             LoginSectionVisibility = Visibility.Visible;
             RegistrationSectionVisibility = Visibility.Hidden;
@@ -161,8 +159,7 @@ namespace NazarTunes.ViewModels
 
         private void EnterFunction(string login, string password)
         {
-            var db = new AuthorizationLayerDb();
-            var (correct_credentials, deleted_user, user) = db.Authorization(login, password);
+            var (correct_credentials, deleted_user, user) = _db.Authorization(login, password);
             if (!correct_credentials)
             {
                 HelperText = "Invalid login or password!";
@@ -194,8 +191,7 @@ namespace NazarTunes.ViewModels
             }
             else
             {
-                var db = new AuthorizationLayerDb();
-                var (client, ifSucceed) = db.CreateClient(Login, Password, FirstName, LastName);
+                var (client, ifSucceed) = _db.CreateClient(Login, Password, FirstName, LastName);
                 if (ifSucceed)
                 {
                     _commonViewModel.Client = new ClientLayerViewModel(client!);
@@ -237,8 +233,7 @@ namespace NazarTunes.ViewModels
         {    
             if (_isRegistration)
             {
-                var db = new AuthorizationLayerDb();
-                if (db.IfLoginExists(Login))
+                if (_db.IfLoginExists(Login))
                 {
                     CanPressRegister = false;
                     HelperText = "This login is occupied!";
