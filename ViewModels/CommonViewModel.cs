@@ -1,4 +1,4 @@
-﻿using NazarTunes.Models.DataTemplates;
+﻿using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
 using System.Windows;
 
@@ -41,11 +41,26 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _client, value);
         }
 
+        public MyCommand CommandLogout { get; }
+
         public CommonViewModel()
         {
             AuthorizationLayerVisibility = Visibility.Visible;
             AdminLayerVisibility = Visibility.Hidden;
             ClientLayerVisibility = Visibility.Hidden;
+            CommandLogout = new(_ =>
+            {
+                LogoutFunction();
+            }, _ => true);
+        }
+
+        private void LogoutFunction()
+        {
+            AuthorizationLayerVisibility = Visibility.Visible;
+            AdminLayerVisibility = Visibility.Hidden;
+            ClientLayerVisibility = Visibility.Hidden;
+            Admin = null;
+            Client = null;
         }
     }
 }

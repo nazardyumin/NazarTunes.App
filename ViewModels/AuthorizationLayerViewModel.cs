@@ -179,6 +179,7 @@ namespace NazarTunes.ViewModels
                     _commonViewModel.Client = new ClientLayerViewModel((Client)user);
                     _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                 }
+                Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
             }
         }
 
