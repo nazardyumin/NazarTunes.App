@@ -64,18 +64,18 @@ namespace NazarTunes.Models.MySQLConnections
                     var role = GetRole(login, password);
                     if (role == "admin")
                     {
-                        return (true, false, GetAdmin(login, password, role));
+                        return (true, false, GetAdmin(login, password));
                     }
                     else
                     {
-                        return (true, false, GetClient(login, password, role));
+                        return (true, false, GetClient(login, password));
                     }
                 }
                 else return (true, true, null);
             }
             else return (false, true, null);
         }
-        private Admin GetAdmin(string login, string password, string role)
+        private Admin GetAdmin(string login, string password)
         {
             _cmd.CommandText = "procedure_get_admin";
             _cmd.CommandType = CommandType.StoredProcedure;
@@ -93,10 +93,10 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
-            return new Admin { Id = (int)getId.Value, FirstName = (string)getFirstName.Value, LastName = (string)getLastName.Value, Role = role };
+            return new Admin { Id = (int)getId.Value, FirstName = (string)getFirstName.Value, LastName = (string)getLastName.Value};
         }
 
-        private Client GetClient(string login, string password, string role)
+        private Client GetClient(string login, string password)
         {
             _cmd.CommandText = "procedure_get_client";
             _cmd.CommandType = CommandType.StoredProcedure;
@@ -129,7 +129,6 @@ namespace NazarTunes.Models.MySQLConnections
                 Id = (int)getId.Value,
                 FirstName = (string)getFirstName.Value,
                 LastName = (string)getLastName.Value,
-                Role = role,
                 Phone = (string)getPhone.Value,
                 Email = (string)getEmail.Value,
                 TotalAmountSpent = (double)getTotalAmount.Value,
@@ -179,7 +178,7 @@ namespace NazarTunes.Models.MySQLConnections
 
             if ((int)getIfSucceed.Value == 1)
             {
-                return (GetClient(login, password, GetRole(login, password)), true);
+                return (GetClient(login, password), true);
             }
             return (null, false);
         }

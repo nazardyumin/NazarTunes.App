@@ -7,11 +7,9 @@ namespace NazarTunes.Views
     /// </summary>
     public partial class NazarTunesWindow : Window
     {
-
         public NazarTunesWindow()
         {
             InitializeComponent();
         }
-
     }
 }
