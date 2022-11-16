@@ -137,8 +137,6 @@ namespace NazarTunes.Models.MySQLConnections
                 IsSubscribed = (int)getIsSubscribed.Value == 1
             };
         }
-
-
         private string GetRole(string login, string password)
         {
             _cmd.CommandText = "function_get_role";
@@ -154,6 +152,36 @@ namespace NazarTunes.Models.MySQLConnections
             _cmd.ExecuteNonQuery();
             _db.Close();
             return (string)returnParameter.Value;
+        }
+
+        public (Client? client, bool ifSucceed) CreateClient(string login, string password, string firstName, string lastName)
+        {
+            _cmd.CommandText = "procedure_create_user_with_no_check";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.Add("new_login", MySqlDbType.VarChar);
+            _cmd.Parameters["new_login"].Value = login;
+            _cmd.Parameters.Add("new_pass", MySqlDbType.VarChar);
+            _cmd.Parameters["new_pass"].Value = password;
+            _cmd.Parameters.Add("new_role_id", MySqlDbType.Int32);
+            _cmd.Parameters["new_role_id"].Value = 2;
+            _cmd.Parameters.Add("new_first_name", MySqlDbType.VarChar);
+            _cmd.Parameters["new_first_name"].Value = firstName;
+            _cmd.Parameters.Add("new_last_name", MySqlDbType.VarChar);
+            _cmd.Parameters["new_last_name"].Value = lastName;
+            var getIfSucceed = _cmd.Parameters.Add("if_succeed", MySqlDbType.Int32);
+            getIfSucceed.Direction = ParameterDirection.Output; 
+            
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+
+            if ((int)getIfSucceed.Value == 1)
+            {
+                return (GetClient(login, password, GetRole(login, password)), true);
+            }
+            return (null, false);
         }
     }
 }

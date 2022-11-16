@@ -8,7 +8,7 @@ namespace NazarTunes.ViewModels
 {
     public class AuthorizationViewModel : Notifier
     {
-        private readonly CommonViewModelData _data;
+        private readonly CommonViewModelData _commonData;
         private string? _login;
         public string Login
         {
@@ -17,8 +17,9 @@ namespace NazarTunes.ViewModels
             {
                 value ??= string.Empty;
                 SetField(ref _login, value);
-                if (_login!.Length > 0) EnterHelperText = string.Empty;
+                if (_login!.Length > 0) HelperText = string.Empty;
                 RefreshCanPressEnterState();
+                RefreshCanPressRegisterState();
             }
         }
 
@@ -30,15 +31,56 @@ namespace NazarTunes.ViewModels
             {
                 value ??= string.Empty;
                 SetField(ref _password, value);
-                if (_password!.Length > 0) EnterHelperText = string.Empty;
+                if (_password!.Length > 0) HelperText = string.Empty;
                 RefreshCanPressEnterState();
+                RefreshCanPressRegisterState();
             }
         }
-        private string? _enterHelperText;
-        public string EnterHelperText
+
+        private string? _passwordRepeat;
+        public string PasswordRepeat
         {
-            get => _enterHelperText!;
-            set => SetField(ref _enterHelperText, value);
+            get => _passwordRepeat!;
+            set
+            {
+                value ??= string.Empty;
+                SetField(ref _passwordRepeat, value);
+                if (_passwordRepeat!.Length > 0) HelperText = string.Empty;
+                RefreshCanPressRegisterState();
+            }
+        }
+
+        private string? _firstName;
+        public string FirstName
+        {
+            get => _firstName!;
+            set
+            {
+                value ??= string.Empty;
+                SetField(ref _firstName, value);
+                if (_firstName!.Length > 0) HelperText = string.Empty;
+                RefreshCanPressRegisterState();
+            }
+        }
+
+        private string? _lastName;
+        public string LastName
+        {
+            get => _lastName!;
+            set
+            {
+                value ??= string.Empty;
+                SetField(ref _lastName, value);
+                if (_lastName!.Length > 0) HelperText = string.Empty;
+                RefreshCanPressRegisterState();
+            }
+        }
+
+        private string? _helperText;
+        public string HelperText
+        {
+            get => _helperText!;
+            set => SetField(ref _helperText, value);
         }
 
 
@@ -57,7 +99,9 @@ namespace NazarTunes.ViewModels
         }
 
         public MyCommand CommandSwitchToRegistration { get; }
+        public MyCommand CommandSwitchToLogin { get; }
         public MyCommand CommandEnter { get; }
+        public MyCommand CommandRegister { get; }
 
         private bool _canPressEnter;
         public bool CanPressEnter
@@ -66,21 +110,37 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _canPressEnter, value);    
         }
 
+        private bool _canPressRegister;
+        public bool CanPressRegister
+        {
+            get => _canPressRegister;
+            set => SetField(ref _canPressRegister, value);
+        }
+
+        private bool _isRegistration;
+
         public AuthorizationViewModel(ref CommonViewModelData data)
         {
-            _data = data;
+            _commonData = data;
 
             Login = string.Empty;
             Password = string.Empty;
-            EnterHelperText = string.Empty;
+            PasswordRepeat = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            HelperText = string.Empty;
 
             LoginSectionVisibility = Visibility.Visible;
             RegistrationSectionVisibility = Visibility.Hidden;
 
             CommandSwitchToRegistration = new(_ =>
             {
-                LoginSectionVisibility = Visibility.Hidden;
-                RegistrationSectionVisibility = Visibility.Visible;
+                SwitchToRegistrationFunction();
+            }, _ => true);
+
+            CommandSwitchToLogin = new(_ =>
+            {
+                SwitchToLoginFunction();
             }, _ => true);
 
             CanPressEnter = false;
@@ -88,7 +148,13 @@ namespace NazarTunes.ViewModels
             {
                 EnterFunction(Login, Password);
             }, _ => true);
-            
+
+            CanPressRegister = false;
+            CommandRegister = new(_ =>
+            {
+                RegisterFunction();
+            }, _ => true);
+            _isRegistration = false;
         }
 
         private void EnterFunction(string login, string password)
@@ -97,29 +163,87 @@ namespace NazarTunes.ViewModels
             var (correct_credentials, deleted_user, user) = db.Authorization(login, password);
             if (!correct_credentials)
             {
-                EnterHelperText = "Invalid login or password!";
+                HelperText = "Invalid login or password!";
                 Login = Password = string.Empty;
             }
-            else if (deleted_user) EnterHelperText = "This account is deleted! Please contact 8-800-000-00-00!";
+            else if (deleted_user) HelperText = "This account is deleted! Please contact 8-800-000-00-00!";
             else
             {
-                _data.User = user!;
-                _data.AuthorizationLayerVisibility = Visibility.Hidden;
-                if (_data.User.GetType() == typeof(Admin))
+                _commonData.User = user!;
+                _commonData.AuthorizationLayerVisibility = Visibility.Hidden;
+                if (_commonData.User.GetType() == typeof(Admin))
                 {
-                    _data.AdminLayerVisibility = Visibility.Visible;
+                    _commonData.AdminLayerVisibility = Visibility.Visible;
                 }
                 else
                 {
-                    _data.ClientLayerVisibility = Visibility.Visible;
+                    _commonData.ClientLayerVisibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void RegisterFunction()
+        {
+            if (Password!=PasswordRepeat)
+            {
+                HelperText = "Passwords don't match!";
+                Password = PasswordRepeat = string.Empty;
+            }
+            else
+            {
+                var db = new AuthorizationSectionDb();
+                var (client, ifSucceed) = db.CreateClient(Login, Password, FirstName, LastName);
+                if (ifSucceed)
+                {
+                    _commonData.User = client!;
+                    _commonData.AuthorizationLayerVisibility = Visibility.Hidden;
+                    _commonData.ClientLayerVisibility = Visibility.Visible;
+                    Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
+                    _isRegistration = false;
+                }
+                else
+                {
+                    HelperText = "Unexpected error! Try again later!";
+                }
+            }  
+        }
+
+        private void SwitchToRegistrationFunction()
+        {
+            LoginSectionVisibility = Visibility.Hidden;
+            RegistrationSectionVisibility = Visibility.Visible;
+            Login = Password = HelperText = string.Empty;
+            _isRegistration = true; 
+        }
+        private void SwitchToLoginFunction()
+        {
+            RegistrationSectionVisibility = Visibility.Hidden;
+            LoginSectionVisibility = Visibility.Visible;
+            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
+            _isRegistration = false;
         }
 
         private void RefreshCanPressEnterState()
         {
             if (Login == string.Empty || Password==string.Empty) CanPressEnter = false;
             else CanPressEnter = true;
+        }
+
+        private void RefreshCanPressRegisterState()
+        {    
+            if (_isRegistration)
+            {
+                var db = new AuthorizationSectionDb();
+                if (db.IfLoginExists(Login))
+                {
+                    CanPressRegister = false;
+                    HelperText = "This login is occupied!";
+                }
+                else if (Login == string.Empty || Password == string.Empty || PasswordRepeat == string.Empty ||
+                    FirstName == string.Empty || LastName == string.Empty) CanPressRegister = false;
+
+                else CanPressRegister = true;
+            }  
         }
     }
 }

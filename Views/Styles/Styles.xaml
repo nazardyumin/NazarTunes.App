@@ -2,9 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <Style x:Key="EnterHelperTextStyle" TargetType="TextBlock">
+    <Style x:Key="HelperTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
         <Setter Property="FontSize" Value="10"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>        
     
 </ResourceDictionary>
