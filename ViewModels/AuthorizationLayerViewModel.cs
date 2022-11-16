@@ -171,16 +171,15 @@ namespace NazarTunes.ViewModels
             else if (deleted_user) HelperText = "This account is deleted! Please contact 8-800-000-00-00!";
             else
             {
-                _commonViewModel.User = user!;
                 _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
-                if (_commonViewModel.User.GetType() == typeof(Admin))
+                if (user!.GetType() == typeof(Admin))
                 {
-                    _commonViewModel.Admin = new AdminLayerViewModel();
+                    _commonViewModel.Admin = new AdminLayerViewModel((Admin)user);
                     _commonViewModel.AdminLayerVisibility = Visibility.Visible;
                 }
                 else
                 {
-                    _commonViewModel.Client = new ClientLayerViewModel();
+                    _commonViewModel.Client = new ClientLayerViewModel((Client)user);
                     _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                 }
             }
@@ -199,8 +198,7 @@ namespace NazarTunes.ViewModels
                 var (client, ifSucceed) = db.CreateClient(Login, Password, FirstName, LastName);
                 if (ifSucceed)
                 {
-                    _commonViewModel.User = client!;
-                    _commonViewModel.Client = new ClientLayerViewModel();
+                    _commonViewModel.Client = new ClientLayerViewModel(client!);
                     _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
                     _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                     Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;

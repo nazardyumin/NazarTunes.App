@@ -6,13 +6,6 @@ namespace NazarTunes.ViewModels
 {
     public class CommonViewModel : Notifier
     {
-        private AbstractUser? _user;
-        public AbstractUser? User 
-        {
-            get => _user;
-            set => SetField(ref _user, value);
-        } 
-
         private Visibility _authorizationLayerVisibility;
         public Visibility AuthorizationLayerVisibility
         {
@@ -34,8 +27,19 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _clientLayerVisibility, value);
         }
 
-        public AdminLayerViewModel? Admin { get; set; }
-        public ClientLayerViewModel? Client { get; set; }
+        private AdminLayerViewModel? _admin;
+        public AdminLayerViewModel? Admin 
+        { 
+            get => _admin; 
+            set => SetField(ref _admin, value); 
+        }
+
+        private ClientLayerViewModel? _client;
+        public ClientLayerViewModel? Client
+        {
+            get => _client;
+            set => SetField(ref _client, value);
+        }
 
         public CommonViewModel()
         {

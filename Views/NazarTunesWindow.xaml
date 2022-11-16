@@ -29,7 +29,7 @@
 
     
     <Grid>
-        <Border x:Name="AuthorizationLayer" Visibility="Hidden">
+        <Border x:Name="AuthorizationLayer" Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">
             <!--Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">-->
             <Grid>
                 <Grid.RowDefinitions>
@@ -134,11 +134,11 @@
 
 
 
-        <Border x:Name="AdminLayer" Visibility="Visible">
+        <Border x:Name="AdminLayer" Visibility="{Binding CommonViewModel.AdminLayerVisibility}">
             <!--Visibility="{Binding CommonViewModel.AdminLayerVisibility}">-->
             
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="AdminLayer!!!!!!!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding CommonViewModel.Admin.User.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
             
         </Border>
