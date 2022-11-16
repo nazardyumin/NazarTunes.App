@@ -8,7 +8,7 @@ namespace NazarTunes.ViewModels
 {
     public class AuthorizationLayerViewModel : Notifier
     {
-        private readonly CommonViewModel _commonVM;
+        private readonly CommonViewModel _commonViewModel;
 
         private string? _login;
         public string Login
@@ -120,9 +120,9 @@ namespace NazarTunes.ViewModels
 
         private bool _isRegistration;
 
-        public AuthorizationLayerViewModel(ref CommonViewModel commonVM)
+        public AuthorizationLayerViewModel(ref CommonViewModel commonViewModel)
         {
-            _commonVM = commonVM;
+            _commonViewModel = commonViewModel;
 
             Login = string.Empty;
             Password = string.Empty;
@@ -171,17 +171,17 @@ namespace NazarTunes.ViewModels
             else if (deleted_user) HelperText = "This account is deleted! Please contact 8-800-000-00-00!";
             else
             {
-                _commonVM.User = user!;
-                _commonVM.AuthorizationLayerVisibility = Visibility.Hidden;
-                if (_commonVM.User.GetType() == typeof(Admin))
+                _commonViewModel.User = user!;
+                _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
+                if (_commonViewModel.User.GetType() == typeof(Admin))
                 {
-                    _commonVM.Admin = new AdminLayerViewModel();
-                    _commonVM.AdminLayerVisibility = Visibility.Visible;
+                    _commonViewModel.Admin = new AdminLayerViewModel();
+                    _commonViewModel.AdminLayerVisibility = Visibility.Visible;
                 }
                 else
                 {
-                    _commonVM.Client = new ClientLayerViewModel();
-                    _commonVM.ClientLayerVisibility = Visibility.Visible;
+                    _commonViewModel.Client = new ClientLayerViewModel();
+                    _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                 }
             }
         }
@@ -199,10 +199,10 @@ namespace NazarTunes.ViewModels
                 var (client, ifSucceed) = db.CreateClient(Login, Password, FirstName, LastName);
                 if (ifSucceed)
                 {
-                    _commonVM.User = client!;
-                    _commonVM.Client = new ClientLayerViewModel();
-                    _commonVM.AuthorizationLayerVisibility = Visibility.Hidden;
-                    _commonVM.ClientLayerVisibility = Visibility.Visible;
+                    _commonViewModel.User = client!;
+                    _commonViewModel.Client = new ClientLayerViewModel();
+                    _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
+                    _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                     Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
                     _isRegistration = false;
                 }
