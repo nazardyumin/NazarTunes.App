@@ -5,7 +5,7 @@ using System.Data;
 
 namespace NazarTunes.Models.MySQLConnections;
 
-public class Db : AbsctractDb
+public class ClientLayerDb : AbsctractDb
 {
 
 

@@ -4,16 +4,19 @@ namespace NazarTunes.ViewModels
 {
     public class MainViewModel : Notifier
     {
-        private CommonViewModelData _viewModelData;
-        public CommonViewModelData ViewModelData { get => _viewModelData; set =>SetField(ref _viewModelData, value); }
+        private CommonViewModel _commonData;
+        public CommonViewModel CommonData 
+        { 
+            get => _commonData; 
+            set =>SetField(ref _commonData, value); 
+        }
 
-        public AuthorizationViewModel Authorization { get; set; }
+        public AuthorizationLayerViewModel Authorization { get; set; }
 
         public MainViewModel()
         {
-            ViewModelData = new();
-            Authorization = new (ref _viewModelData!);
+            CommonData = new();
+            Authorization = new (ref _commonData!);
         }
-
     }
 }

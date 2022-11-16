@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace NazarTunes.ViewModels
 {
-    public class CommonViewModelData : Notifier
+    public class CommonViewModel : Notifier
     {
         private AbstractUser? _user;
         public AbstractUser? User 
@@ -34,7 +34,10 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _clientLayerVisibility, value);
         }
 
-        public CommonViewModelData()
+        public AdminLayerViewModel? Admin { get; set; }
+        public ClientLayerViewModel? Client { get; set; }
+
+        public CommonViewModel()
         {
             AuthorizationLayerVisibility = Visibility.Visible;
             AdminLayerVisibility = Visibility.Hidden;

@@ -27,9 +27,10 @@
         <ResourceDictionary Source="\Views\Styles\Styles.xaml" />
     </Window.Resources>
 
+    
     <Grid>
-        <Border x:Name="AuthorizationLayer" Visibility="{Binding ViewModelData.AuthorizationLayerVisibility}">
-
+        <Border x:Name="AuthorizationLayer" Visibility="Hidden">
+            <!--Visibility="{Binding CommonData.AuthorizationLayerVisibility}">-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
@@ -128,6 +129,17 @@
             </Grid>
             
             
+            
+        </Border>
+
+
+
+        <Border x:Name="AdminLayer" Visibility="Visible">
+            <!--Visibility="{Binding CommonData.AdminLayerVisibility}">-->
+            
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="AdminLayer!!!!!!!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
             
         </Border>
     </Grid>

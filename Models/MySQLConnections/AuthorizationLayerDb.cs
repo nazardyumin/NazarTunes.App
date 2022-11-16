@@ -4,7 +4,7 @@ using System.Data;
 
 namespace NazarTunes.Models.MySQLConnections
 {
-    public class AuthorizationSectionDb : AbsctractDb
+    public class AuthorizationLayerDb : AbsctractDb
     {
         public bool IfLoginExists(string login)
         {

@@ -6,9 +6,10 @@ using System.Windows;
 
 namespace NazarTunes.ViewModels
 {
-    public class AuthorizationViewModel : Notifier
+    public class AuthorizationLayerViewModel : Notifier
     {
-        private readonly CommonViewModelData _commonData;
+        private readonly CommonViewModel _commonVM;
+
         private string? _login;
         public string Login
         {
@@ -119,9 +120,9 @@ namespace NazarTunes.ViewModels
 
         private bool _isRegistration;
 
-        public AuthorizationViewModel(ref CommonViewModelData data)
+        public AuthorizationLayerViewModel(ref CommonViewModel commonVM)
         {
-            _commonData = data;
+            _commonVM = commonVM;
 
             Login = string.Empty;
             Password = string.Empty;
@@ -154,12 +155,13 @@ namespace NazarTunes.ViewModels
             {
                 RegisterFunction();
             }, _ => true);
+
             _isRegistration = false;
         }
 
         private void EnterFunction(string login, string password)
         {
-            var db = new AuthorizationSectionDb();
+            var db = new AuthorizationLayerDb();
             var (correct_credentials, deleted_user, user) = db.Authorization(login, password);
             if (!correct_credentials)
             {
@@ -169,15 +171,17 @@ namespace NazarTunes.ViewModels
             else if (deleted_user) HelperText = "This account is deleted! Please contact 8-800-000-00-00!";
             else
             {
-                _commonData.User = user!;
-                _commonData.AuthorizationLayerVisibility = Visibility.Hidden;
-                if (_commonData.User.GetType() == typeof(Admin))
+                _commonVM.User = user!;
+                _commonVM.AuthorizationLayerVisibility = Visibility.Hidden;
+                if (_commonVM.User.GetType() == typeof(Admin))
                 {
-                    _commonData.AdminLayerVisibility = Visibility.Visible;
+                    _commonVM.Admin = new AdminLayerViewModel();
+                    _commonVM.AdminLayerVisibility = Visibility.Visible;
                 }
                 else
                 {
-                    _commonData.ClientLayerVisibility = Visibility.Visible;
+                    _commonVM.Client = new ClientLayerViewModel();
+                    _commonVM.ClientLayerVisibility = Visibility.Visible;
                 }
             }
         }
@@ -191,13 +195,14 @@ namespace NazarTunes.ViewModels
             }
             else
             {
-                var db = new AuthorizationSectionDb();
+                var db = new AuthorizationLayerDb();
                 var (client, ifSucceed) = db.CreateClient(Login, Password, FirstName, LastName);
                 if (ifSucceed)
                 {
-                    _commonData.User = client!;
-                    _commonData.AuthorizationLayerVisibility = Visibility.Hidden;
-                    _commonData.ClientLayerVisibility = Visibility.Visible;
+                    _commonVM.User = client!;
+                    _commonVM.Client = new ClientLayerViewModel();
+                    _commonVM.AuthorizationLayerVisibility = Visibility.Hidden;
+                    _commonVM.ClientLayerVisibility = Visibility.Visible;
                     Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
                     _isRegistration = false;
                 }
@@ -215,6 +220,7 @@ namespace NazarTunes.ViewModels
             Login = Password = HelperText = string.Empty;
             _isRegistration = true; 
         }
+
         private void SwitchToLoginFunction()
         {
             RegistrationSectionVisibility = Visibility.Hidden;
@@ -233,7 +239,7 @@ namespace NazarTunes.ViewModels
         {    
             if (_isRegistration)
             {
-                var db = new AuthorizationSectionDb();
+                var db = new AuthorizationLayerDb();
                 if (db.IfLoginExists(Login))
                 {
                     CanPressRegister = false;

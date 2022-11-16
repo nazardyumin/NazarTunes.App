@@ -10,7 +10,7 @@ namespace NazarTunes.ViewModels.Validations
         {
             if (value != null)
             {
-                var db = new AuthorizationSectionDb();
+                var db = new AuthorizationLayerDb();
                 return db.IfLoginExists(value.ToString()!) ? new ValidationResult(false, "This login is occupied!") : ValidationResult.ValidResult;
             }
             else return ValidationResult.ValidResult;
