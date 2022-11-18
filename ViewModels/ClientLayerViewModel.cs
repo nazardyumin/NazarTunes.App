@@ -1,10 +1,14 @@
 ﻿using NazarTunes.Models.DataTemplates;
+using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Notifiers;
+using System.Collections.ObjectModel;
 
 namespace NazarTunes.ViewModels
 {
     public class ClientLayerViewModel : Notifier
     {
+        private readonly ClientLayerDb _db;
+
         private Client? _user;
         public Client? User
         {
@@ -12,9 +16,18 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _user, value);
         }
 
+        private ObservableCollection<Nomenclature>? _nomenclatures;
+        public ObservableCollection<Nomenclature>? Nomenclatures
+        {
+            get => _nomenclatures;
+            set => SetField(ref _nomenclatures, value);
+        }
+
         public ClientLayerViewModel(Client client)
         {
+            _db = new ();
             User = client;
+            Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());    
         }
     }
 }
