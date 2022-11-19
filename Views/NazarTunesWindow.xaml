@@ -28,7 +28,7 @@
 
     
     <Grid>
-        <Border x:Name="AuthorizationLayer" Visibility="Hidden">
+        <Border x:Name="AuthorizationLayer" Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">
             <!--Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">-->
             <Grid>
                 <Grid.RowDefinitions>
@@ -112,13 +112,12 @@
 
 
 
-        <Border x:Name="AdminLayer" Visibility="Visible">
+        <Border x:Name="AdminLayer" Visibility="{Binding CommonViewModel.AdminLayerVisibility}">
             <!--Visibility="{Binding CommonViewModel.AdminLayerVisibility}">-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="21*"/>
                 </Grid.RowDefinitions>
 
 
@@ -128,11 +127,11 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="Administrator Mode" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <TextBlock Grid.Column="0" Text="Administrator Mode" HorizontalAlignment="Left" VerticalAlignment="Center"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                               Margin="15,0,0,0"/>
+                               Margin="12,0,0,0"/>
 
-                        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,5,0">
+                    <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,5,0">
                       
                         <TextBlock Text="{Binding CommonViewModel.Admin.User.FirstName}" 
                                    VerticalAlignment="Center" Width="Auto" 
@@ -145,23 +144,74 @@
                         <Button Content="Logout" Command="{Binding CommonViewModel.CommandLogout}" Style="{StaticResource MaterialDesignFlatLightButton}"/>
                     </StackPanel>
                     </Grid>
-                
-                
-                <ScrollViewer Grid.Row="2" Margin="3,0,3,0">
-                    <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-                        <DataGrid.Columns>
-                            <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
-                            <materialDesign:DataGridTextColumn Header="Record Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
-                            <materialDesign:DataGridTextColumn Header="Performer" Binding="{Binding Record.Performers[0]}" Width="Auto" IsReadOnly="True"/>
-                            <materialDesign:DataGridTextColumn Header="Format" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
-                            <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
-                            <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
-                            <materialDesign:DataGridTextColumn Header="Sell Price" Binding="{Binding SellPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
-                            <materialDesign:DataGridTextColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
 
+                <StackPanel Grid.Row="1" Margin="10,0,10,0">
+                    <TabControl HorizontalAlignment="Center" SelectedIndex="0"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
+                        <TabItem Header="Nomenclature DB">
+                            <ScrollViewer Margin="3,13,3,0">
+                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" 
+                                          AutoGenerateColumns="False" 
+                                          CanUserAddRows="False" 
+                                          CanUserDeleteRows="False">
+                                    <DataGrid.Columns>
+                                        <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Record Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Bands" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Performers" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Genres" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Format" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Publisher" Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Year" Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Sell Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
+                                        <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+                        </TabItem>
+                        <TabItem Header="Edit Nomenclatures">
+                            <StackPanel Margin="10,13,0,0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBox Width="50" Margin="0,0,20,0"
+                                             Text="{Binding CommonViewModel.Admin.SelectedId}"
+                                             materialDesign:HintAssist.Hint="ID"
+                                             materialDesign:HintAssist.IsFloating="True"/>
+                                    <Button Content="Find" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
+                                            Command="{Binding CommonViewModel.Admin.CommandFindNomenclature}" Cursor="Hand"/>
+                                </StackPanel>
+
+                                <TextBlock Text="{Binding CommonViewModel.Admin.SelectedNomenclature.HelperText}" Style="{StaticResource HelperTextStyle}"
+                                Margin="0,4,0,0"/>
+                                
+                                <StackPanel Orientation="Horizontal">
+
+                                    
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            
+                        </TabItem>
+                        <TabItem Header="New Nomenclature">
+                        </TabItem>
+                        <TabItem Header="New Procurement">
+                        </TabItem>
+                        <TabItem Header="New Supplier">
+                        </TabItem>
+                        <TabItem Header="New Promotion">
+                        </TabItem>
+                        <TabItem Header="Freeze Nomenclature">
+                        </TabItem>
+                        <TabItem Header="Sales Report">
+                        </TabItem>
+                    </TabControl>
+                    
+                   
+
+
+
+
+                </StackPanel>
             </Grid>
             
             

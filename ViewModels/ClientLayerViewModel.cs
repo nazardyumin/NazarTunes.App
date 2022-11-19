@@ -25,9 +25,9 @@ namespace NazarTunes.ViewModels
 
         public ClientLayerViewModel(Client client)
         {
-            _db = new ();
+            _db = new();
             User = client;
-            Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());    
+            Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());
         }
     }
 }
