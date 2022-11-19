@@ -76,30 +76,44 @@ namespace NazarTunes.ViewModels
             return str.ToString();
         }
 
-        private void FindNomenclatureFunction()
+        private void FindNomenclatureFunction()  
         {
+            
             if (SelectedId is not null)
             {
-                var i = int.Parse(SelectedId!) - 1;
-                if (i <= Nomenclatures!.Count - 1 && i>=0)
+                if (ContainsOnlyDigits(SelectedId))
                 {
-                    SelectedNomenclature.Title = Nomenclatures![i].Record!.Title;
-                    SelectedNomenclature.Bands = MakeColumn(Nomenclatures![i].Record!.Bands!);
-                    SelectedNomenclature.Performers = MakeColumn(Nomenclatures![i].Record!.Performers!);
-                    SelectedNomenclature.Genres = MakeColumn(Nomenclatures![i].Record!.Genres!);
-                    SelectedNomenclature.Tracks = MakeColumn(Nomenclatures![i].Record!.Tracks!);
-                    SelectedNomenclature.TotalDuration = Nomenclatures![i].Record!.TotalDuration;
-                    SelectedNomenclature.Publisher = Nomenclatures![i].Record!.Publisher;
-                    SelectedNomenclature.ReleaseYear = Nomenclatures![i].Record!.ReleaseYear;
-                    SelectedNomenclature.MediaFormat = Nomenclatures![i].Record!.MediaFormat;
-                    SelectedNomenclature.CoverPath = Nomenclatures![i].Record!.CoverPath;
-                    SelectedNomenclature.SellPrice = Nomenclatures![i].SellPrice.ToString();
-                    SelectedNomenclature.HelperText = string.Empty;
+                    var i = int.Parse(SelectedId!) - 1;
+                    if (i <= Nomenclatures!.Count - 1 && i >= 0)
+                    {
+                        SelectedNomenclature.Title = Nomenclatures![i].Record!.Title;
+                        SelectedNomenclature.Bands = MakeColumn(Nomenclatures![i].Record!.Bands!);
+                        SelectedNomenclature.Performers = MakeColumn(Nomenclatures![i].Record!.Performers!);
+                        SelectedNomenclature.Genres = MakeColumn(Nomenclatures![i].Record!.Genres!);
+                        SelectedNomenclature.Tracks = MakeColumn(Nomenclatures![i].Record!.Tracks!);
+                        SelectedNomenclature.TotalDuration = Nomenclatures![i].Record!.TotalDuration;
+                        SelectedNomenclature.Publisher = Nomenclatures![i].Record!.Publisher;
+                        SelectedNomenclature.ReleaseYear = Nomenclatures![i].Record!.ReleaseYear;
+                        SelectedNomenclature.MediaFormat = Nomenclatures![i].Record!.MediaFormat;
+                        SelectedNomenclature.CoverPath = Nomenclatures![i].Record!.CoverPath;
+                        SelectedNomenclature.SellPrice = Nomenclatures![i].SellPrice.ToString();
+                        SelectedNomenclature.HelperText = string.Empty;
+                    }
+                    else SelectedNomenclature.HelperText = "Invalid ID!";
                 }
-                else SelectedNomenclature.HelperText = "Invalid ID!";
+                else SelectedNomenclature.HelperText = "This field may contain only digits!";
             }
             else SelectedNomenclature.HelperText = "Enter ID!";
         }
 
+        private bool ContainsOnlyDigits(string str)
+        {
+            var result = true;
+            foreach (var symbol in str)
+            {
+                if (!char.IsDigit(symbol)) { result = false; break; }
+            }
+            return result;
+        }
     }
 }
