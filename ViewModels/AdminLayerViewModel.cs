@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Documents;
+using System.Linq;
 
 namespace NazarTunes.ViewModels
 {
@@ -40,6 +41,7 @@ namespace NazarTunes.ViewModels
         public string? SelectedId { get; set; }
 
         public MyCommand CommandFindNomenclature { get; }
+        public MyCommand CommandSaveChanges { get; }
 
         public AdminLayerViewModel (Admin admin)
         {
@@ -52,15 +54,20 @@ namespace NazarTunes.ViewModels
             {
                 FindNomenclatureFunction();
             }, _ => true);
+            CommandSaveChanges = new(_ =>
+            {
+                SaveChangesFunction();
+            }, _ => true);
         }
 
         private List<string> MakeList(string str)
         {
+            if (str[^1] != '\n') str += "\r\n";
             var list = new List<string>();
             while (str != string.Empty)
             {
-                var tmp = str.Substring(0, str.IndexOf("\n") + 1);
-                str = str.Remove(0, str.IndexOf("\n") + 1);
+                var tmp = str.Substring(0, str.IndexOf('\n')-1);
+                str = str.Remove(0, str.IndexOf('\n') + 1);
                 list.Add(tmp);
             }
             return list;
@@ -69,16 +76,27 @@ namespace NazarTunes.ViewModels
         private string MakeColumn(List<string> list)
         {
             var str = new StringBuilder();
+            var stop = list.Count - 1;
             foreach (var item in list)
             {
-                str.Append(item + "\n");
+                if (list.IndexOf(item) == stop) { str.Append(item); break; }
+                str.Append(item + '\n');
             }
             return str.ToString();
         }
+        private bool ContainsOnlyDigits(string str)
+        {
+            var result = true;
+            foreach (var symbol in str)
+            {
+                if (!char.IsDigit(symbol)) { result = false; break; }
+            }
+            return result;
+        }
+
 
         private void FindNomenclatureFunction()  
-        {
-            
+        {           
             if (SelectedId is not null)
             {
                 if (ContainsOnlyDigits(SelectedId))
@@ -106,14 +124,35 @@ namespace NazarTunes.ViewModels
             else SelectedNomenclature.HelperText = "Enter ID!";
         }
 
-        private bool ContainsOnlyDigits(string str)
+        private void SaveChangesFunction()
         {
-            var result = true;
-            foreach (var symbol in str)
+            var result = CompareNewAndOldRecordBands();
+
+            //TODO finish this function with all list fields!!!
+
+
+
+
+
+
+        }
+
+        private (List<string> bandsToCreate, List<string> bandsToDelete) CompareNewAndOldRecordBands()
+        {
+            var newBands = MakeList(SelectedNomenclature.Bands!);
+            var oldBands = new List<string>(Nomenclatures![int.Parse(SelectedId!) - 1].Record!.Bands!);
+            var matches = (from item in newBands
+                           where oldBands.Contains(item)
+                           select item).ToList();
+            if (matches.Count>0)
             {
-                if (!char.IsDigit(symbol)) { result = false; break; }
+                foreach (var item in matches)
+                {
+                    newBands.Remove(item);
+                    oldBands.Remove(item);
+                }
             }
-            return result;
+            return (newBands, oldBands);
         }
     }
 }

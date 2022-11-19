@@ -146,7 +146,7 @@
                     </Grid>
 
                 <StackPanel Grid.Row="1" Margin="10,0,10,0">
-                    <TabControl HorizontalAlignment="Center" SelectedIndex="0"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
+                    <TabControl HorizontalAlignment="Center" SelectedIndex="1"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
                         <TabItem Header="Nomenclature DB">
                             <ScrollViewer Margin="3,13,3,0">
                                 <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" 
@@ -155,16 +155,17 @@
                                           CanUserDeleteRows="False">
                                     <DataGrid.Columns>
                                         <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Record Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Bands" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Performers" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Genres" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Format" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Band" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Performer" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Tracks" Binding="{Binding Record.TrackAmount}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Genre" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Type" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
                                         <materialDesign:DataGridTextColumn Header="Publisher" Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
                                         <materialDesign:DataGridTextColumn Header="Year" Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
                                         <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
                                         <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Sell Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
                                         <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -180,13 +181,75 @@
                                     <Button Content="Find" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
                                             Command="{Binding CommonViewModel.Admin.CommandFindNomenclature}" Cursor="Hand"/>
                                 </StackPanel>
-
                                 <TextBlock Text="{Binding CommonViewModel.Admin.SelectedNomenclature.HelperText}" Style="{StaticResource HelperTextStyle}"
                                 Margin="0,4,0,0"/>
-                                
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,10,0,0">
+                                    <Image Source="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath}" HorizontalAlignment="Center"/>
+                                    <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath}"
+                                        materialDesign:HintAssist.Hint="Cover Path"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Title}"
+                                        materialDesign:HintAssist.Hint="Title"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        
+                                        <TextBox Width="200" AcceptsReturn="True"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Bands}"
+                                        materialDesign:HintAssist.Hint="Band"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Performers}"
+                                        materialDesign:HintAssist.Hint="Performer"
+                                        materialDesign:HintAssist.IsFloating="True"/>
 
-                                    
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Genres}"
+                                        materialDesign:HintAssist.Hint="Genre"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                         
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.ReleaseYear}"
+                                        materialDesign:HintAssist.Hint="Year"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.TotalDuration}"
+                                        materialDesign:HintAssist.Hint="Duration"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.MediaFormat}"
+                                        materialDesign:HintAssist.Hint="Type"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <TextBox Width="400"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Tracks}"
+                                        materialDesign:HintAssist.Hint="Tracks"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Publisher}"
+                                        materialDesign:HintAssist.Hint="Publisher"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                        <TextBox Width="200"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.SellPrice}"
+                                        materialDesign:HintAssist.Hint="Price"
+                                        materialDesign:HintAssist.IsFloating="True"/>
+
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                                        <Button Content="Cancel" Margin="0,0,2,0"/>
+                                        <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.CommandSaveChanges}"/>
+                                    </StackPanel>
+                                   
                                 </StackPanel>
                             </StackPanel>
                             
