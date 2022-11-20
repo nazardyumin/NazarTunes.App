@@ -34,5 +34,7 @@ namespace NazarTunes.ViewModels.AdminLayerClasses
             Performers = new ObservableCollection<Performer>(db.GetAllPerformers());
             Genres = new ObservableCollection<Genre>(db.GetAllGenres());
         }
+
+
     }
 }

@@ -36,6 +36,9 @@ namespace NazarTunes.ViewModels
         }
 
 
+
+
+
         private NomenclatureConstructor? _selectedNomenclature;
         public NomenclatureConstructor? SelectedNomenclature
         {
@@ -50,12 +53,7 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _sortedLists, value);
         }
 
-        private EditListPerformers? _editPerformers;
-        public EditListPerformers? EditPerformers
-        {
-            get => _editPerformers;
-            set => SetField(ref _editPerformers, value);
-        }
+        
 
 
 
@@ -66,7 +64,7 @@ namespace NazarTunes.ViewModels
         public MyCommand CommandSaveChanges { get; }
         public MyCommand CommandCancel { get; }
 
-        public MyCommand CommandOpenEditPerformers { get; }
+        
 
 
 
@@ -77,12 +75,14 @@ namespace NazarTunes.ViewModels
             _db = new();
             User = admin;
             Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());
+            
 
             SelectedTab = 0;
 
             SelectedNomenclature = new();
             SortedLists = new(ref _db);
-            EditPerformers = new();
+
+            TabNomenclatureDb = new(ref _db, ref _nomenclatures!, ref _sortedLists!);
 
             CommandFindNomenclature = new(_ =>
             {
@@ -96,10 +96,7 @@ namespace NazarTunes.ViewModels
             {
                 CancelFunction();
             }, _ => true);
-            CommandOpenEditPerformers = new(_ =>
-            {
-                OpenEditPerformersFunction();
-            }, _ => true);
+            
         }
 
         private void FindNomenclatureFunction()
@@ -139,11 +136,7 @@ namespace NazarTunes.ViewModels
             SelectedNomenclature!.Clear();
         }
 
-        private void OpenEditPerformersFunction()
-        {
-
-            EditPerformers.Show();
-        }
+        
 
 
     }

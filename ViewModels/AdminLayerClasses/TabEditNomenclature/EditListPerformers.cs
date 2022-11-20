@@ -46,12 +46,24 @@ namespace NazarTunes.ViewModels.AdminLayerClasses.TabEditNomenclature
         public int SelectedIndex
         {
             get => _selectedIndex;
-            set => SetField(ref _selectedIndex, value);
+            set
+            {
+                SetField(ref _selectedIndex, value);
+                if (_selectedIndex>-1)
+                {
+                    FirstName = SortedLists!.Performers![_selectedIndex].FirstName;
+                    LastName = SortedLists!.Performers![_selectedIndex].LastName;
+                }
+            }
         }
 
-        public EditListPerformers()
+        public SortedListsFromDb? SortedLists { get; set; }
+
+        public EditListPerformers(ref SortedListsFromDb sortedLists)
         {
             IsVisible = Visibility.Collapsed;
+            SelectedIndex = -1;
+            SortedLists = sortedLists;
         }
 
         private void RefreshCanSaveChangesState()
@@ -65,15 +77,30 @@ namespace NazarTunes.ViewModels.AdminLayerClasses.TabEditNomenclature
                 CanSaveChanges = false;
             }
         }
-
-        public void Show()
+        public void OpenClose()
+        {
+            if (IsVisible==Visibility.Visible)
+            {
+                Hide();
+            }
+            else
+            {
+                Show();
+            } 
+                
+        }
+        private void Show()
         {
             IsVisible = Visibility.Visible;
         }
 
-        public void Hide()
+        private void Hide()
         {
+            FirstName = LastName = string.Empty;
+            SelectedIndex = -1;
             IsVisible = Visibility.Collapsed;
         }
+
+       
     }
 }
