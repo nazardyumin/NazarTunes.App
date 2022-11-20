@@ -146,9 +146,9 @@
                     </Grid>
 
                 <StackPanel Grid.Row="1" Margin="10,0,10,0">
-                    <TabControl HorizontalAlignment="Center" SelectedIndex="1"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
+                    <TabControl HorizontalAlignment="Center" SelectedIndex="0"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
                         <TabItem Header="Nomenclature DB">
-                            <ScrollViewer Margin="3,13,3,0">
+                            <ScrollViewer Margin="4,13,3,0">
                                 <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" 
                                           AutoGenerateColumns="False" 
                                           CanUserAddRows="False" 
@@ -171,88 +171,101 @@
                                 </DataGrid>
                             </ScrollViewer>
                         </TabItem>
+                        
                         <TabItem Header="Edit Nomenclatures">
-                            <StackPanel Margin="10,13,0,0">
+                            <StackPanel Margin="8,13,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBox Width="50" Margin="0,0,20,0"
-                                             Text="{Binding CommonViewModel.Admin.SelectedId}"
+                                    <TextBox Width="70" Margin="0,0,20,0"
+                                             Text="{Binding CommonViewModel.Admin.SelectedNomenclature.SelectedId}"
                                              materialDesign:HintAssist.Hint="ID"
-                                             materialDesign:HintAssist.IsFloating="True"/>
+                                             materialDesign:HintAssist.IsFloating="True"
+                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     <Button Content="Find" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
-                                            Command="{Binding CommonViewModel.Admin.CommandFindNomenclature}" Cursor="Hand"/>
+                                            Command="{Binding CommonViewModel.Admin.CommandFindNomenclature}"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding CommonViewModel.Admin.SelectedNomenclature.HelperText}" Style="{StaticResource HelperTextStyle}"
                                 Margin="0,4,0,0"/>
-                                <StackPanel Margin="0,10,0,0">
-                                    <Image Source="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath}" HorizontalAlignment="Center"/>
-                                    <TextBox Width="200"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath}"
-                                        materialDesign:HintAssist.Hint="Cover Path"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                        <TextBox Width="200"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Title}"
-                                        materialDesign:HintAssist.Hint="Title"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                        
-                                        <TextBox Width="200" AcceptsReturn="True"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Bands}"
-                                        materialDesign:HintAssist.Hint="Band"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                        
-                                        <TextBox Width="200"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Performers}"
-                                        materialDesign:HintAssist.Hint="Performer"
-                                        materialDesign:HintAssist.IsFloating="True"/>
 
-                                        <TextBox Width="200"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Genres}"
-                                        materialDesign:HintAssist.Hint="Genre"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                         
-                                        <TextBox Width="200"
+                                <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                                    <StackPanel>
+                                        <Image Source="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath}" HorizontalAlignment="Center" Width="300" Height="300"/>
+                                        <TextBox Width="400" Margin="0,10,0,0"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.CoverPath, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Cover Path"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <TextBox Width="430" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Title}"
+                                        HorizontalAlignment="Left"
+                                        materialDesign:HintAssist.Hint="Title"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            <TextBox Width="70"
                                         Text="{Binding CommonViewModel.Admin.SelectedNomenclature.ReleaseYear}"
                                         materialDesign:HintAssist.Hint="Year"
-                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
 
-                                        <TextBox Width="200"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.TotalDuration}"
-                                        materialDesign:HintAssist.Hint="Duration"
-                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <TextBox Width="300" AcceptsReturn="True" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Bands}"
+                                        materialDesign:HintAssist.Hint="Band"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            <TextBox Width="200" AcceptsReturn="True"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Performers}"
+                                        materialDesign:HintAssist.Hint="Performer"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
 
-                                        <TextBox Width="200"
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+                                            <TextBox Width="170" AcceptsReturn="True" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Genres}"
+                                        materialDesign:HintAssist.Hint="Genre"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <TextBox Width="70" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.SelectedNomenclature.MediaFormat}"
                                         materialDesign:HintAssist.Hint="Type"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                    </StackPanel>
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                        <TextBox Width="400"
-                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Tracks}"
-                                        materialDesign:HintAssist.Hint="Tracks"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-                                        
-                                        <TextBox Width="200"
+                                            <TextBox Width="163" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Publisher}"
                                         materialDesign:HintAssist.Hint="Publisher"
-                                        materialDesign:HintAssist.IsFloating="True"/>
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            <TextBox Width="87"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.TotalDuration}"
+                                        materialDesign:HintAssist.Hint="Duration"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
 
-                                        <TextBox Width="200"
+                                        <TextBox Width="100" Margin="0,10,0,0" 
                                         Text="{Binding CommonViewModel.Admin.SelectedNomenclature.SellPrice}"
                                         materialDesign:HintAssist.Hint="Price"
-                                        materialDesign:HintAssist.IsFloating="True"/>
-
-
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                            <Button Content="Cancel" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.CommandCancel}"/>
+                                            <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.CommandSaveChanges}"/>
+                                        </StackPanel>
                                     </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                                        <Button Content="Cancel" Margin="0,0,2,0"/>
-                                        <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.CommandSaveChanges}"/>
-                                    </StackPanel>
-                                   
+                                    <TextBox Width="400" AcceptsReturn="True" Margin="5,5,0,0"
+                                        Text="{Binding CommonViewModel.Admin.SelectedNomenclature.Tracks}"
+                                        materialDesign:HintAssist.Hint="Tracks"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                 </StackPanel>
                             </StackPanel>
-                            
                             
                         </TabItem>
                         <TabItem Header="New Nomenclature">

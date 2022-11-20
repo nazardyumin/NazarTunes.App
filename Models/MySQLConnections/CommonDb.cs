@@ -28,10 +28,10 @@ namespace NazarTunes.Models.MySQLConnections
             return list_genres;
         }
 
-        private (List<string>bands, List<string> performers) GetRecordPerformers(int record_id)
+        private (List<string> bands, List<string> performers) GetRecordPerformers(int record_id)
         {
             var list_bands = new List<string>();
-            var list_performers = new List<string>();         
+            var list_performers = new List<string>();
             _cmd.CommandType = CommandType.Text;
             _cmd.Parameters.Clear();
             _cmd.CommandText = $"CALL procedure_get_record_performers_bands ({record_id})";
@@ -59,7 +59,7 @@ namespace NazarTunes.Models.MySQLConnections
             }
             _db.Close();
 
-            return (list_bands,list_performers);
+            return (list_bands, list_performers);
         }
 
         private List<string> GetRecordTracks(int record_id)

@@ -1,5 +1,4 @@
 ﻿using Dapper.Contrib.Extensions;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NazarTunes.Models.DataTemplates
 {
@@ -7,7 +6,7 @@ namespace NazarTunes.Models.DataTemplates
     {
         public int NomenclatureId { get; set; }
         [Computed]
-        public Record? Record {get;set;}
+        public Record? Record { get; set; }
         public int TotalAmount { get; set; }
         public double SellPrice { get; set; }
         public int TotalItemsSold { get; set; }

@@ -6,9 +6,9 @@ namespace NazarTunes.ViewModels
     {
         private CommonViewModel _commonViewModel;
         public CommonViewModel CommonViewModel
-        { 
-            get => _commonViewModel; 
-            set =>SetField(ref _commonViewModel, value); 
+        {
+            get => _commonViewModel;
+            set => SetField(ref _commonViewModel, value);
         }
 
         public AuthorizationLayerViewModel Authorization { get; set; }
@@ -16,7 +16,7 @@ namespace NazarTunes.ViewModels
         public MainViewModel()
         {
             CommonViewModel = new();
-            Authorization = new (ref _commonViewModel!);
+            Authorization = new(ref _commonViewModel!);
         }
     }
 }

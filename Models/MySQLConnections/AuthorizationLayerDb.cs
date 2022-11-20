@@ -93,7 +93,7 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
-            return new Admin { Id = (int)getId.Value, FirstName = (string)getFirstName.Value, LastName = (string)getLastName.Value};
+            return new Admin { Id = (int)getId.Value, FirstName = (string)getFirstName.Value, LastName = (string)getLastName.Value };
         }
 
         private Client GetClient(string login, string password)
@@ -170,8 +170,8 @@ namespace NazarTunes.Models.MySQLConnections
             _cmd.Parameters.Add("new_last_name", MySqlDbType.VarChar);
             _cmd.Parameters["new_last_name"].Value = lastName;
             var getIfSucceed = _cmd.Parameters.Add("if_succeed", MySqlDbType.Int32);
-            getIfSucceed.Direction = ParameterDirection.Output; 
-            
+            getIfSucceed.Direction = ParameterDirection.Output;
+
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();

@@ -1,12 +1,8 @@
-﻿using Dapper;
-using NazarTunes.Models.DataTemplates;
-using System.Collections.Generic;
-
-namespace NazarTunes.Models.MySQLConnections
+﻿namespace NazarTunes.Models.MySQLConnections
 {
     public class AdminLayerDb : CommonDb
     {
-        
+
 
         //public void AddNewSupplier()
         //{
@@ -23,6 +19,6 @@ namespace NazarTunes.Models.MySQLConnections
 
         //}
 
-        
+
     }
 }

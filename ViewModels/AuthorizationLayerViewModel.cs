@@ -109,7 +109,7 @@ namespace NazarTunes.ViewModels
         public bool CanPressEnter
         {
             get => _canPressEnter;
-            set => SetField(ref _canPressEnter, value);    
+            set => SetField(ref _canPressEnter, value);
         }
 
         private bool _canPressRegister;
@@ -185,7 +185,7 @@ namespace NazarTunes.ViewModels
 
         private void RegisterFunction()
         {
-            if (Password!=PasswordRepeat)
+            if (Password != PasswordRepeat)
             {
                 HelperText = "Passwords don't match!";
                 Password = PasswordRepeat = string.Empty;
@@ -205,7 +205,7 @@ namespace NazarTunes.ViewModels
                 {
                     HelperText = "Unexpected error! Try again later!";
                 }
-            }  
+            }
         }
 
         private void SwitchToRegistrationFunction()
@@ -213,7 +213,7 @@ namespace NazarTunes.ViewModels
             LoginSectionVisibility = Visibility.Hidden;
             RegistrationSectionVisibility = Visibility.Visible;
             Login = Password = HelperText = string.Empty;
-            _isRegistration = true; 
+            _isRegistration = true;
         }
 
         private void SwitchToLoginFunction()
@@ -226,12 +226,12 @@ namespace NazarTunes.ViewModels
 
         private void RefreshCanPressEnterState()
         {
-            if (Login == string.Empty || Password==string.Empty) CanPressEnter = false;
+            if (Login == string.Empty || Password == string.Empty) CanPressEnter = false;
             else CanPressEnter = true;
         }
 
         private void RefreshCanPressRegisterState()
-        {    
+        {
             if (_isRegistration)
             {
                 if (_db.IfLoginExists(Login))
@@ -243,7 +243,7 @@ namespace NazarTunes.ViewModels
                     FirstName == string.Empty || LastName == string.Empty) CanPressRegister = false;
 
                 else CanPressRegister = true;
-            }  
+            }
         }
     }
 }

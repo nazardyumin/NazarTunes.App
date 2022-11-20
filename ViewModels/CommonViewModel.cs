@@ -28,10 +28,10 @@ namespace NazarTunes.ViewModels
         }
 
         private AdminLayerViewModel? _admin;
-        public AdminLayerViewModel? Admin 
-        { 
-            get => _admin; 
-            set => SetField(ref _admin, value); 
+        public AdminLayerViewModel? Admin
+        {
+            get => _admin;
+            set => SetField(ref _admin, value);
         }
 
         private ClientLayerViewModel? _client;
