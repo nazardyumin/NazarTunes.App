@@ -146,30 +146,46 @@
                     </Grid>
 
                 <StackPanel Grid.Row="1" Margin="10,0,10,0">
-                    <TabControl HorizontalAlignment="Center" SelectedIndex="0"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
+                    <TabControl HorizontalAlignment="Center" SelectedIndex="1"> <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
+                        
                         <TabItem Header="Nomenclature DB">
-                            <ScrollViewer Margin="4,13,3,0">
-                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" 
+                            <StackPanel>
+                                
+                                <StackPanel Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Edit Performers" Command="{Binding CommonViewModel.Admin.CommandOpenEditPerformers}"/>
+                                        <Button Content="Edit Bands"/>
+                                        <Button Content="Edit Genres"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="Test" Visibility="{Binding CommonViewModel.Admin.EditPerformers.IsVisible}"/>
+
+                                </StackPanel>
+
+                                <ScrollViewer Margin="4,13,3,0">
+                                    <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures}" 
                                           AutoGenerateColumns="False" 
                                           CanUserAddRows="False" 
                                           CanUserDeleteRows="False">
-                                    <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Band" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Performer" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Tracks" Binding="{Binding Record.TrackAmount}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Genre" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Type" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Publisher" Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Year" Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
-                                        <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </ScrollViewer>
+                                        <DataGrid.Columns>
+                                            <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
+                                            <materialDesign:DataGridTextColumn Header="Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
+                                            <materialDesign:DataGridTextColumn Header="Band" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Performer" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Tracks" Binding="{Binding Record.TrackAmount}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Genre" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Type" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Publisher" Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Year" Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
+                                            <materialDesign:DataGridTextColumn Header="Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
+                                            <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </ScrollViewer>
+                                
+                            </StackPanel>
                         </TabItem>
                         
                         <TabItem Header="Edit Nomenclatures">

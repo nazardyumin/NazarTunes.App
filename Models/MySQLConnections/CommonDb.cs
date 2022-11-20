@@ -21,7 +21,7 @@ namespace NazarTunes.Models.MySQLConnections
             {
                 while (result.Read())
                 {
-                    list_genres.Add(result.GetString("genre"));
+                    list_genres.Add(result.GetString("genre_name"));
                 }
             }
             _db.Close();

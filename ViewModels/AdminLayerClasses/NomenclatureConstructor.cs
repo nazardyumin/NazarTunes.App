@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NazarTunes.ViewModels
+namespace NazarTunes.ViewModels.AdminLayerClasses
 {
     public class NomenclatureConstructor : Notifier
     {
@@ -192,8 +192,8 @@ namespace NazarTunes.ViewModels
 
         public void Clear()
         {
-            SelectedId = Title = Bands = Performers = Genres = 
-                Tracks = TotalDuration = Publisher = ReleaseYear = 
+            SelectedId = Title = Bands = Performers = Genres =
+                Tracks = TotalDuration = Publisher = ReleaseYear =
                 MediaFormat = CoverPath = SellPrice = HelperText = string.Empty;
         }
     }
