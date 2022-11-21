@@ -3,7 +3,7 @@ using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.ObjectModel;
 
-namespace NazarTunes.ViewModels.AdminLayerClasses
+namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class SortedListsFromDb : Notifier
     {
@@ -34,7 +34,5 @@ namespace NazarTunes.ViewModels.AdminLayerClasses
             Performers = new ObservableCollection<Performer>(db.GetAllPerformers());
             Genres = new ObservableCollection<Genre>(db.GetAllGenres());
         }
-
-
     }
 }

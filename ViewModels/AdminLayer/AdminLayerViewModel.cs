@@ -1,13 +1,12 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
-using NazarTunes.ViewModels.AdminLayerClasses;
-using NazarTunes.ViewModels.AdminLayerClasses.TabEditNomenclature;
-using NazarTunes.ViewModels.AdminLayerClasses.TabNomenclatureDb;
+using NazarTunes.ViewModels.AdminLayer.Tab0;
+using NazarTunes.ViewModels.AdminLayer.Tab1;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.ObjectModel;
 
-namespace NazarTunes.ViewModels
+namespace NazarTunes.ViewModels.AdminLayer
 {
     public class AdminLayerViewModel : Notifier
     {
@@ -53,7 +52,7 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _sortedLists, value);
         }
 
-        
+
 
 
 
@@ -64,7 +63,7 @@ namespace NazarTunes.ViewModels
         public MyCommand CommandSaveChanges { get; }
         public MyCommand CommandCancel { get; }
 
-        
+
 
 
 
@@ -75,7 +74,7 @@ namespace NazarTunes.ViewModels
             _db = new();
             User = admin;
             Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());
-            
+
 
             SelectedTab = 0;
 
@@ -96,7 +95,7 @@ namespace NazarTunes.ViewModels
             {
                 CancelFunction();
             }, _ => true);
-            
+
         }
 
         private void FindNomenclatureFunction()
@@ -136,7 +135,7 @@ namespace NazarTunes.ViewModels
             SelectedNomenclature!.Clear();
         }
 
-        
+
 
 
     }

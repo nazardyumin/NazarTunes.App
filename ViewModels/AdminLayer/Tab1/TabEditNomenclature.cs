@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NazarTunes.ViewModels.AdminLayerClasses.TabEditNomenclature
+namespace NazarTunes.ViewModels.AdminLayer.Tab1
 {
     internal class TabEditNomenclature
     {

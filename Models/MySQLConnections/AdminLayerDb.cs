@@ -33,7 +33,7 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             var list = _db.Query<Performer>(sql).ToList();
             _db.Close();
-            var sorted_list = list.OrderBy(g => g.FirstName).ToList();
+            var sorted_list = list.OrderBy(p => p.FirstName).ToList();
             return sorted_list;
         }
 

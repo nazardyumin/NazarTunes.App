@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NazarTunes.ViewModels.AdminLayerClasses
+namespace NazarTunes.ViewModels.AdminLayer.Tab1
 {
     public class NomenclatureConstructor : Notifier
     {
