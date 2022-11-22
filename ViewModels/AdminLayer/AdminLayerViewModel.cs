@@ -50,6 +50,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             SelectedTab = 0;
  
             TabNomenclatureDb = new(ref _db, RefreshDbView);
+            TabEditNomenclature = new(ref _db, ref _nomenclatures!);
         }
 
         private void RefreshDbView()

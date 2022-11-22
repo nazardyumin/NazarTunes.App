@@ -2,14 +2,15 @@
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab1
 {
     public class TabEditNomenclature : Notifier
     {
-        protected AdminLayerDb _refDb { get; set; }
-        protected ObservableCollection<Nomenclature> _refNomenclatures { get; set; }
+        protected AdminLayerDb _refDb;
+        protected List<Nomenclature> _refNomenclatures { get; set; }
 
         private NomenclatureConstructor? _selectedNomenclature;
         public NomenclatureConstructor? SelectedNomenclature
@@ -22,7 +23,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public MyCommand CommandSaveChanges { get; }
         public MyCommand CommandClear { get; }
 
-        public TabEditNomenclature(ref AdminLayerDb db, ref ObservableCollection<Nomenclature> nomenclatures)
+        public TabEditNomenclature(ref AdminLayerDb db, ref List<Nomenclature> nomenclatures)
         {
             _refDb = db;
             _refNomenclatures = nomenclatures;
@@ -64,7 +65,12 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         private void SaveChangesFunction()
         {
             var i = SelectedNomenclature!.GetSelectedIndex();
-            var result = SelectedNomenclature.CompareNewAndOldBands(_refNomenclatures[i]);
+            
+
+            var (newTracks, oldTracks, actionKey) = SelectedNomenclature.CompareNewAndOldTracks(_refNomenclatures[i]);
+            UpdateTracks(newTracks, oldTracks, actionKey);
+
+            //var result = SelectedNomenclature.CompareNewAndOldBands(_refNomenclatures[i]);
 
             //TODO finish this function with all list fields!!!
             //TODO make editions for lists genres, performers and bands!
@@ -78,6 +84,48 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         private void ClearFunction()
         {
             SelectedNomenclature!.Clear();
+        }
+
+        private void UpdateTracks(List<string> newTracks, List<string> oldTracks, string actionKey)
+        {
+            var idRecord = SelectedNomenclature!.GetSelectedId();
+            var trackIds = _refDb.GetAllTrackIds(idRecord);
+
+            if (actionKey == "update")
+            {
+                int i = 0;
+                foreach (var id in trackIds)
+                {
+                    _refDb.UpdateOneTrack(id, newTracks[i]);
+                    i++;
+                }
+            }
+            else if (actionKey == "delete")
+            {
+                int i = 0;
+                foreach (var track in newTracks)
+                {
+                    _refDb.UpdateOneTrack(trackIds[i], track);
+                    i++;
+                }
+                for (; i < oldTracks.Count; i++)
+                {
+                    _refDb.DeleteOneTrack(trackIds[i]);
+                }
+            }
+            else
+            {
+                int i = 0;
+                foreach (var track in oldTracks)
+                {
+                    _refDb.UpdateOneTrack(trackIds[i], track);
+                    i++;
+                }
+                for (; i < newTracks.Count; i++)
+                {
+                    _refDb.AddOneTrack(idRecord, newTracks[i]);
+                }
+            } 
         }
     }
 }

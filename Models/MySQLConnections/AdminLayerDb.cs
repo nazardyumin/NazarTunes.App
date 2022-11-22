@@ -81,6 +81,55 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public List<int> GetAllTrackIds(int id_record)
+        {
+            var sql = $"CALL procedure_get_all_track_ids({id_record});";
+            _db.Open();
+            var list = _db.Query<int>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        public void UpdateOneTrack(int id, string newTrackTitle)
+        {
+            _cmd.CommandText = "procedure_update_track_title";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_track", id);
+            _cmd.Parameters.AddWithValue("new_track_title", newTrackTitle);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void DeleteOneTrack(int id)
+        {
+            _cmd.CommandText = "procedure_delete_record_track";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_track", id);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void AddOneTrack(int idRecord, string newTrackTitle)
+        {
+            _cmd.CommandText = "procedure_add_new_track";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_record", idRecord);
+            _cmd.Parameters.AddWithValue("new_track_title", newTrackTitle);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
 
 
 

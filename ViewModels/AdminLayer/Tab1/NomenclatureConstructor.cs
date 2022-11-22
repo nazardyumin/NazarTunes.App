@@ -190,6 +190,26 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             return (newBands, oldBands);
         }
 
+        public (List<string> newTracks, List<string> oldTracks, string actionKey) CompareNewAndOldTracks(Nomenclature nomenclature)
+        {
+            var newTracks = MakeList(Tracks!);
+            var oldTracks = new List<string>(nomenclature.Record!.Tracks!);
+
+            if (newTracks.Count == oldTracks.Count)
+            {
+                return (newTracks, oldTracks, "update");
+            }
+            else if (newTracks.Count > oldTracks.Count)
+            {
+                return (newTracks, oldTracks, "add");
+            }
+            else
+            {
+                return (newTracks, oldTracks, "delete");
+            }
+        }
+
+
         public void Clear()
         {
             SelectedId = Title = Bands = Performers = Genres =
