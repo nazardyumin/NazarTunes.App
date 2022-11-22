@@ -132,7 +132,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 var tmp = str.Substring(0, str.IndexOf('\n') - 1);
                 str = str.Remove(0, str.IndexOf('\n') + 1);
-                list.Add(tmp);
+                if (!string.IsNullOrWhiteSpace(tmp)) list.Add(tmp);
             }
             return list;
         }
@@ -144,7 +144,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             foreach (var item in list)
             {
                 if (list.IndexOf(item) == stop) { str.Append(item); break; }
-                str.Append(item + '\n');
+                str.Append(item + "\r\n");
             }
             return str.ToString();
         }
