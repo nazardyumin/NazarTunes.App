@@ -2,9 +2,8 @@
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer.Tab0;
 using NazarTunes.ViewModels.AdminLayer.Tab1;
-using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace NazarTunes.ViewModels.AdminLayer
 {
@@ -19,13 +18,12 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _user, value);
         }
 
-        private ObservableCollection<Nomenclature>? _nomenclatures;
-        public ObservableCollection<Nomenclature>? Nomenclatures
+        private List<Nomenclature>? _nomenclatures;
+        public List<Nomenclature>? Nomenclatures
         {
             get => _nomenclatures;
             set => SetField(ref _nomenclatures, value);
-        }
-
+        }      
 
         private TabNomenclatureDb? _tabNomenclatureDb;
         public TabNomenclatureDb? TabNomenclatureDb
@@ -34,109 +32,29 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _tabNomenclatureDb, value);
         }
 
-
-
-
-
-        private NomenclatureConstructor? _selectedNomenclature;
-        public NomenclatureConstructor? SelectedNomenclature
+        private TabEditNomenclature? _tabEditNomenclature;
+        public TabEditNomenclature? TabEditNomenclature
         {
-            get => _selectedNomenclature;
-            set => SetField(ref _selectedNomenclature, value);
+            get => _tabEditNomenclature;
+            set => SetField(ref _tabEditNomenclature, value);
         }
-
-        private SortedListsFromDb? _sortedLists;
-        public SortedListsFromDb? SortedLists
-        {
-            get => _sortedLists;
-            set => SetField(ref _sortedLists, value);
-        }
-
-
-
-
 
         public int SelectedTab { get; set; }
-
-
-        public MyCommand CommandFindNomenclature { get; }
-        public MyCommand CommandSaveChanges { get; }
-        public MyCommand CommandCancel { get; }
-
-
-
-
-
-
 
         public AdminLayerViewModel(Admin admin)
         {
             _db = new();
             User = admin;
-            Nomenclatures = new ObservableCollection<Nomenclature>(_db.GetAllNomenclatures());
-
+            Nomenclatures = new List<Nomenclature>(_db.GetAllNomenclatures());
 
             SelectedTab = 0;
-
-            SelectedNomenclature = new();
-            SortedLists = new(ref _db);
-
-            TabNomenclatureDb = new(ref _db, ref _nomenclatures!, ref _sortedLists!);
-
-            CommandFindNomenclature = new(_ =>
-            {
-                FindNomenclatureFunction();
-            }, _ => true);
-            CommandSaveChanges = new(_ =>
-            {
-                SaveChangesFunction();
-            }, _ => true);
-            CommandCancel = new(_ =>
-            {
-                CancelFunction();
-            }, _ => true);
-
+ 
+            TabNomenclatureDb = new(ref _db, RefreshDbView);
         }
 
-        private void FindNomenclatureFunction()
+        private void RefreshDbView()
         {
-            if (SelectedNomenclature!.SelectedIdIsNotNull())
-            {
-                if (SelectedNomenclature.SelectedIdContainsOnlyDigits())
-                {
-                    var i = SelectedNomenclature.GetSelectedIndex();
-                    if (i <= Nomenclatures!.Count - 1 && i >= 0)
-                    {
-                        SelectedNomenclature.Set(Nomenclatures![i]);
-                    }
-                    else SelectedNomenclature.HelperText = "Invalid ID!";
-                }
-                else SelectedNomenclature.HelperText = "This field may contain only digits!";
-            }
-            else SelectedNomenclature.HelperText = "Enter ID!";
+            Nomenclatures = new List<Nomenclature>(_db.GetAllNomenclatures());
         }
-
-        private void SaveChangesFunction()
-        {
-            var i = SelectedNomenclature!.GetSelectedIndex();
-            var result = SelectedNomenclature.CompareNewAndOldBands(Nomenclatures![i]);
-
-            //TODO finish this function with all list fields!!!
-            //TODO make editions for lists genres, performers and bands!
-
-
-
-
-
-        }
-
-        private void CancelFunction()
-        {
-            SelectedNomenclature!.Clear();
-        }
-
-
-
-
     }
 }

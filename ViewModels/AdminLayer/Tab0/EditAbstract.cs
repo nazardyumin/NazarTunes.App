@@ -1,17 +1,16 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.MySQLConnections;
+using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
-using System.Collections.ObjectModel;
+using System;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public abstract class EditAbstract : Notifier
     {
-        protected AdminLayerDb _refDb { get; set; }
-        protected ObservableCollection<Nomenclature> _refNomenclatures { get; set; }
-        protected SortedListsFromDb? _refSortedLists { get; set; }
+        protected AdminLayerDb _refDb;
 
+        protected Action _refreshDb;
 
         private string? _textField1;
         public string? TextField1
@@ -40,13 +39,19 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set => SetField(ref _canSaveChanges, value);
         }
 
-        protected EditAbstract(ref AdminLayerDb db, ref ObservableCollection<Nomenclature> nomenclatures, ref SortedListsFromDb sortedLists)
+        public MyCommand? CommandSaveChanges { get; }
+
+        protected EditAbstract(ref AdminLayerDb db, Action refreshDb)
         {
             _refDb = db;
-            _refNomenclatures = nomenclatures;
-            _refSortedLists = sortedLists;
+            _refreshDb = refreshDb;       
 
             IsVisible = Visibility.Collapsed;
+
+            CommandSaveChanges = new(_ =>
+            {
+                SaveChangesFunction();
+            }, _ => true);
         }
 
         public void OpenClose()
@@ -64,12 +69,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             IsVisible = Visibility.Visible;
         }
-        
-        public void Hide()
-        {
-            TextField1 = string.Empty;
-            IsVisible = Visibility.Collapsed;
-        }
+
+        public abstract void Hide();
 
         protected void RefreshCanSaveChangesState()
         {
@@ -82,5 +83,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 CanSaveChanges = true;
             }
         }
+
+        protected abstract void SaveChangesFunction();
     }
 }

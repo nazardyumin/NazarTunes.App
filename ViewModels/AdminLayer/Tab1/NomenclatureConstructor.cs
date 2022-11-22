@@ -99,9 +99,9 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             set => SetField(ref _helperText, value);
         }
 
-        public bool SelectedIdIsNotNull()
+        public bool SelectedIdIsNotNullOrEmpty()
         {
-            return SelectedId is not null;
+            return !string.IsNullOrWhiteSpace(SelectedId);
         }
 
         public int GetSelectedId()

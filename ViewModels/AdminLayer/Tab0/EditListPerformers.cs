@@ -1,11 +1,20 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
-using System.Collections.ObjectModel;
+using System;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class EditListPerformers : EditAbstract
     {
+        private List<Performer>? _performers;
+        public List<Performer>? Performers
+        {
+            get => _performers;
+            set => SetField(ref _performers, value);
+        }
+
         private string? _textField2;
         public string? TextField2
         {
@@ -25,21 +34,23 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 SetField(ref _selectedIndex, value);
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = _refSortedLists!.Performers![_selectedIndex].FirstName;
-                    TextField2 = _refSortedLists!.Performers![_selectedIndex].LastName;
+                    TextField1 = Performers![_selectedIndex].FirstName;
+                    TextField2 = Performers![_selectedIndex].LastName;
                 }
             }
         }
 
-        public EditListPerformers(ref AdminLayerDb db, ref ObservableCollection<Nomenclature> nomenclatures, ref SortedListsFromDb sortedLists) : base(ref db, ref nomenclatures, ref sortedLists)
+        public EditListPerformers(ref AdminLayerDb db, Action refreshDb) : base(ref db, refreshDb)
         {
+            Performers = new List<Performer>(_refDb.GetAllPerformers());
             SelectedIndex = -1;
         }
 
-        public new void Hide()
+        public override void Hide()
         {
-            base.Hide();
+            TextField1 = string.Empty;
             TextField2 = string.Empty;
+            IsVisible = Visibility.Collapsed;           
             SelectedIndex = -1;
         }
 
@@ -53,6 +64,15 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             {
                 CanSaveChanges = true;
             }
+        }
+
+        protected override void SaveChangesFunction()
+        {
+            var index = SelectedIndex;
+            _refDb.UpdatePerformer(Performers![index].PersonId,TextField1!, TextField2!);
+            _refreshDb.Invoke();
+            Performers = new List<Performer>(_refDb.GetAllPerformers());
+            SelectedIndex = index;
         }
     }
 }

@@ -1,11 +1,21 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class EditListBands : EditAbstract
     {
+        private List<Band>? _band;
+        public List<Band>? Bands
+        {
+            get => _band;
+            set => SetField(ref _band, value);
+        }
+
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -14,20 +24,31 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 SetField(ref _selectedIndex, value);
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = _refSortedLists!.Bands![_selectedIndex].BandName;
+                    TextField1 = Bands![_selectedIndex].BandName;
                 }
             }
         }
 
-        public EditListBands(ref AdminLayerDb db, ref ObservableCollection<Nomenclature> nomenclatures, ref SortedListsFromDb sortedLists) : base(ref db, ref nomenclatures, ref sortedLists)
+        public EditListBands(ref AdminLayerDb db, Action refreshDb) : base(ref db, refreshDb)
         {
+            Bands = new List<Band>(_refDb.GetAllBands());
             SelectedIndex = -1;
         }
 
-        public new void Hide()
+        public override void Hide()
         {
-            base.Hide();
+            TextField1 = string.Empty;
+            IsVisible = Visibility.Collapsed;
             SelectedIndex = -1;
+        }
+
+        protected override void SaveChangesFunction()
+        {
+            var index = SelectedIndex;
+            _refDb.UpdateBand(Bands![index].BandId, TextField1!);
+            _refreshDb.Invoke();
+            Bands = new List<Band>(_refDb.GetAllBands());
+            SelectedIndex = index;
         }
     }
 }

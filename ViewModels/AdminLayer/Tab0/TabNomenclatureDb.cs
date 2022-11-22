@@ -1,8 +1,7 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
-using System.Collections.ObjectModel;
+using System;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
@@ -33,11 +32,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         public MyCommand CommandOpenCloseEditBands { get; }
         public MyCommand CommandOpenCloseEditGenres { get; }
 
-        public TabNomenclatureDb(ref AdminLayerDb db, ref ObservableCollection<Nomenclature> nomenclatures, ref SortedListsFromDb sortedLists)
+        public TabNomenclatureDb(ref AdminLayerDb db, Action refreshDb)
         {
-            EditPerformers = new(ref db, ref nomenclatures, ref sortedLists);
-            EditBands = new(ref db, ref nomenclatures, ref sortedLists);
-            EditGenres = new(ref db, ref nomenclatures, ref sortedLists);
+            EditPerformers = new(ref db, refreshDb);
+            EditBands = new(ref db, refreshDb);
+            EditGenres = new(ref db, refreshDb);
 
             CommandOpenCloseEditPerformers = new(_ =>
             {
