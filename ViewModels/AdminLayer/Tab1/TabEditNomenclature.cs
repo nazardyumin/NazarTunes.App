@@ -3,14 +3,13 @@ using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
-using System.Windows.Controls.Primitives;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab1
 {
     public class TabEditNomenclature : Notifier
     {
         protected AdminLayerDb _refDb;
-        protected List<Nomenclature> _refNomenclatures { get; set; }
+        protected Database _refDatabase;
 
         private NomenclatureConstructor? _selectedNomenclature;
         public NomenclatureConstructor? SelectedNomenclature
@@ -23,10 +22,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public MyCommand CommandSaveChanges { get; }
         public MyCommand CommandClear { get; }
 
-        public TabEditNomenclature(ref AdminLayerDb db, ref List<Nomenclature> nomenclatures)
+        public TabEditNomenclature(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
-            _refNomenclatures = nomenclatures;
+            _refDatabase = database;
 
             SelectedNomenclature = new();
 
@@ -51,9 +50,9 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 if (SelectedNomenclature.SelectedIdContainsOnlyDigits())
                 {
                     var i = SelectedNomenclature.GetSelectedIndex();
-                    if (i <= _refNomenclatures.Count - 1 && i >= 0)
+                    if (i <= _refDatabase!.Nomenclatures!.Count - 1 && i >= 0)
                     {
-                        SelectedNomenclature.Set(_refNomenclatures[i]);
+                        SelectedNomenclature.Set(_refDatabase!.Nomenclatures[i]);
                     }
                     else SelectedNomenclature.HelperText = "Invalid ID!";
                 }
@@ -67,9 +66,9 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             var i = SelectedNomenclature!.GetSelectedIndex();
             
 
-            var (newTracks, oldTracks, actionKey) = SelectedNomenclature.CompareNewAndOldTracks(_refNomenclatures[i]);
+            var (newTracks, oldTracks, actionKey) = SelectedNomenclature.CompareNewAndOldTracks(_refDatabase!.Nomenclatures![i]);
             UpdateTracks(newTracks, oldTracks, actionKey);
-
+            _refDatabase.RefreshView();
             //var result = SelectedNomenclature.CompareNewAndOldBands(_refNomenclatures[i]);
 
             //TODO finish this function with all list fields!!!

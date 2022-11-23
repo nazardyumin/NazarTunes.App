@@ -18,12 +18,12 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _user, value);
         }
 
-        private List<Nomenclature>? _nomenclatures;
-        public List<Nomenclature>? Nomenclatures
+        private Database? _database;
+        public Database? Database
         {
-            get => _nomenclatures;
-            set => SetField(ref _nomenclatures, value);
-        }      
+            get => _database;
+            set => SetField(ref _database, value);
+        }
 
         private TabNomenclatureDb? _tabNomenclatureDb;
         public TabNomenclatureDb? TabNomenclatureDb
@@ -45,17 +45,15 @@ namespace NazarTunes.ViewModels.AdminLayer
         {
             _db = new();
             User = admin;
-            Nomenclatures = new List<Nomenclature>(_db.GetAllNomenclatures());
+            Database = new(ref _db);
+
 
             SelectedTab = 0;
  
-            TabNomenclatureDb = new(ref _db, RefreshDbView);
-            TabEditNomenclature = new(ref _db, ref _nomenclatures!);
+            TabNomenclatureDb = new(ref _db, Database!.RefreshView);
+            TabEditNomenclature = new(ref _db, ref _database!);
         }
 
-        private void RefreshDbView()
-        {
-            Nomenclatures = new List<Nomenclature>(_db.GetAllNomenclatures());
-        }
+       
     }
 }

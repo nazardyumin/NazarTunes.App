@@ -227,7 +227,7 @@
                                 </StackPanel>
 
                                 <ScrollViewer Margin="4,13,3,0">
-                                    <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Nomenclatures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                           AutoGenerateColumns="False" 
                                           CanUserAddRows="False" 
                                           CanUserDeleteRows="False">
