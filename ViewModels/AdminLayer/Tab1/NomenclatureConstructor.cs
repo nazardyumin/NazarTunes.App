@@ -172,43 +172,35 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             HelperText = string.Empty;
         }
 
-        public (List<string> bandsToCreate, List<string> bandsToDelete) CompareNewAndOldBands(Nomenclature nomenclature)
+        public (List<string> newBands, List<string> oldBands, string actionKeyBands) CompareNewAndOldBands(Nomenclature nomenclature)
         {
             var newBands = MakeList(Bands!);
-            var oldBands = new List<string>(nomenclature.Record!.Bands!);
-            var matches = (from item in newBands
-                           where oldBands.Contains(item)
-                           select item).ToList();
-            if (matches.Count > 0)
-            {
-                foreach (var item in matches)
-                {
-                    newBands.Remove(item);
-                    oldBands.Remove(item);
-                }
-            }
-            return (newBands, oldBands);
+            var oldBands = new List<string>(nomenclature.Record!.Bands!);         
+            return (newBands, oldBands, CountComparer(newBands, oldBands));
         }
 
-        public (List<string> newTracks, List<string> oldTracks, string actionKey) CompareNewAndOldTracks(Nomenclature nomenclature)
+        public (List<string> newTracks, List<string> oldTracks, string actionKeyTracks) CompareNewAndOldTracks(Nomenclature nomenclature)
         {
             var newTracks = MakeList(Tracks!);
             var oldTracks = new List<string>(nomenclature.Record!.Tracks!);
+            return (newTracks, oldTracks, CountComparer(newTracks, oldTracks));
+        }
 
-            if (newTracks.Count == oldTracks.Count)
+        private string CountComparer(List<string> newList, List<string> oldList)
+        {
+            if (newList.Count == oldList.Count)
             {
-                return (newTracks, oldTracks, "update");
+                return "update";
             }
-            else if (newTracks.Count > oldTracks.Count)
+            else if (newList.Count > oldList.Count)
             {
-                return (newTracks, oldTracks, "add");
+                return "add";
             }
             else
             {
-                return (newTracks, oldTracks, "delete");
+                return "delete";
             }
         }
-
 
         public void Clear()
         {

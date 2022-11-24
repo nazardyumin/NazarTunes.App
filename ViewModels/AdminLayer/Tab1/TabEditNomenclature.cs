@@ -8,8 +8,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
 {
     public class TabEditNomenclature : Notifier
     {
-        protected AdminLayerDb _refDb;
-        protected Database _refDatabase;
+        private readonly AdminLayerDb _refDb;
+        private readonly Database _refDatabase;
 
         private NomenclatureConstructor? _selectedNomenclature;
         public NomenclatureConstructor? SelectedNomenclature
@@ -66,18 +66,18 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             var i = SelectedNomenclature!.GetSelectedIndex();
             
 
-            var (newTracks, oldTracks, actionKey) = SelectedNomenclature.CompareNewAndOldTracks(_refDatabase!.Nomenclatures![i]);
-            UpdateTracks(newTracks, oldTracks, actionKey);
-            _refDatabase.RefreshView();
-            //var result = SelectedNomenclature.CompareNewAndOldBands(_refNomenclatures[i]);
-
+            var (newTracks, oldTracks, actionKeyTracks) = SelectedNomenclature.CompareNewAndOldTracks(_refDatabase!.Nomenclatures![i]);
+            UpdateTracks(newTracks, oldTracks, actionKeyTracks);
+            
+            var (newBands, oldBands, actionKeyBands) = SelectedNomenclature.CompareNewAndOldBands(_refDatabase!.Nomenclatures![i]);
+            UpdateBandItems(newBands, oldBands, actionKeyBands);
             //TODO finish this function with all list fields!!!
             //TODO make editions for lists genres, performers and bands!
 
 
 
 
-
+            _refDatabase.RefreshView();
         }
 
         private void ClearFunction()
@@ -125,6 +125,50 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                     _refDb.AddOneTrack(idRecord, newTracks[i]);
                 }
             } 
+        }
+
+        private void UpdateBandItems(List<string> newBands, List<string> oldBands, string actionKey)
+        {
+            var idRecord = SelectedNomenclature!.GetSelectedId();
+            var bandItemIds = _refDb.GetAllBandItemIds(idRecord);
+
+            if (actionKey == "update")
+            {
+                int i = 0;
+                foreach (var id in bandItemIds)
+                {
+                    _refDb.UpdateBandItem(id, newBands[i]);
+                    i++;
+                }
+            }
+            else if (actionKey == "delete")
+            {
+                int i = 0;
+                foreach (var band in newBands)
+                {
+                    _refDb.UpdateBandItem(bandItemIds[i], band);
+                    i++;
+                }
+                for (; i < oldBands.Count; i++)
+                {
+                    _refDb.DeleteBandItem(bandItemIds[i]);
+                }
+            }
+            else
+            {
+                int i = 0;
+                foreach (var band in oldBands)
+                {
+                    _refDb.UpdateBandItem(bandItemIds[i], band);
+                    i++;
+                }
+                for (; i < newBands.Count; i++)
+                {
+                    _refDb.AddBandItem(idRecord, newBands[i]);
+                }
+            }
+
+
         }
     }
 }

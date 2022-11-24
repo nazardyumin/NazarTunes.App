@@ -3,7 +3,6 @@ using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer.Tab0;
 using NazarTunes.ViewModels.AdminLayer.Tab1;
 using NazarTunes.ViewModels.Notifiers;
-using System.Collections.Generic;
 
 namespace NazarTunes.ViewModels.AdminLayer
 {
