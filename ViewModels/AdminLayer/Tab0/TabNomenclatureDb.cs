@@ -32,11 +32,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         public MyCommand CommandOpenCloseEditBands { get; }
         public MyCommand CommandOpenCloseEditGenres { get; }
 
-        public TabNomenclatureDb(ref AdminLayerDb db, Action refreshDb)
+        public TabNomenclatureDb(ref AdminLayerDb db, ref Database database)
         {
-            EditPerformers = new(ref db, refreshDb);
-            EditBands = new(ref db, refreshDb);
-            EditGenres = new(ref db, refreshDb);
+            EditPerformers = new(ref db, ref database);
+            EditBands = new(ref db, ref database);
+            EditGenres = new(ref db, ref database);
 
             CommandOpenCloseEditPerformers = new(_ =>
             {

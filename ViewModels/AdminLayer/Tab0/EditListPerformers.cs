@@ -1,20 +1,11 @@
-﻿using NazarTunes.Models.DataTemplates;
+﻿using Google.Protobuf.WellKnownTypes;
 using NazarTunes.Models.MySQLConnections;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class EditListPerformers : EditAbstract
     {
-        private List<Performer>? _performers;
-        public List<Performer>? Performers
-        {
-            get => _performers;
-            set => SetField(ref _performers, value);
-        }
-
         private string? _textField2;
         public string? TextField2
         {
@@ -34,15 +25,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 SetField(ref _selectedIndex, value);
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = Performers![_selectedIndex].FirstName;
-                    TextField2 = Performers![_selectedIndex].LastName;
+                    TextField1 = refDatabase.Performers![_selectedIndex].FirstName;
+                    TextField2 = refDatabase.Performers![_selectedIndex].LastName;
                 }
             }
         }
 
-        public EditListPerformers(ref AdminLayerDb db, Action refreshDb) : base(ref db, refreshDb)
+        public EditListPerformers(ref AdminLayerDb db, ref Database database) : base(ref db, ref database)
         {
-            Performers = new List<Performer>(_refDb.GetAllPerformers());
             SelectedIndex = -1;
         }
 
@@ -69,10 +59,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdatePerformer(Performers![index].PersonId,TextField1!, TextField2!);
-            _refreshDb.Invoke();
-            Performers = new List<Performer>(_refDb.GetAllPerformers());
-            SelectedIndex = index;
+            _refDb.UpdatePerformer(refDatabase.Performers![index].PersonId, TextField1!, TextField2!);
+            refDatabase.RefreshView();
+            var thisPerformer = refDatabase.Performers!.Find(p => p.FirstName == TextField1! && p.LastName == TextField2!);
+            SelectedIndex = refDatabase.Performers!.IndexOf(thisPerformer!);
         }
     }
 }

@@ -1,20 +1,10 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
-using System;
-using System.Collections.Generic;
+﻿using NazarTunes.Models.MySQLConnections;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class EditListGenres : EditAbstract
     {
-        private List<Genre>? _genre;
-        public List<Genre>? Genres
-        {
-            get => _genre;
-            set => SetField(ref _genre, value);
-        }
-
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -23,14 +13,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 SetField(ref _selectedIndex, value);
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = Genres![_selectedIndex].GenreName;
+                    TextField1 = refDatabase.Genres![_selectedIndex].GenreName;
                 }
             }
         }
 
-        public EditListGenres(ref AdminLayerDb db, Action refreshDb) : base(ref db, refreshDb)
-        {
-            Genres = new List<Genre>(_refDb.GetAllGenres());
+        public EditListGenres(ref AdminLayerDb db, ref Database database) : base(ref db, ref database)
+        {      
             SelectedIndex = -1;
         }
 
@@ -44,10 +33,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdateGenre(Genres![index].GenreId, TextField1!);
-            _refreshDb.Invoke();
-            Genres = new List<Genre>(_refDb.GetAllGenres());
-            SelectedIndex = index;
+            _refDb.UpdateGenre(refDatabase.Genres![index].GenreId, TextField1!);
+            refDatabase.RefreshView();
+            var thisGenre = refDatabase.Genres!.Find(g => g.GenreName == TextField1!);
+            SelectedIndex = refDatabase.Genres!.IndexOf(thisGenre!); 
         }
     }
 }

@@ -83,7 +83,7 @@ namespace NazarTunes.Models.MySQLConnections
 
         public List<int> GetAllTrackIds(int id_record)
         {
-            var sql = $"CALL procedure_get_all_track_ids({id_record});";
+            var sql = $"CALL procedure_get_all_track_ids_for_one_record({id_record});";
             _db.Open();
             var list = _db.Query<int>(sql).ToList();
             _db.Close();
@@ -92,7 +92,7 @@ namespace NazarTunes.Models.MySQLConnections
 
         public void UpdateOneTrack(int id, string newTrackTitle)
         {
-            _cmd.CommandText = "procedure_update_track_title";
+            _cmd.CommandText = "procedure_update_track";
             _cmd.CommandType = CommandType.StoredProcedure;
             _cmd.Parameters.Clear();
 
@@ -106,7 +106,7 @@ namespace NazarTunes.Models.MySQLConnections
 
         public void DeleteOneTrack(int id)
         {
-            _cmd.CommandText = "procedure_delete_record_track";
+            _cmd.CommandText = "procedure_delete_track";
             _cmd.CommandType = CommandType.StoredProcedure;
             _cmd.Parameters.Clear();
 

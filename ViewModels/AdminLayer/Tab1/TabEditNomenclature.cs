@@ -72,7 +72,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             var (newBands, oldBands, actionKeyBands) = SelectedNomenclature.CompareNewAndOldBands(_refDatabase!.Nomenclatures![i]);
             UpdateBandItems(newBands, oldBands, actionKeyBands);
             //TODO finish this function with all list fields!!!
-            //TODO make editions for lists genres, performers and bands!
+            //TODO make editions for lists genres, performers!
 
 
 
@@ -167,8 +167,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                     _refDb.AddBandItem(idRecord, newBands[i]);
                 }
             }
-
-
         }
     }
 }

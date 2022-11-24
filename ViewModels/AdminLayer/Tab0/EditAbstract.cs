@@ -1,16 +1,14 @@
 ﻿using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
-using System;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public abstract class EditAbstract : Notifier
     {
-        protected AdminLayerDb _refDb;
-
-        protected Action _refreshDb;
+        protected readonly AdminLayerDb _refDb;
+        public Database refDatabase { get; set; }
 
         private string? _textField1;
         public string? TextField1
@@ -41,10 +39,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
 
         public MyCommand? CommandSaveChanges { get; }
 
-        protected EditAbstract(ref AdminLayerDb db, Action refreshDb)
+        protected EditAbstract(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
-            _refreshDb = refreshDb;       
+            refDatabase = database;       
 
             IsVisible = Visibility.Collapsed;
 

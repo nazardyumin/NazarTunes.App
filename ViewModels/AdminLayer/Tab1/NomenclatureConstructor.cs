@@ -1,7 +1,6 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab1
