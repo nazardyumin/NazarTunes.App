@@ -182,6 +182,58 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public List<int> GetAllPerformerItemIds(int id_record)
+        {
+            var sql = $"CALL procedure_get_all_record_performer_item_with_performer_ids({id_record});";
+            _db.Open();
+            var list = _db.Query<int>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        public void UpdatePerformerItem(int id, string firstName, string lastName)
+        {
+            _cmd.CommandText = "procedure_update_record_performer_item_with_performer";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("item_id", id);
+            _cmd.Parameters.AddWithValue("new_first_name", firstName);
+            _cmd.Parameters.AddWithValue("new_last_name", lastName);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void AddPerformerItem(int idRecord, string firstName, string lastName)
+        {
+            _cmd.CommandText = "procedure_create_record_performer_item_with_performer";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("new_record_id", idRecord);
+            _cmd.Parameters.AddWithValue("new_first_name", firstName);
+            _cmd.Parameters.AddWithValue("new_last_name", lastName);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void DeletePerformerItem(int id)
+        {
+            _cmd.CommandText = "procedure_delete_record_performer_item_with_performer";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("item_id", id);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
         //public void AddNewSupplier()
         //{
 

@@ -13,7 +13,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 SetField(ref _selectedIndex, value);
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = refDatabase.Genres![_selectedIndex].GenreName;
+                    TextField1 = RefDatabase.Genres![_selectedIndex].GenreName;
                 }
             }
         }
@@ -33,10 +33,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdateGenre(refDatabase.Genres![index].GenreId, TextField1!);
-            refDatabase.RefreshView();
-            var thisGenre = refDatabase.Genres!.Find(g => g.GenreName == TextField1!);
-            SelectedIndex = refDatabase.Genres!.IndexOf(thisGenre!); 
+            _refDb.UpdateGenre(RefDatabase.Genres![index].GenreId, TextField1!);
+            RefDatabase.RefreshView();
+            var thisGenre = RefDatabase.Genres!.Find(g => g.GenreName == TextField1!);
+            SelectedIndex = RefDatabase.Genres!.IndexOf(thisGenre!); 
         }
     }
 }

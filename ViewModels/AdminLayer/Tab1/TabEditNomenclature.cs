@@ -67,13 +67,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             
 
             var (newTracks, oldTracks, actionKeyTracks) = SelectedNomenclature.CompareNewAndOldTracks(_refDatabase!.Nomenclatures![i]);
-            UpdateTracks(newTracks, oldTracks, actionKeyTracks);
-            
+            UpdateTracks(newTracks, oldTracks, actionKeyTracks);          
             var (newBands, oldBands, actionKeyBands) = SelectedNomenclature.CompareNewAndOldBands(_refDatabase!.Nomenclatures![i]);
             UpdateBandItems(newBands, oldBands, actionKeyBands);
-            //TODO finish this function with all list fields!!!
-            //TODO make editions for lists genres, performers!
+            var (newPerformers, oldPerformermers, actionKeyPerformers) = SelectedNomenclature.CompareNewAndOldPerformers(_refDatabase!.Nomenclatures![i]);
+            UpdatePerformerItems(newPerformers, oldPerformermers, actionKeyPerformers);
 
+            //TODO make editions for lists genres!
 
 
 
@@ -165,6 +165,48 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 for (; i < newBands.Count; i++)
                 {
                     _refDb.AddBandItem(idRecord, newBands[i]);
+                }
+            }
+        }
+
+        private void UpdatePerformerItems(List<(string,string)> newPerformers, List<(string, string)> oldPerformers, string actionKey)
+        {
+            var idRecord = SelectedNomenclature!.GetSelectedId();
+            var performerItemIds = _refDb.GetAllPerformerItemIds(idRecord);
+
+            if (actionKey == "update")
+            {
+                int i = 0;
+                foreach (var id in performerItemIds)
+                {
+                    _refDb.UpdatePerformerItem(id, newPerformers[i].Item1, newPerformers[i].Item2);
+                    i++;
+                }
+            }
+            else if (actionKey == "delete")
+            {
+                int i = 0;
+                foreach (var performer in newPerformers)
+                {
+                    _refDb.UpdatePerformerItem(performerItemIds[i], performer.Item1, performer.Item2);
+                    i++;
+                }
+                for (; i < oldPerformers.Count; i++)
+                {
+                    _refDb.DeletePerformerItem(performerItemIds[i]);
+                }
+            }
+            else
+            {
+                int i = 0;
+                foreach (var performer in oldPerformers)
+                {
+                    _refDb.UpdatePerformerItem(performerItemIds[i], performer.Item1, performer.Item2);
+                    i++;
+                }
+                for (; i < newPerformers.Count; i++)
+                {
+                    _refDb.AddPerformerItem(idRecord, newPerformers[i].Item1, newPerformers[i].Item2);
                 }
             }
         }

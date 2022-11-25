@@ -125,15 +125,19 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
 
         private List<string> MakeList(string str)
         {
-            if (str[^1] != '\n') str += "\r\n";
-            var list = new List<string>();
-            while (str != string.Empty)
+            if (str != string.Empty)
             {
-                var tmp = str.Substring(0, str.IndexOf('\n') - 1);
-                str = str.Remove(0, str.IndexOf('\n') + 1);
-                if (!string.IsNullOrWhiteSpace(tmp)) list.Add(tmp);
+                if (str[^1] != '\n') str += "\r\n";
+                var list = new List<string>();
+                while (str != string.Empty)
+                {
+                    var tmp = str.Substring(0, str.IndexOf('\n') - 1);
+                    str = str.Remove(0, str.IndexOf('\n') + 1);
+                    if (!string.IsNullOrWhiteSpace(tmp)) list.Add(tmp);
+                }
+                return list;
             }
-            return list;
+            else return new List<string>();
         }
 
         private string MakeColumn(List<string> list)
@@ -185,6 +189,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             return (newTracks, oldTracks, CountComparer(newTracks, oldTracks));
         }
 
+        public (List<(string, string)> newPerformers, List<(string, string)> oldPerformermers, string actionKeyPerformers) CompareNewAndOldPerformers(Nomenclature nomenclature)
+        {
+            var newPerformers = SplitToFirstAndLastNames(MakeList(Performers!));
+            var oldPerformers = SplitToFirstAndLastNames(new List<string>(nomenclature.Record!.Performers!));
+            return (newPerformers, oldPerformers, CountComparer(newPerformers, oldPerformers));
+        }
+
         private string CountComparer(List<string> newList, List<string> oldList)
         {
             if (newList.Count == oldList.Count)
@@ -199,6 +210,38 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 return "delete";
             }
+        }
+        private string CountComparer(List<(string, string)> newList, List<(string, string)> oldList)
+        {
+            if (newList.Count == oldList.Count)
+            {
+                return "update";
+            }
+            else if (newList.Count > oldList.Count)
+            {
+                return "add";
+            }
+            else
+            {
+                return "delete";
+            }
+        }
+
+        private List<(string,string)> SplitToFirstAndLastNames(List<string> list)
+        {
+            var splittedList = new List<(string, string)>();
+            foreach (var item in list)
+            {
+                if (item.Contains(' '))
+                {
+                    splittedList.Add((item.Substring(0, item.IndexOf(' ')), item.Substring(item.IndexOf(' ')+1)));
+                }
+                else
+                {
+                    splittedList.Add((item,""));
+                }
+            }
+            return splittedList;
         }
 
         public void Clear()
