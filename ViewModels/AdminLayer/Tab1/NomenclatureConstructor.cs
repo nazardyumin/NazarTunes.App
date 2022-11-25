@@ -1,5 +1,6 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.ViewModels.Notifiers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -196,6 +197,27 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             return (newPerformers, oldPerformers, CountComparer(newPerformers, oldPerformers));
         }
 
+        public (List<string> newGenres, List<string> oldGenres, string actionKeyGenres) CompareNewAndOldGenres(Nomenclature nomenclature)
+        {
+            var newGenres = MakeList(Genres!);
+            var oldGenres = new List<string>(nomenclature.Record!.Genres!);
+            return (newGenres, oldGenres, CountComparer(newGenres, oldGenres));
+        }
+
+        public (int idRecord, string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover) GetFieldsToUpdate()
+        {
+            return (GetSelectedId(), Title!, FormatDuration(TotalDuration!), Publisher!, ReleaseYear!, MediaFormat!, CoverPath!);
+        }
+
+        private string FormatDuration(string duration)
+        {
+            var hours = string.Empty;
+            if (duration.Length==5)
+            {
+                hours = "00:";
+            }
+            return $"{hours}{duration}";      
+        }
         private string CountComparer(List<string> newList, List<string> oldList)
         {
             if (newList.Count == oldList.Count)
@@ -211,6 +233,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 return "delete";
             }
         }
+
         private string CountComparer(List<(string, string)> newList, List<(string, string)> oldList)
         {
             if (newList.Count == oldList.Count)
@@ -244,11 +267,20 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             return splittedList;
         }
 
-        public void Clear()
+        public void Clear(string? error = null)
         {
-            SelectedId = Title = Bands = Performers = Genres =
+            if (error is not null)
+            {
+                Title = Bands = Performers = Genres =
+                Tracks = TotalDuration = Publisher = ReleaseYear =
+                MediaFormat = CoverPath = SellPrice = string.Empty;
+            }
+            else
+            {
+                SelectedId = Title = Bands = Performers = Genres =
                 Tracks = TotalDuration = Publisher = ReleaseYear =
                 MediaFormat = CoverPath = SellPrice = HelperText = string.Empty;
+            } 
         }
     }
 }
