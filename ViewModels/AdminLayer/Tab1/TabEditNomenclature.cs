@@ -86,6 +86,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             UpdateNomenclaturePrice(SelectedNomenclature.GetSelectedId(), SelectedNomenclature.GetPrice());
             ClearFunction();
             _refDatabase.RefreshView();
+            CanChangeId = true;
         }
 
         private void ClearFunction(string? error = null)
