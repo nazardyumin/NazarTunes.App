@@ -257,7 +257,7 @@
                             <StackPanel Margin="0,50,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBox Width="70" Margin="0,0,20,0"
-                                             Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SelectedId}"
+                                             Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SelectedId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              materialDesign:HintAssist.Hint="ID"
                                              materialDesign:HintAssist.IsFloating="True"
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
@@ -286,7 +286,7 @@
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                             <TextBox Width="70"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.ReleaseYear}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Year"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
@@ -324,17 +324,26 @@
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                             <TextBox Width="87"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.TotalDuration}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.TotalDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Duration"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         </StackPanel>
 
-                                        <TextBox Width="100" Margin="0,10,0,0" 
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SellPrice}"
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBox Width="70" Margin="0,10,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SellPrice1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Price"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            
+                                            <TextBlock Text="," VerticalAlignment="Bottom" Margin="0,10,5,0"/>
+                                            
+                                            <TextBox Width="50" Margin="0,10,5,0" 
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SellPrice2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
+                                        
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
                                             <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"/>
                                             <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"/>

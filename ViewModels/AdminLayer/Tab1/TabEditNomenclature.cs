@@ -75,7 +75,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             UpdateTracks(newTracks, oldTracks, actionKeyTracks);
             var (idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover) = SelectedNomenclature.GetFieldsToUpdate();
             UpdateNomenclatureRecord(idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover);
-
+            UpdateNomenclaturePrice(SelectedNomenclature.GetSelectedId(), SelectedNomenclature.GetPrice());
 
 
             ClearFunction();
@@ -263,6 +263,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         private void UpdateNomenclatureRecord(int idRecord, string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover)
         {
             _refDb.UpdateRecord(idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover);
+        }
+
+        private void UpdateNomenclaturePrice(int idRecord, double price)
+        {
+            _refDb.UpdatePrice(idRecord, price);
         }
     }
 }

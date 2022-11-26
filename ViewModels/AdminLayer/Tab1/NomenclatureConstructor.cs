@@ -1,6 +1,5 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.ViewModels.Notifiers;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +11,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? SelectedId
         {
             get => _selectedId;
-            set => SetField(ref _selectedId, value);
+            set
+            {
+                RemoveLettersOrSymbols(ref value!, "digits");
+                SetField(ref _selectedId, value);
+            }          
         }
 
         private string? _title;
@@ -54,7 +57,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? TotalDuration
         {
             get => _totalDuration;
-            set => SetField(ref _totalDuration, value);
+            set
+            {
+                RemoveLettersOrSymbols(ref value!,"duration");
+                SetField(ref _totalDuration, value);
+            }
         }
 
         private string? _publisher;
@@ -68,7 +75,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? ReleaseYear
         {
             get => _releaseYear;
-            set => SetField(ref _releaseYear, value);
+            set
+            {
+                RemoveLettersOrSymbols(ref value!,"digits");
+                SetField(ref _releaseYear, value);
+            }
         }
 
         private string? _mediaFormat;
@@ -85,11 +96,26 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             set => SetField(ref _coverPath, value);
         }
 
-        private string? _sellPrice;
-        public string? SellPrice
+        private string? _sellPrice1;
+        public string? SellPrice1
         {
-            get => _sellPrice;
-            set => SetField(ref _sellPrice, value);
+            get => _sellPrice1;
+            set 
+            {
+                RemoveLettersOrSymbols(ref value!, "digits");
+                SetField(ref _sellPrice1, value);
+            } 
+        }
+
+        private string? _sellPrice2;
+        public string? SellPrice2
+        {
+            get => _sellPrice2;
+            set
+            {
+                RemoveLettersOrSymbols(ref value!, "digits");
+                SetField(ref _sellPrice2, value);
+            }
         }
 
         private string? _helperText;
@@ -112,6 +138,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public int GetSelectedIndex()
         {
             return int.Parse(SelectedId!) - 1;
+        }
+
+        public double GetPrice()
+        {
+            return double.Parse($"{SellPrice1},{SellPrice2}");
         }
 
         public bool SelectedIdContainsOnlyDigits()
@@ -172,7 +203,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 CoverPath = nomenclature.Record!.CoverPath;
             }
-            SellPrice = nomenclature.SellPrice.ToString();
+            SplitSellPrice(ref nomenclature);
             HelperText = string.Empty;
         }
 
@@ -273,14 +304,62 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 Title = Bands = Performers = Genres =
                 Tracks = TotalDuration = Publisher = ReleaseYear =
-                MediaFormat = CoverPath = SellPrice = string.Empty;
+                MediaFormat = CoverPath = SellPrice1 = SellPrice2 = string.Empty;
             }
             else
             {
                 SelectedId = Title = Bands = Performers = Genres =
                 Tracks = TotalDuration = Publisher = ReleaseYear =
-                MediaFormat = CoverPath = SellPrice = HelperText = string.Empty;
+                MediaFormat = CoverPath = SellPrice1 = SellPrice2 = HelperText = string.Empty;
             } 
         }
+
+        private void SplitSellPrice( ref Nomenclature nomenclature)
+        {            
+            if (nomenclature.SellPrice !=0)
+            {
+                var price = nomenclature.SellPrice.ToString();
+                if (!price.Contains(','))
+                {
+                    SellPrice1 = price;
+                    SellPrice2 = "00";     
+                }
+                else
+                {
+                    SellPrice1 = price[..price.IndexOf(',')];
+                    SellPrice2 = price[(price.IndexOf(',') + 1)..];
+                }
+            } 
+            else
+            {
+                SellPrice1 = "0";
+                SellPrice2 = "00";
+            }
+        }
+
+        private void RemoveLettersOrSymbols(ref string str, string key)
+        {
+            if (key == "digits")
+            {
+                if (!string.IsNullOrEmpty(str))
+                {
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if (!char.IsDigit(str[i])) str = str.Remove(i, 1);
+                    }
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(str))
+                {
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if (!char.IsDigit(str[i]) && str[i]!=':') str = str.Remove(i, 1);
+                    }
+                }
+            }     
+        }
+
     }
 }

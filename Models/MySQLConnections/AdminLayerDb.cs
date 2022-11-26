@@ -290,6 +290,19 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public void UpdatePrice(int id, double price)
+        {
+            _cmd.CommandText = "procedure_set_nomenclature_sell_price";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+            _cmd.Parameters.AddWithValue("nom_id", id);
+            _cmd.Parameters.AddWithValue("new_price", price);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
         //public void AddNewSupplier()
         //{
 
