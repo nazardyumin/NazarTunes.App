@@ -15,6 +15,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 RemoveLettersOrSymbols(ref value!, "digits");
                 SetField(ref _selectedId, value);
+                RefreshCanClearState();
             }          
         }
 
@@ -22,35 +23,60 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? Title
         {
             get => _title;
-            set => SetField(ref _title, value);
+            set
+            {
+                SetField(ref _title, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _bands;
         public string? Bands
         {
             get => _bands;
-            set => SetField(ref _bands, value);
+            set
+            {
+                SetField(ref _bands, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _performers;
         public string? Performers
         {
             get => _performers;
-            set => SetField(ref _performers, value);
+            set
+            {
+                SetField(ref _performers, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _genres;
         public string? Genres
         {
             get => _genres;
-            set => SetField(ref _genres, value);
+            set 
+            {
+                SetField(ref _genres, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _tracks;
         public string? Tracks
         {
             get => _tracks;
-            set => SetField(ref _tracks, value);
+            set 
+            {
+                SetField(ref _tracks, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _totalDuration;
@@ -61,14 +87,21 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 RemoveLettersOrSymbols(ref value!,"duration");
                 SetField(ref _totalDuration, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
             }
         }
 
         private string? _publisher;
-        public string? Publisher
+        public string? Publisher     
         {
             get => _publisher;
-            set => SetField(ref _publisher, value);
+            set 
+            {
+                SetField(ref _publisher, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _releaseYear;
@@ -79,6 +112,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 RemoveLettersOrSymbols(ref value!,"digits");
                 SetField(ref _releaseYear, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
             }
         }
 
@@ -86,14 +121,23 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? MediaFormat
         {
             get => _mediaFormat;
-            set => SetField(ref _mediaFormat, value);
+            set 
+            {
+                SetField(ref _mediaFormat, value);
+                RefreshCanSaveChangesState();
+                RefreshCanClearState();
+            }
         }
 
         private string? _coverPath;
         public string? CoverPath
         {
             get => _coverPath;
-            set => SetField(ref _coverPath, value);
+            set 
+            {
+                SetField(ref _coverPath, value);
+                RefreshCanClearState();
+            }   
         }
 
         private string? _sellPrice1;
@@ -104,6 +148,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 RemoveLettersOrSymbols(ref value!, "digits");
                 SetField(ref _sellPrice1, value);
+                RefreshCanClearState();
             } 
         }
 
@@ -115,6 +160,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 RemoveLettersOrSymbols(ref value!, "digits");
                 SetField(ref _sellPrice2, value);
+                RefreshCanClearState();
             }
         }
 
@@ -122,7 +168,25 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public string? HelperText
         {
             get => _helperText;
-            set => SetField(ref _helperText, value);
+            set
+            {
+                SetField(ref _helperText, value);
+                RefreshCanClearState();
+            }
+        }
+
+        private bool _canSaveChanges;
+        public bool CanSaveChanges
+        {
+            get => _canSaveChanges;
+            set => SetField(ref _canSaveChanges, value);
+        }
+
+        private bool _canClear;
+        public bool CanClear
+        {
+            get => _canClear;
+            set => SetField(ref _canClear, value);
         }
 
         public bool SelectedIdIsNotNullOrEmpty()
@@ -142,6 +206,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
 
         public double GetPrice()
         {
+            if (string.IsNullOrWhiteSpace(SellPrice1) || string.IsNullOrWhiteSpace(SellPrice2))
+            {
+                return 0;
+            }
             return double.Parse($"{SellPrice1},{SellPrice2}");
         }
 
@@ -249,6 +317,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             }
             return $"{hours}{duration}";      
         }
+
         private string CountComparer(List<string> newList, List<string> oldList)
         {
             if (newList.Count == oldList.Count)
@@ -361,5 +430,27 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             }     
         }
 
+        private void RefreshCanSaveChangesState()
+        {
+            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Genres) || string.IsNullOrWhiteSpace(Tracks) ||
+                string.IsNullOrWhiteSpace(TotalDuration) || string.IsNullOrWhiteSpace(Publisher) || string.IsNullOrWhiteSpace(ReleaseYear) ||
+                string.IsNullOrWhiteSpace(MediaFormat) || (string.IsNullOrWhiteSpace(Bands) && string.IsNullOrWhiteSpace(Performers)))
+            {
+                CanSaveChanges = false;
+            }
+            else CanSaveChanges = true;
+        }
+
+        private void RefreshCanClearState()
+        {
+            if (string.IsNullOrWhiteSpace(SelectedId) && string.IsNullOrWhiteSpace(Title) && string.IsNullOrWhiteSpace(Bands) && string.IsNullOrWhiteSpace(Performers) &&
+                string.IsNullOrWhiteSpace(Genres) && string.IsNullOrWhiteSpace(Tracks) && string.IsNullOrWhiteSpace(TotalDuration) && string.IsNullOrWhiteSpace(Publisher) &&
+                string.IsNullOrWhiteSpace(ReleaseYear) && string.IsNullOrWhiteSpace(MediaFormat) && string.IsNullOrWhiteSpace(SellPrice1) && string.IsNullOrWhiteSpace(SellPrice2) &&
+                string.IsNullOrWhiteSpace(HelperText) && string.IsNullOrWhiteSpace(CoverPath))
+            {
+                CanClear = false;   
+            }
+            else CanClear = true;
+        }
     }
 }

@@ -280,7 +280,7 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                             <TextBox Width="430" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Title}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         HorizontalAlignment="Left"
                                         materialDesign:HintAssist.Hint="Title"
                                         materialDesign:HintAssist.IsFloating="True"
@@ -294,12 +294,12 @@
 
                                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                             <TextBox Width="300" AcceptsReturn="True" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Bands}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Bands, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Band"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                             <TextBox Width="200" AcceptsReturn="True"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Performers}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Performers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Performer"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
@@ -307,19 +307,19 @@
 
                                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
                                             <TextBox Width="170" AcceptsReturn="True" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Genres}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Genre"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                             <TextBox Width="70" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.MediaFormat}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.MediaFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Type"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                             <TextBox Width="163" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Publisher}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Publisher"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
@@ -345,12 +345,14 @@
                                         </StackPanel>
                                         
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                            <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"/>
-                                            <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"/>
+                                            <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"
+                                                    IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanClear}"/>
+                                            <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"
+                                                    IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanSaveChanges}"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <TextBox Width="350" AcceptsReturn="True" Margin="5,5,10,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Tracks}"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Tracks"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
