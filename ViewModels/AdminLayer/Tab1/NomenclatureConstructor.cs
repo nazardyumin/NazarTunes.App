@@ -380,7 +380,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 SelectedId = Title = Bands = Performers = Genres =
                 Tracks = TotalDuration = Publisher = ReleaseYear =
                 MediaFormat = CoverPath = SellPrice1 = SellPrice2 = HelperText = string.Empty;
-            } 
+            }
         }
 
         private void SplitSellPrice( ref Nomenclature nomenclature)

@@ -260,7 +260,8 @@
                                              Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SelectedId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              materialDesign:HintAssist.Hint="ID"
                                              materialDesign:HintAssist.IsFloating="True"
-                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                             Focusable="{Binding CommonViewModel.Admin.TabEditNomenclature.CanChangeId }"/>
                                     <Button Content="Find" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
                                             Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandFindNomenclature}"/>
                                 </StackPanel>

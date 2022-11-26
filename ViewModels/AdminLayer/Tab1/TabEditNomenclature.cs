@@ -22,6 +22,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         public MyCommand CommandSaveChanges { get; }
         public MyCommand CommandClear { get; }
 
+        private bool _canChangeId;
+        public bool CanChangeId
+        {
+            get => _canChangeId;
+            set => SetField(ref _canChangeId, value);
+        }
+
         public TabEditNomenclature(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
@@ -41,6 +48,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             {
                 ClearFunction();
             }, _ => true);
+            CanChangeId = true;
         }
 
         private void FindNomenclatureFunction()
@@ -53,6 +61,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                     if (i <= _refDatabase!.Nomenclatures!.Count - 1 && i >= 0)
                     {
                         SelectedNomenclature.Set(_refDatabase!.Nomenclatures[i]);
+                        CanChangeId = false;
                     }
                     else { SelectedNomenclature.HelperText = "Invalid ID!"; ClearFunction("error"); }
                 }
@@ -63,8 +72,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
 
         private void SaveChangesFunction()
         {
-            var i = SelectedNomenclature!.GetSelectedIndex();
-            
+            var i = SelectedNomenclature!.GetSelectedIndex();         
             var (newBands, oldBands, actionKeyBands) = SelectedNomenclature.CompareNewAndOldBands(_refDatabase!.Nomenclatures![i]);
             UpdateBandItems(newBands, oldBands, actionKeyBands);
             var (newPerformers, oldPerformermers, actionKeyPerformers) = SelectedNomenclature.CompareNewAndOldPerformers(_refDatabase!.Nomenclatures![i]);
@@ -76,16 +84,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             var (idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover) = SelectedNomenclature.GetFieldsToUpdate();
             UpdateNomenclatureRecord(idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover);
             UpdateNomenclaturePrice(SelectedNomenclature.GetSelectedId(), SelectedNomenclature.GetPrice());
-
-
             ClearFunction();
-
             _refDatabase.RefreshView();
         }
 
         private void ClearFunction(string? error = null)
         {
             SelectedNomenclature!.Clear(error);
+            CanChangeId = true;
         }
 
         private void UpdateTracks(List<string> newTracks, List<string> oldTracks, string actionKey)
