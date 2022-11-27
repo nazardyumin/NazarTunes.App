@@ -20,7 +20,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 RefreshCanSaveChangesState();
             }
         }
-        
+
         protected int _selectedIndex;
 
         private Visibility _isVisible;
@@ -42,7 +42,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected EditAbstract(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
-            RefDatabase = database;       
+            RefDatabase = database;
 
             IsVisible = Visibility.Collapsed;
 

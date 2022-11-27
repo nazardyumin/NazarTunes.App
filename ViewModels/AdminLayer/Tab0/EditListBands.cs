@@ -1,13 +1,10 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
-using System;
-using System.Collections.Generic;
+﻿using NazarTunes.Models.MySQLConnections;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
     public class EditListBands : EditAbstract
-    {  
+    {
         public int SelectedIndex
         {
             get => _selectedIndex;

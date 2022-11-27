@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:NazarTunes.Views"
         xmlns:VM="clr-namespace:NazarTunes.ViewModels"
         mc:Ignorable="d"
@@ -254,7 +255,7 @@
                         </TabItem>
 
                         <TabItem Header="Edit Nomenclatures">
-                            <StackPanel Margin="0,50,0,0">
+                            <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBox Width="70" Margin="0,0,20,0"
                                              Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SelectedId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -270,8 +271,8 @@
 
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,15,0,0">
                                     <StackPanel>
-                                        <Image Source="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CoverPath}" HorizontalAlignment="Center" Width="300" Height="300"/>
-                                        <TextBox Width="400" Margin="0,10,0,0"
+                                        <Image Source="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.ImagePath, TargetNullValue={x:Null}}"  HorizontalAlignment="Center" Width="300" Height="300"/>
+                                        <TextBox Width="370" Margin="0,10,0,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CoverPath, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Cover Path"
                                         materialDesign:HintAssist.IsFloating="True"
@@ -313,17 +314,19 @@
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
+                                            <TextBox Width="163" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Publisher"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
                                             <TextBox Width="70" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.MediaFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Type"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
-                                            <TextBox Width="163" Margin="0,0,5,0"
-                                        Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Publisher"
-                                        materialDesign:HintAssist.IsFloating="True"
-                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
                                             <TextBox Width="87"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.TotalDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.Hint="Duration"
@@ -337,19 +340,19 @@
                                         materialDesign:HintAssist.Hint="Price"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
-                                            
+
                                             <TextBlock Text="," VerticalAlignment="Bottom" Margin="0,10,5,0"/>
-                                            
+
                                             <TextBox Width="50" Margin="0,10,5,0" 
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SellPrice2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
                                             <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"
                                                     IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanClear}"/>
                                             <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"
-                                                    IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanSaveChanges}"/>
+                                                    IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanSave}"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <TextBox Width="350" AcceptsReturn="True" Margin="5,5,10,0"
@@ -359,9 +362,150 @@
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                 </StackPanel>
                             </StackPanel>
-
                         </TabItem>
+                        
                         <TabItem Header="New Nomenclature">
+                            <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
+                                
+                                <StackPanel Orientation="Horizontal" Margin="5,5,0,20" HorizontalAlignment="Center">
+
+                                    <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.BandsFromDb, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedBand}"
+                                                       materialDesign:HintAssist.Hint="Add Band"
+                                                       materialDesign:HintAssist.IsFloating="True"                                                    
+                                                       Width="220" 
+                                                       Margin="0,0,5,0">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="SelectionChanged">
+                                                <b:InvokeCommandAction Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandAddBand}" />
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ComboBox>
+
+                                    <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.PerformersFromDb, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedPerformer}"
+                                                       materialDesign:HintAssist.Hint="Add Performer"
+                                                       materialDesign:HintAssist.IsFloating="True"                                                    
+                                                       Width="170" 
+                                                       Margin="0,0,5,0">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="SelectionChanged">
+                                                <b:InvokeCommandAction Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandAddPerformer}" />
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ComboBox>
+
+                                    <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.GenresFromDb, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedGenre}"
+                                                       materialDesign:HintAssist.Hint="Add Genre"
+                                                       materialDesign:HintAssist.IsFloating="True"                                                    
+                                                       Width="100"
+                                                       Margin="0,0,5,0">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="SelectionChanged">
+                                                <b:InvokeCommandAction Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandAddGenre}" />
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ComboBox>
+                                </StackPanel>
+
+
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,15,0,0">
+                                    <StackPanel>
+                                        <Image Source="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.ImagePath, TargetNullValue={x:Null}}" HorizontalAlignment="Center" Width="300" Height="300"/>
+                                        <TextBox Width="370" Margin="0,10,0,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CoverPath, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Cover Path"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <TextBox Width="430" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        HorizontalAlignment="Left"
+                                        materialDesign:HintAssist.Hint="Title"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            <TextBox Width="70"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Year"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <TextBox Width="300" AcceptsReturn="True" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Bands, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Band"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                            <TextBox Width="200" AcceptsReturn="True"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Performers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Performer"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
+
+     
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+                                            <TextBox Width="170" AcceptsReturn="True" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Genre"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <TextBox Width="163" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Publisher"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <TextBox Width="70" Margin="0,0,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.MediaFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Type"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+
+                                            <TextBox Width="87"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.TotalDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Duration"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBox Width="70" Margin="0,10,5,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.SellPrice1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Price"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <TextBlock Text="," VerticalAlignment="Bottom" Margin="0,10,5,0"/>
+
+                                            <TextBox Width="50" Margin="0,10,5,0" 
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.SellPrice2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                            <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandClear}"
+                                                    IsEnabled="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CanClear}"/>
+                                            <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandSave}"
+                                                    IsEnabled="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CanSave}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBox Width="350" AcceptsReturn="True" Margin="5,5,10,0"
+                                        Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        materialDesign:HintAssist.Hint="Tracks"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+                                </StackPanel>
+                            </StackPanel>
+
+
                         </TabItem>
                         <TabItem Header="New Procurement">
                         </TabItem>

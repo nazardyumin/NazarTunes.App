@@ -2,6 +2,7 @@
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer.Tab0;
 using NazarTunes.ViewModels.AdminLayer.Tab1;
+using NazarTunes.ViewModels.AdminLayer.Tab2;
 using NazarTunes.ViewModels.Notifiers;
 
 namespace NazarTunes.ViewModels.AdminLayer
@@ -38,6 +39,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _tabEditNomenclature, value);
         }
 
+        private TabNewNomenclature? _tabNewNomenclature;
+        public TabNewNomenclature? TabNewNomenclature
+        {
+            get => _tabNewNomenclature;
+            set => SetField(ref _tabNewNomenclature, value);
+        }
+
         public int SelectedTab { get; set; }
 
         public AdminLayerViewModel(Admin admin)
@@ -48,11 +56,10 @@ namespace NazarTunes.ViewModels.AdminLayer
 
 
             SelectedTab = 0;
- 
+
             TabNomenclatureDb = new(ref _db, ref _database!);
             TabEditNomenclature = new(ref _db, ref _database!);
+            TabNewNomenclature = new(ref _db, ref _database!);
         }
-
-       
     }
 }

@@ -19,7 +19,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         }
 
         public EditListGenres(ref AdminLayerDb db, ref Database database) : base(ref db, ref database)
-        {      
+        {
             SelectedIndex = -1;
         }
 
@@ -36,7 +36,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             _refDb.UpdateGenre(RefDatabase.Genres![index].GenreId, TextField1!);
             RefDatabase.RefreshView();
             var thisGenre = RefDatabase.Genres!.Find(g => g.GenreName == TextField1!);
-            SelectedIndex = RefDatabase.Genres!.IndexOf(thisGenre!); 
+            SelectedIndex = RefDatabase.Genres!.IndexOf(thisGenre!);
         }
     }
 }

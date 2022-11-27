@@ -39,7 +39,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             TextField1 = string.Empty;
             TextField2 = string.Empty;
-            IsVisible = Visibility.Collapsed;           
+            IsVisible = Visibility.Collapsed;
             SelectedIndex = -1;
         }
 

@@ -1,5 +1,4 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
@@ -11,8 +10,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         private readonly AdminLayerDb _refDb;
         private readonly Database _refDatabase;
 
-        private NomenclatureConstructor? _selectedNomenclature;
-        public NomenclatureConstructor? SelectedNomenclature
+        private NomenclatureEditor? _selectedNomenclature;
+        public NomenclatureEditor? SelectedNomenclature
         {
             get => _selectedNomenclature;
             set => SetField(ref _selectedNomenclature, value);
@@ -72,7 +71,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
 
         private void SaveChangesFunction()
         {
-            var i = SelectedNomenclature!.GetSelectedIndex();         
+            var i = SelectedNomenclature!.GetSelectedIndex();
             var (newBands, oldBands, actionKeyBands) = SelectedNomenclature.CompareNewAndOldBands(_refDatabase!.Nomenclatures![i]);
             UpdateBandItems(newBands, oldBands, actionKeyBands);
             var (newPerformers, oldPerformermers, actionKeyPerformers) = SelectedNomenclature.CompareNewAndOldPerformers(_refDatabase!.Nomenclatures![i]);
@@ -86,7 +85,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             UpdateNomenclaturePrice(SelectedNomenclature.GetSelectedId(), SelectedNomenclature.GetPrice());
             ClearFunction();
             _refDatabase.RefreshView();
-            CanChangeId = true;
         }
 
         private void ClearFunction(string? error = null)
@@ -135,7 +133,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 {
                     _refDb.AddOneTrack(idRecord, newTracks[i]);
                 }
-            } 
+            }
         }
 
         private void UpdateBandItems(List<string> newBands, List<string> oldBands, string actionKey)
@@ -181,7 +179,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             }
         }
 
-        private void UpdatePerformerItems(List<(string,string)> newPerformers, List<(string, string)> oldPerformers, string actionKey)
+        private void UpdatePerformerItems(List<(string, string)> newPerformers, List<(string, string)> oldPerformers, string actionKey)
         {
             var idRecord = SelectedNomenclature!.GetSelectedId();
             var performerItemIds = _refDb.GetAllPerformerItemIds(idRecord);

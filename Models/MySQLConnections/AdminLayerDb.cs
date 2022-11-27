@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
 using NazarTunes.Models.DataTemplates;
 using System.Collections.Generic;
 using System.Data;
@@ -301,6 +302,29 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
+        }
+
+        public int CreateNewNomenclatureAndGetId(string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover)
+        {
+            _cmd.CommandText = "procedure_create_record_and_get_id";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("new_title", newTitle);
+            _cmd.Parameters.AddWithValue("new_total_duration", newDuration);
+            _cmd.Parameters.AddWithValue("new_publisher", newPublisher);
+            _cmd.Parameters.AddWithValue("new_release_date", newYear);
+            _cmd.Parameters.AddWithValue("new_media_format", newFormat);
+            _cmd.Parameters.AddWithValue("new_cover_path", newCover);
+
+            var getId = _cmd.Parameters.Add("new_record_id", MySqlDbType.Int32);
+            getId.Direction = ParameterDirection.Output;
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+
+            return (int)getId.Value;
         }
 
         //public void AddNewSupplier()
