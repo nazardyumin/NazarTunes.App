@@ -52,17 +52,22 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             }, _ => true);
         }
 
-        public void OpenClose()
+        public int OpenClose()
         {
+            var height = 0;
             if (IsVisible == Visibility.Visible)
             {
                 Hide();
+                height = 47;
             }
             else
             {
                 Show();
+                height = 100;
             }
+            return height;
         }
+
         protected void Show()
         {
             IsVisible = Visibility.Visible;

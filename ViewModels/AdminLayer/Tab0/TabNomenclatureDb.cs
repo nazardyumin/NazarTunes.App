@@ -31,6 +31,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         public MyCommand CommandOpenCloseEditBands { get; }
         public MyCommand CommandOpenCloseEditGenres { get; }
 
+        private int _buttonPanelHeight;
+        public int ButtonPanelHeight
+        {
+            get => _buttonPanelHeight;
+            set => SetField(ref _buttonPanelHeight, value);
+        }
+        
         public TabNomenclatureDb(ref AdminLayerDb db, ref Database database)
         {
             EditPerformers = new(ref db, ref database);
@@ -51,27 +58,29 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             {
                 OpenCloseEditGenresFunction();
             }, _ => true);
+
+            ButtonPanelHeight = 47;
         }
 
         private void OpenCloseEditPerformersFunction()
         {
             EditGenres!.Hide();
             EditBands!.Hide();
-            EditPerformers!.OpenClose();
+            ButtonPanelHeight = EditPerformers!.OpenClose();
         }
 
         private void OpenCloseEditBandsFunction()
         {
             EditGenres!.Hide();
             EditPerformers!.Hide();
-            EditBands!.OpenClose();
+            ButtonPanelHeight = EditBands!.OpenClose();
         }
 
         private void OpenCloseEditGenresFunction()
         {
             EditPerformers!.Hide();
             EditBands!.Hide();
-            EditGenres!.OpenClose();
+            ButtonPanelHeight = EditGenres!.OpenClose();
         }
     }
 }
