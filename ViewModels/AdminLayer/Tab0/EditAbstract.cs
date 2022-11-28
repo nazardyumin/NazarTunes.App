@@ -17,7 +17,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set
             {
                 SetField(ref _textField1, value);
-                RefreshCanSaveChangesState();
+                CommandSaveChanges!.OnCanExecuteChanged();
             }
         }
 
@@ -28,13 +28,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             get => _isVisible;
             set => SetField(ref _isVisible, value);
-        }
-
-        private bool _canSaveChanges;
-        public bool CanSaveChanges
-        {
-            get => _canSaveChanges;
-            set => SetField(ref _canSaveChanges, value);
         }
 
         public MyCommand? CommandSaveChanges { get; }
@@ -49,12 +42,12 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             CommandSaveChanges = new(_ =>
             {
                 SaveChangesFunction();
-            }, _ => true);
+            }, _=> RefreshCanSaveChangesState());
         }
 
         public int OpenClose()
         {
-            var height = 0;
+            int height;
             if (IsVisible == Visibility.Visible)
             {
                 Hide();
@@ -75,15 +68,15 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
 
         public abstract void Hide();
 
-        protected void RefreshCanSaveChangesState()
+        protected virtual bool RefreshCanSaveChangesState()
         {
             if (string.IsNullOrWhiteSpace(TextField1) || _selectedIndex == -1)
             {
-                CanSaveChanges = false;
+                return false;
             }
             else
             {
-                CanSaveChanges = true;
+                return true;
             }
         }
 

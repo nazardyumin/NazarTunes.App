@@ -30,6 +30,7 @@
 
     <Grid>
         <Border x:Name="AuthorizationLayer" Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">
+            
             <!--Visibility="{Binding CommonViewModel.AuthorizationLayerVisibility}">-->
             <Grid>
                 <Grid.RowDefinitions>
@@ -43,7 +44,9 @@
 
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding Authorization.LoginSectionVisibility}">
-
+                    <StackPanel.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Authorization.CommandEnter}"/>
+                    </StackPanel.InputBindings>
                     <TextBox Width="200"
                              Text="{Binding Authorization.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.Hint="Login"
@@ -57,9 +60,11 @@
 
 
 
-                    <Button Content="Enter" Margin="0,20,0,0" Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
-                            Command="{Binding Authorization.CommandEnter}"
-                            IsEnabled="{Binding Authorization.CanPressEnter}"/>
+                    <Button Content="Enter" Margin="0,20,0,0"
+                            Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
+                            Command="{Binding Authorization.CommandEnter}" Cursor="Hand"/>
+
+
 
 
                     <Button Content="No account? Register!" Margin="0,10,0,0 "
@@ -71,6 +76,9 @@
 
 
                 <StackPanel Grid.Row="1" Visibility="{Binding Authorization.RegistrationSectionVisibility}">
+                    <StackPanel.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Authorization.CommandRegister}"/>
+                    </StackPanel.InputBindings>
                     <TextBlock Text="Registration" HorizontalAlignment="Center" VerticalAlignment="Top"
                            Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"/>
                     <TextBox Width="200"
@@ -102,10 +110,9 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                         <Button Content="Cancel" Margin="0,0,2,0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
-                                Command="{Binding Authorization.CommandSwitchToLogin}"/>
+                                Command="{Binding Authorization.CommandSwitchToLogin}" Cursor="Hand"/>
                         <Button Content="Register" Margin="2,0,0,0" Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
-                                Command="{Binding Authorization.CommandRegister}"
-                                IsEnabled="{Binding Authorization.CanPressRegister}"/>
+                                Command="{Binding Authorization.CommandRegister}" Cursor="Hand"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -183,7 +190,7 @@
                                                       Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.TextField2, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="Last Name"
                                                         materialDesign:HintAssist.IsFloating="True"/>
-                                            <Button Content="Save Changes" Margin="15,0,0,0" IsEnabled="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.CanSaveChanges}" Cursor="Hand"
+                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.CommandSaveChanges}"/>
 
@@ -201,7 +208,7 @@
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
 
-                                            <Button Content="Save Changes" Margin="15,0,0,0" IsEnabled="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.CanSaveChanges}" Cursor="Hand"
+                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.CommandSaveChanges}"/>
 
@@ -219,7 +226,7 @@
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
 
-                                            <Button Content="Save Changes" Margin="15,0,0,0" IsEnabled="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.CanSaveChanges}" Cursor="Hand"
+                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.CommandSaveChanges}"/>
 

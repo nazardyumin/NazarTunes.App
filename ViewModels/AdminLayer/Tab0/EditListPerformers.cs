@@ -12,7 +12,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set
             {
                 SetField(ref _textField2, value);
-                RefreshCanSaveChangesState();
+                CommandSaveChanges!.OnCanExecuteChanged();
             }
         }
 
@@ -22,6 +22,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set
             {
                 SetField(ref _selectedIndex, value);
+                CommandSaveChanges!.OnCanExecuteChanged();
                 if (_selectedIndex > -1)
                 {
                     TextField1 = RefDatabase.Performers![_selectedIndex].FirstName;
@@ -43,15 +44,15 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             SelectedIndex = -1;
         }
 
-        protected new void RefreshCanSaveChangesState()
+        protected override bool RefreshCanSaveChangesState()
         {
-            if (string.IsNullOrWhiteSpace(TextField1) && string.IsNullOrWhiteSpace(TextField2) || _selectedIndex == -1)
+            if ((string.IsNullOrWhiteSpace(TextField1) && string.IsNullOrWhiteSpace(TextField2)) || _selectedIndex == -1)
             {
-                CanSaveChanges = false;
+                return false;
             }
             else
             {
-                CanSaveChanges = true;
+                return true;
             }
         }
 

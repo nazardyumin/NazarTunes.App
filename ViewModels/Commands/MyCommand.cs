@@ -25,5 +25,10 @@ namespace NazarTunes.ViewModels.Commands
         {
             _execute.Invoke(parameter);
         }
+
+        public void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

@@ -22,8 +22,8 @@ namespace NazarTunes.ViewModels
                 value ??= string.Empty;
                 SetField(ref _login, value);
                 if (_login!.Length > 0) HelperText = string.Empty;
-                RefreshCanPressEnterState();
-                RefreshCanPressRegisterState();
+                CommandEnter.OnCanExecuteChanged();
+                CommandRegister.OnCanExecuteChanged();
             }
         }
 
@@ -36,8 +36,8 @@ namespace NazarTunes.ViewModels
                 value ??= string.Empty;
                 SetField(ref _password, value);
                 if (_password!.Length > 0) HelperText = string.Empty;
-                RefreshCanPressEnterState();
-                RefreshCanPressRegisterState();
+                CommandEnter.OnCanExecuteChanged();
+                CommandRegister.OnCanExecuteChanged();
             }
         }
 
@@ -50,7 +50,7 @@ namespace NazarTunes.ViewModels
                 value ??= string.Empty;
                 SetField(ref _passwordRepeat, value);
                 if (_passwordRepeat!.Length > 0) HelperText = string.Empty;
-                RefreshCanPressRegisterState();
+                CommandRegister.OnCanExecuteChanged();
             }
         }
 
@@ -63,7 +63,7 @@ namespace NazarTunes.ViewModels
                 value ??= string.Empty;
                 SetField(ref _firstName, value);
                 if (_firstName!.Length > 0) HelperText = string.Empty;
-                RefreshCanPressRegisterState();
+                CommandRegister.OnCanExecuteChanged();
             }
         }
 
@@ -76,7 +76,7 @@ namespace NazarTunes.ViewModels
                 value ??= string.Empty;
                 SetField(ref _lastName, value);
                 if (_lastName!.Length > 0) HelperText = string.Empty;
-                RefreshCanPressRegisterState();
+                CommandRegister.OnCanExecuteChanged();
             }
         }
 
@@ -106,20 +106,6 @@ namespace NazarTunes.ViewModels
         public MyCommand CommandEnter { get; }
         public MyCommand CommandRegister { get; }
 
-        private bool _canPressEnter;
-        public bool CanPressEnter
-        {
-            get => _canPressEnter;
-            set => SetField(ref _canPressEnter, value);
-        }
-
-        private bool _canPressRegister;
-        public bool CanPressRegister
-        {
-            get => _canPressRegister;
-            set => SetField(ref _canPressRegister, value);
-        }
-
         private bool _isRegistration;
 
         public AuthorizationLayerViewModel(ref CommonViewModel commonViewModel)
@@ -127,8 +113,6 @@ namespace NazarTunes.ViewModels
             _commonViewModel = commonViewModel;
 
             _db = new AuthorizationLayerDb();
-
-            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
 
             LoginSectionVisibility = Visibility.Visible;
             RegistrationSectionVisibility = Visibility.Hidden;
@@ -143,17 +127,19 @@ namespace NazarTunes.ViewModels
                 SwitchToLoginFunction();
             }, _ => true);
 
-            CanPressEnter = false;
+            
             CommandEnter = new(_ =>
             {
                 EnterFunction(Login, Password);
-            }, _ => true);
+            }, _ => RefreshCanPressEnterState());
 
-            CanPressRegister = false;
+           
             CommandRegister = new(_ =>
             {
                 RegisterFunction();
-            }, _ => true);
+            }, _ => RefreshCanPressRegisterState());
+
+            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
 
             _isRegistration = false;
         }
@@ -219,32 +205,33 @@ namespace NazarTunes.ViewModels
 
         private void SwitchToLoginFunction()
         {
+            _isRegistration = false;
             RegistrationSectionVisibility = Visibility.Hidden;
             LoginSectionVisibility = Visibility.Visible;
-            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
-            _isRegistration = false;
+            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;    
         }
 
-        private void RefreshCanPressEnterState()
+        private bool RefreshCanPressEnterState()
         {
-            if (Login == string.Empty || Password == string.Empty) CanPressEnter = false;
-            else CanPressEnter = true;
+            if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password)) return false;
+            else return true;
         }
 
-        private void RefreshCanPressRegisterState()
+        private bool RefreshCanPressRegisterState()
         {
             if (_isRegistration)
             {
                 if (_db.IfLoginExists(Login))
                 {
-                    CanPressRegister = false;
                     HelperText = "This login is occupied!";
+                    return false;
                 }
                 else if (Login == string.Empty || Password == string.Empty || PasswordRepeat == string.Empty ||
-                    FirstName == string.Empty || LastName == string.Empty) CanPressRegister = false;
+                    FirstName == string.Empty || LastName == string.Empty) return false;
 
-                else CanPressRegister = true;
+                else return true;
             }
+            return false;
         }
     }
 }

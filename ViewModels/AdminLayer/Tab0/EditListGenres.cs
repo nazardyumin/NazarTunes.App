@@ -11,6 +11,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set
             {
                 SetField(ref _selectedIndex, value);
+                CommandSaveChanges!.OnCanExecuteChanged();
                 if (_selectedIndex > -1)
                 {
                     TextField1 = RefDatabase.Genres![_selectedIndex].GenreName;
