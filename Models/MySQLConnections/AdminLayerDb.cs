@@ -327,20 +327,48 @@ namespace NazarTunes.Models.MySQLConnections
             return (int)getId.Value;
         }
 
+        public List<Supplier> GetAllSuppliers()
+        {
+            var sql = $"CALL procedure_get_all_suppliers();";
+            _db.Open();
+            var list = _db.Query<Supplier>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        public void UpdateSupplier(int id, string newSupplierName, string newContactInfo, bool cooperating)
+        {
+            _cmd.CommandText = "procedure_update_supplier";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+            _cmd.Parameters.AddWithValue("id_supplier", id);
+            _cmd.Parameters.AddWithValue("new_supplier", newSupplierName);
+            _cmd.Parameters.AddWithValue("new_contact_info", newContactInfo);
+            _cmd.Parameters.AddWithValue("cooperating", cooperating);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void AddSupplier(string newSupplierName, string newContactInfo)
+        {
+            _cmd.CommandText = "procedure_create_supplier";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("new_supplier", newSupplierName);
+            _cmd.Parameters.AddWithValue("new_contact_info", newContactInfo);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
         //public void AddNewSupplier()
         //{
 
-        //}
-
-        //public List<Supplier> GetAllSuppliers()
-        //{
-
-        //}
-
-        //public void AddNewRecord()
-        //{
-
-        //}
+        //} 
 
 
     }

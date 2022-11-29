@@ -8,7 +8,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
     public abstract class EditAbstract : Notifier
     {
         protected readonly AdminLayerDb _refDb;
-        public Database RefDatabase { get; set; }
+        protected readonly Database _refDatabase;
 
         private string? _textField1;
         public string? TextField1
@@ -35,14 +35,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected EditAbstract(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
-            RefDatabase = database;
+            _refDatabase = database;
 
             IsVisible = Visibility.Collapsed;
 
             CommandSaveChanges = new(_ =>
             {
                 SaveChangesFunction();
-            }, _=> RefreshCanSaveChangesState());
+            }, _ => RefreshCanSaveChangesState());
         }
 
         public int OpenClose()

@@ -42,10 +42,12 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab2
         {
             Bands += $"{band}\r\n";
         }
+
         public void AddPerformer(string performer)
         {
             Performers += $"{performer}\r\n";
         }
+
         public void AddGenre(string genre)
         {
             Genres += $"{genre}\r\n";

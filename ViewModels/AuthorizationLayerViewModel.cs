@@ -127,13 +127,13 @@ namespace NazarTunes.ViewModels
                 SwitchToLoginFunction();
             }, _ => true);
 
-            
+
             CommandEnter = new(_ =>
             {
                 EnterFunction(Login, Password);
             }, _ => RefreshCanPressEnterState());
 
-           
+
             CommandRegister = new(_ =>
             {
                 RegisterFunction();
@@ -208,7 +208,7 @@ namespace NazarTunes.ViewModels
             _isRegistration = false;
             RegistrationSectionVisibility = Visibility.Hidden;
             LoginSectionVisibility = Visibility.Visible;
-            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;    
+            Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
         }
 
         private bool RefreshCanPressEnterState()

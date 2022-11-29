@@ -37,6 +37,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _performers, value);
         }
 
+        private List<Supplier>? _suppliers;
+        public List<Supplier>? Suppliers
+        {
+            get => _suppliers;
+            set => SetField(ref _suppliers, value);
+        }
+
         public Database(ref AdminLayerDb db)
         {
             _refDb = db;
@@ -44,6 +51,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             Bands = new List<Band>(_refDb.GetAllBands());
             Genres = new List<Genre>(_refDb.GetAllGenres());
             Performers = new List<Performer>(_refDb.GetAllPerformers());
+            Suppliers = new List<Supplier>(_refDb.GetAllSuppliers());
         }
 
         public void RefreshView()
@@ -52,6 +60,11 @@ namespace NazarTunes.ViewModels.AdminLayer
             Bands = new List<Band>(_refDb.GetAllBands());
             Genres = new List<Genre>(_refDb.GetAllGenres());
             Performers = new List<Performer>(_refDb.GetAllPerformers());
+        }
+
+        public void RefreshSuppliers()
+        {
+            Suppliers = new List<Supplier>(_refDb.GetAllSuppliers());
         }
     }
 }

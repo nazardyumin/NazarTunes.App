@@ -14,7 +14,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 CommandSaveChanges!.OnCanExecuteChanged();
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = RefDatabase.Bands![_selectedIndex].BandName;
+                    TextField1 = _refDatabase.Bands![_selectedIndex].BandName;
                 }
             }
         }
@@ -34,10 +34,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdateBand(RefDatabase.Bands![index].BandId, TextField1!);
-            RefDatabase.RefreshView();
-            var thisBand = RefDatabase.Bands!.Find(b => b.BandName == TextField1!);
-            SelectedIndex = RefDatabase.Bands.IndexOf(thisBand!);
+            _refDb.UpdateBand(_refDatabase.Bands![index].BandId, TextField1!);
+            _refDatabase.RefreshView();
+            var thisBand = _refDatabase.Bands!.Find(b => b.BandName == TextField1!);
+            SelectedIndex = _refDatabase.Bands.IndexOf(thisBand!);
         }
     }
 }

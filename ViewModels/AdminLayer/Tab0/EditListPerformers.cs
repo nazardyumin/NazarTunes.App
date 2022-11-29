@@ -25,8 +25,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
                 CommandSaveChanges!.OnCanExecuteChanged();
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = RefDatabase.Performers![_selectedIndex].FirstName;
-                    TextField2 = RefDatabase.Performers![_selectedIndex].LastName;
+                    TextField1 = _refDatabase.Performers![_selectedIndex].FirstName;
+                    TextField2 = _refDatabase.Performers![_selectedIndex].LastName;
                 }
             }
         }
@@ -59,10 +59,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdatePerformer(RefDatabase.Performers![index].PersonId, TextField1!, TextField2!);
-            RefDatabase.RefreshView();
-            var thisPerformer = RefDatabase.Performers!.Find(p => p.FirstName == TextField1! && p.LastName == TextField2!);
-            SelectedIndex = RefDatabase.Performers!.IndexOf(thisPerformer!);
+            _refDb.UpdatePerformer(_refDatabase.Performers![index].PersonId, TextField1!, TextField2!);
+            _refDatabase.RefreshView();
+            var thisPerformer = _refDatabase.Performers!.Find(p => p.FirstName == TextField1! && p.LastName == TextField2!);
+            SelectedIndex = _refDatabase.Performers!.IndexOf(thisPerformer!);
         }
     }
 }

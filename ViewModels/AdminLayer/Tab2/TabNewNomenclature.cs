@@ -45,7 +45,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab2
             }
         }
 
-
         private NomenclatureCreator? _newNomenclature;
         public NomenclatureCreator? NewNomenclature
         {

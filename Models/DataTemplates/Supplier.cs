@@ -2,9 +2,13 @@
 {
     public class Supplier
     {
-        public int Id { get; set; }
+        public int SupplierId { get; set; }
         public string? SupplierName { get; set; }
-        public string? SupplierContactInfo { get; set; }
+        public string? ContactInfo { get; set; }
         public bool IsCooperating { get; set; }
+        public override string ToString()
+        {
+            return SupplierName!;
+        }
     }
 }

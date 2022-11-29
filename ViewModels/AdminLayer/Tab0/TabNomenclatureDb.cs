@@ -37,7 +37,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             get => _buttonPanelHeight;
             set => SetField(ref _buttonPanelHeight, value);
         }
-        
+
         public TabNomenclatureDb(ref AdminLayerDb db, ref Database database)
         {
             EditPerformers = new(ref db, ref database);
