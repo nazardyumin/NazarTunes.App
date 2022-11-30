@@ -37,10 +37,17 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Text="Welcome to NazarTunes!" 
+                <StackPanel Grid.Row="0">
+                    <ComboBox ItemsSource="{Binding Languages}" SelectedIndex="{Binding SelectedLanguage}" Cursor="Hand" Width="35" 
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Margin="0,10,20,0"/>
+                    <TextBlock  Text="{Binding Language.Authorization.WelcomeText, UpdateSourceTrigger=PropertyChanged}" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Style="{DynamicResource MaterialDesignHeadline4TextBlock}"/>
+                           Style="{DynamicResource MaterialDesignHeadline4TextBlock}"
+                           Margin="0,100,0,0"/>
+                </StackPanel>
+                
 
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding Authorization.LoginSectionVisibility}">
@@ -49,28 +56,31 @@
                     </StackPanel.InputBindings>
                     <TextBox Width="200"
                              Text="{Binding Authorization.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="Login"
+                             materialDesign:HintAssist.Hint="{Binding Language.Authorization.LoginHintText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.IsFloating="True"
                              materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <PasswordBox Width="200" 
                                  materialDesign:PasswordBoxAssist.Password="{Binding Authorization.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
-                                 materialDesign:HintAssist.Hint="Password" materialDesign:HintAssist.IsFloating="True"
+                                 materialDesign:HintAssist.Hint="{Binding Language.Authorization.PasswordHintText, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.IsFloating="True"
                                  materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <TextBlock Text="{Binding Authorization.HelperText}" Style="{StaticResource HelperTextStyle}"/>
 
 
 
-                    <Button Content="Enter" Margin="0,20,0,0"
+                    <Button Content="{Binding Language.Authorization.ButtonEnterText, UpdateSourceTrigger=PropertyChanged}" 
+                            Margin="0,20,0,0"
+                            Width="200"
                             Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
                             Command="{Binding Authorization.CommandEnter}" Cursor="Hand"/>
 
 
 
 
-                    <Button Content="No account? Register!" Margin="0,10,0,0 "
+                    <Button Content="{Binding Language.Authorization.ButtonNoAccountText, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0 "
                             HorizontalAlignment="Center"
                             Style="{DynamicResource MaterialDesignFlatLightButton}"
                             Command="{Binding Authorization.CommandSwitchToRegistration}"/>
+                    
                 </StackPanel>
 
 
@@ -79,39 +89,39 @@
                     <StackPanel.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding Authorization.CommandRegister}"/>
                     </StackPanel.InputBindings>
-                    <TextBlock Text="Registration" HorizontalAlignment="Center" VerticalAlignment="Top"
+                    <TextBlock Text="{Binding Language.Authorization.RegistrationHeaderText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top"
                            Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"/>
                     <TextBox Width="200"
                              Text="{Binding Authorization.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="First Name"
+                             materialDesign:HintAssist.Hint="{Binding Language.Authorization.FirstNameHintText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.IsFloating="True"
                              materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <TextBox Width="200"
                              Text="{Binding Authorization.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="Last Name"
+                             materialDesign:HintAssist.Hint="{Binding Language.Authorization.LastNameHintText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.IsFloating="True"
                              materialDesign:TextFieldAssist.HasClearButton="True"/>
 
                     <TextBox Width="200"
                              Text="{Binding Authorization.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="Login"
+                             materialDesign:HintAssist.Hint="{Binding Language.Authorization.LoginHintText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.IsFloating="True"
                              materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <PasswordBox Width="200" 
                                  materialDesign:PasswordBoxAssist.Password="{Binding Authorization.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
-                                 materialDesign:HintAssist.Hint="Password" materialDesign:HintAssist.IsFloating="True"
+                                 materialDesign:HintAssist.Hint="{Binding Language.Authorization.PasswordHintText, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.IsFloating="True"
                                  materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <PasswordBox Width="200" 
                                  materialDesign:PasswordBoxAssist.Password="{Binding Authorization.PasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
-                                 materialDesign:HintAssist.Hint="Password" materialDesign:HintAssist.IsFloating="True"
+                                 materialDesign:HintAssist.Hint="{Binding Language.Authorization.PasswordHintText, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.IsFloating="True"
                                  materialDesign:TextFieldAssist.HasClearButton="True"/>
                     <TextBlock Text="{Binding Authorization.HelperText}" Style="{StaticResource HelperTextStyle}"
                                Margin="0,4,0,0"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                        <Button Content="Cancel" Margin="0,0,2,0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
+                        <Button Content="{Binding Language.Authorization.ButtonCancelText, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,2,0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                                 Command="{Binding Authorization.CommandSwitchToLogin}" Cursor="Hand"/>
-                        <Button Content="Register" Margin="2,0,0,0" Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
+                        <Button Content="{Binding Language.Authorization.ButtonRegisterText, UpdateSourceTrigger=PropertyChanged}" Margin="2,0,0,0" Style="{DynamicResource MaterialDesignOutlinedSecondaryDarkButton}"
                                 Command="{Binding Authorization.CommandRegister}" Cursor="Hand"/>
                     </StackPanel>
                 </StackPanel>

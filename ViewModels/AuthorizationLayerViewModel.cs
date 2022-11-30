@@ -1,4 +1,5 @@
 ﻿using NazarTunes.Models.DataTemplates;
+using NazarTunes.Models.LanguagePacks;
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer;
 using NazarTunes.ViewModels.Commands;
@@ -108,7 +109,9 @@ namespace NazarTunes.ViewModels
 
         private bool _isRegistration;
 
-        public AuthorizationLayerViewModel(ref CommonViewModel commonViewModel)
+        private readonly LanguagePack _language;
+
+        public AuthorizationLayerViewModel(ref CommonViewModel commonViewModel, ref LanguagePack language)
         {
             _commonViewModel = commonViewModel;
 
@@ -142,6 +145,7 @@ namespace NazarTunes.ViewModels
             Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
 
             _isRegistration = false;
+            _language = language;
         }
 
         private void EnterFunction(string login, string password)
@@ -149,10 +153,10 @@ namespace NazarTunes.ViewModels
             var (correct_credentials, deleted_user, user) = _db.Authorization(login, password);
             if (!correct_credentials)
             {
-                HelperText = "Invalid login or password!";
+                HelperText = _language.Authorization.HelperTextInvalidCredentials;
                 Login = Password = string.Empty;
             }
-            else if (deleted_user) HelperText = "This account is deleted! Please contact 8-800-000-00-00!";
+            else if (deleted_user) HelperText = _language.Authorization.HelperTextDeletedAccount;
             else
             {
                 _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
@@ -174,7 +178,7 @@ namespace NazarTunes.ViewModels
         {
             if (Password != PasswordRepeat)
             {
-                HelperText = "Passwords don't match!";
+                HelperText = _language.Authorization.HelperTextPasswordsDontMatch;
                 Password = PasswordRepeat = string.Empty;
             }
             else
@@ -190,7 +194,7 @@ namespace NazarTunes.ViewModels
                 }
                 else
                 {
-                    HelperText = "Unexpected error! Try again later!";
+                    HelperText = _language.Authorization.HelperTextUnexpectedError;
                 }
             }
         }
@@ -223,7 +227,7 @@ namespace NazarTunes.ViewModels
             {
                 if (_db.IfLoginExists(Login))
                 {
-                    HelperText = "This login is occupied!";
+                    HelperText = _language.Authorization.HelperTextOccupiedLogin;
                     return false;
                 }
                 else if (Login == string.Empty || Password == string.Empty || PasswordRepeat == string.Empty ||

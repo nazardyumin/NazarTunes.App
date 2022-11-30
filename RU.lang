@@ -1,0 +1,19 @@
+{
+  "Authorization": {
+    "WelcomeText": "Добро пожаловать в NazarTunes!",
+    "RegistrationHeaderText": "Регистрация",
+    "LoginHintText": "Имя пользователя",
+    "PasswordHintText": "Пароль",
+    "FirstNameHintText": "Имя",
+    "LastNameHintText": "Фамилия",
+    "ButtonEnterText": "Войти",
+    "ButtonNoAccountText": "Нет аккаунта? Зарегистрироваться!",
+    "ButtonCancelText": "Отмена",
+    "ButtonRegisterText": "Регистрация",
+    "HelperTextInvalidCredentials": "Неверные логин или пароль!",
+    "HelperTextDeletedAccount": "Этот аккаунт удален! Свяжитесь с нами 8-800-000-00-00!",
+    "HelperTextPasswordsDontMatch": "Пароли не совпадают!",
+    "HelperTextUnexpectedError": "Непредвиденная ошибка! Попробуйте позже!",
+    "HelperTextOccupiedLogin": "Это имя пользователя занято!"
+  }
+}
