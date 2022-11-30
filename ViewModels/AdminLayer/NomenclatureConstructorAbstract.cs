@@ -72,7 +72,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             get => _totalDuration;
             set
             {
-                RemoveLettersOrSymbols(ref value!, "duration");
+                RemoveLettersOrSymbols(ref value!, "duration", 0);
                 SetField(ref _totalDuration, value);
                 RefreshCanSaveState();
                 RefreshCanClearState();
@@ -97,7 +97,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             get => _releaseYear;
             set
             {
-                RemoveLettersOrSymbols(ref value!, "digits");
+                RemoveLettersOrSymbols(ref value!, "digits", 4);
                 SetField(ref _releaseYear, value);
                 RefreshCanSaveState();
                 RefreshCanClearState();
@@ -151,7 +151,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             get => _sellPrice1;
             set
             {
-                RemoveLettersOrSymbols(ref value!, "digits");
+                RemoveLettersOrSymbols(ref value!, "digits", 0);
                 SetField(ref _sellPrice1, value);
                 RefreshCanClearState();
             }
@@ -163,7 +163,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             get => _sellPrice2;
             set
             {
-                RemoveLettersOrSymbols(ref value!, "digits");
+                RemoveLettersOrSymbols(ref value!, "digits", 2);
                 SetField(ref _sellPrice2, value);
                 RefreshCanClearState();
             }
@@ -222,14 +222,18 @@ namespace NazarTunes.ViewModels.AdminLayer
 
         public double GetPrice()
         {
-            if (string.IsNullOrWhiteSpace(SellPrice1) || string.IsNullOrWhiteSpace(SellPrice2))
+            if ((string.IsNullOrWhiteSpace(SellPrice1) && string.IsNullOrWhiteSpace(SellPrice2)) || (string.IsNullOrWhiteSpace(SellPrice1) && !string.IsNullOrWhiteSpace(SellPrice2)))
             {
                 return 0;
             }
-            return double.Parse($"{SellPrice1},{SellPrice2}");
+            else if (!string.IsNullOrWhiteSpace(SellPrice1) && string.IsNullOrWhiteSpace(SellPrice2))
+            {
+                return double.Parse(SellPrice1);
+            }
+            else return double.Parse($"{SellPrice1},{SellPrice2}");
         }
 
-        protected void RemoveLettersOrSymbols(ref string str, string key)
+        protected void RemoveLettersOrSymbols(ref string str, string key, int cut)
         {
             if (key == "digits")
             {
@@ -238,6 +242,21 @@ namespace NazarTunes.ViewModels.AdminLayer
                     for (int i = 0; i < str.Length; i++)
                     {
                         if (!char.IsDigit(str[i])) str = str.Remove(i, 1);
+                    }
+                }
+                if (cut == 0) return;
+                if (cut == 2)
+                {
+                    if (str.Length > 2) str = str.Remove(2);
+
+                }
+                else 
+                {
+                    if (str.Length >= 4)
+                    {
+                        if (str.Length > 4) str = str.Remove(4);
+                        var thisYear = DateTime.Now.Year;
+                        if (int.Parse(str) > thisYear) str = str.Remove(0);
                     }
                 }
             }

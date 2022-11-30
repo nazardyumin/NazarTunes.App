@@ -35,7 +35,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             var index = SelectedIndex;
             _refDb.UpdateBand(_refDatabase.Bands![index].BandId, TextField1!);
-            _refDatabase.RefreshView();
+            _refDatabase.RefreshNomenclaturesAndLists();
             var thisBand = _refDatabase.Bands!.Find(b => b.BandName == TextField1!);
             SelectedIndex = _refDatabase.Bands.IndexOf(thisBand!);
         }

@@ -4,6 +4,7 @@ using NazarTunes.ViewModels.AdminLayer.Tab0;
 using NazarTunes.ViewModels.AdminLayer.Tab1;
 using NazarTunes.ViewModels.AdminLayer.Tab2;
 using NazarTunes.ViewModels.AdminLayer.Tab3;
+using NazarTunes.ViewModels.AdminLayer.Tab4;
 using NazarTunes.ViewModels.Notifiers;
 
 namespace NazarTunes.ViewModels.AdminLayer
@@ -54,6 +55,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _tabSuppliers, value);
         }
 
+        private TabProcurements? _tabProcurements;
+        public TabProcurements? TabProcurements
+        {
+            get => _tabProcurements;
+            set => SetField(ref _tabProcurements, value);
+        }
+
         public int SelectedTab { get; set; }
 
         public AdminLayerViewModel(Admin admin)
@@ -62,13 +70,14 @@ namespace NazarTunes.ViewModels.AdminLayer
             User = admin;
             Database = new(ref _db);
 
-
             SelectedTab = 0;
 
             TabNomenclatureDb = new(ref _db, ref _database!);
             TabEditNomenclature = new(ref _db, ref _database!);
             TabNewNomenclature = new(ref _db, ref _database!);
             TabSuppliers = new(ref _db, ref _database!);
+            TabProcurements = new(ref _db, ref _database!);
+
         }
     }
 }

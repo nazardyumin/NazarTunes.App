@@ -11,5 +11,10 @@ namespace NazarTunes.Models.DataTemplates
         public double SellPrice { get; set; }
         public int TotalItemsSold { get; set; }
         public bool IsAvailable { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Record}";
+        }
     }
 }

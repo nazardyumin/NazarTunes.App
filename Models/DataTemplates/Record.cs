@@ -19,5 +19,12 @@ namespace NazarTunes.Models.DataTemplates
         public string? GenresToString { get; set; }
         public string? PerformersToString { get; set; }
         public string? BandsToString { get; set; }
+
+        public override string ToString()
+        {
+            if (Bands!.Count > 0) return $"(ID {Id}) {Bands[0]} - {Title}, {ReleaseYear} ({MediaFormat})";
+            else if (Performers!.Count > 0) return $"(ID {Id}) {Performers[0]} - {Title}, {ReleaseYear} ({MediaFormat})";
+            else return $"(ID {Id}) {Title}, {ReleaseYear} ({MediaFormat})";
+        }
     }
 }

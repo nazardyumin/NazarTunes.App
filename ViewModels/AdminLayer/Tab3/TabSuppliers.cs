@@ -33,7 +33,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
         public TabSuppliers(ref AdminLayerDb db, ref Database database)
         {
             EditSuppliers = new(ref db, ref database);
-            AddSupplier = new(ref db, ref database, EditSuppliers!.GetAction());
+            AddSupplier = new(ref db, ref database);
 
             CommandOpenCloseEditSuppliers = new(_ =>
             {

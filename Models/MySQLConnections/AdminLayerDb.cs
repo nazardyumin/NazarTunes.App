@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
 using NazarTunes.Models.DataTemplates;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -365,10 +366,31 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
-        //public void AddNewSupplier()
-        //{
+        public List<Procurement> GetAllProcurements()
+        {
+            var sql = $"CALL procedure_get_all_procurements();";
+            _db.Open();
+            var list = _db.Query<Procurement>(sql).ToList();
+            _db.Close();
+            return list;
+        }
 
-        //} 
+        public void AddProcurement(int recordId, int supplierId, DateTime date, int amount, double price)
+        {
+            _cmd.CommandText = "procedure_create_new_procurement";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("new_date", date);
+            _cmd.Parameters.AddWithValue("new_supplier_id", supplierId);
+            _cmd.Parameters.AddWithValue("new_record_id", recordId);
+            _cmd.Parameters.AddWithValue("new_amount", amount);
+            _cmd.Parameters.AddWithValue("new_cost_price", price);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
 
 
     }

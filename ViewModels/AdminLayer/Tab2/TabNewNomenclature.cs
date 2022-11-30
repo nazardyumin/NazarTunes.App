@@ -160,7 +160,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab2
             CreateTracks(id, NewNomenclature.GetTracks());
             ClearFunction();
             RefreshListsFromDb();
-            _refDatabase.RefreshView();
+            _refDatabase.RefreshNomenclaturesAndLists();
         }
 
         private void CreatePerformerItems(int id, List<(string, string)> performers)

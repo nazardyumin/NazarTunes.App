@@ -1,4 +1,5 @@
-﻿using NazarTunes.Models.MySQLConnections;
+﻿using MaterialDesignThemes.Wpf.Internal;
+using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer.Tab0;
 using System;
 using System.Windows;
@@ -18,17 +19,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
             }
         }
 
-        private readonly Action _refreshSortedSuppliers;
-
-        public AddSupplier(ref AdminLayerDb db, ref Database database, Action action) : base(ref db, ref database)
+        public AddSupplier(ref AdminLayerDb db, ref Database database) : base(ref db, ref database)
         {
-            _refreshSortedSuppliers = action;
+
         }
 
         public override void Hide()
         {
-            TextField1 = string.Empty;
-            TextField2 = string.Empty;
+            Clear();
             IsVisible = Visibility.Collapsed;
         }
 
@@ -47,8 +45,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
         protected override void SaveChangesFunction()
         {
             _refDb.AddSupplier(TextField1!, TextField2!);
+            Clear();
             _refDatabase.RefreshSuppliers();
-            _refreshSortedSuppliers.Invoke();
+        }
+
+        private void Clear()
+        {
+            TextField1 = string.Empty;
+            TextField2 = string.Empty;
         }
     }
 }

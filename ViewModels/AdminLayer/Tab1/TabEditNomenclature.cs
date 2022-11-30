@@ -84,7 +84,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             UpdateNomenclatureRecord(idRecord, newTitle, newDuration, newPublisher, newYear, newFormat, newCover);
             UpdateNomenclaturePrice(SelectedNomenclature.GetSelectedId(), SelectedNomenclature.GetPrice());
             ClearFunction();
-            _refDatabase.RefreshView();
+            _refDatabase.RefreshNomenclaturesAndLists();
         }
 
         private void ClearFunction(string? error = null)

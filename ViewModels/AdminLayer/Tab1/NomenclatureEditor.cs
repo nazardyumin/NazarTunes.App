@@ -12,7 +12,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             get => _selectedId;
             set
             {
-                RemoveLettersOrSymbols(ref value!, "digits");
+                RemoveLettersOrSymbols(ref value!, "digits", 0);
                 SetField(ref _selectedId, value);
                 RefreshCanClearState();
             }

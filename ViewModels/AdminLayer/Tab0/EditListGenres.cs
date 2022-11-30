@@ -35,7 +35,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             var index = SelectedIndex;
             _refDb.UpdateGenre(_refDatabase.Genres![index].GenreId, TextField1!);
-            _refDatabase.RefreshView();
+            _refDatabase.RefreshNomenclaturesAndLists();
             var thisGenre = _refDatabase.Genres!.Find(g => g.GenreName == TextField1!);
             SelectedIndex = _refDatabase.Genres!.IndexOf(thisGenre!);
         }

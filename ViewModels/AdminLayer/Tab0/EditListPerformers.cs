@@ -60,7 +60,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
         {
             var index = SelectedIndex;
             _refDb.UpdatePerformer(_refDatabase.Performers![index].PersonId, TextField1!, TextField2!);
-            _refDatabase.RefreshView();
+            _refDatabase.RefreshNomenclaturesAndLists();
             var thisPerformer = _refDatabase.Performers!.Find(p => p.FirstName == TextField1! && p.LastName == TextField2!);
             SelectedIndex = _refDatabase.Performers!.IndexOf(thisPerformer!);
         }

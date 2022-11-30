@@ -1,22 +1,11 @@
-﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer.Tab0;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab3
 {
     public class EditListSuppliers : EditAbstract
     {
-        private List<Supplier>? _suppliers;
-        public List<Supplier>? Suppliers
-        {
-            get => _suppliers;
-            set => SetField(ref _suppliers, value);
-        }
-
         private string? _textField2;
         public string? TextField2
         {
@@ -44,9 +33,9 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
                 CommandSaveChanges!.OnCanExecuteChanged();
                 if (_selectedIndex > -1)
                 {
-                    TextField1 = Suppliers![_selectedIndex].SupplierName;
-                    TextField2 = Suppliers![_selectedIndex].ContactInfo;
-                    Flag = Suppliers![_selectedIndex].IsCooperating;
+                    TextField1 = _refDatabase.SortedSuppliers![_selectedIndex].SupplierName;
+                    TextField2 = _refDatabase.SortedSuppliers![_selectedIndex].ContactInfo;
+                    Flag = _refDatabase.SortedSuppliers![_selectedIndex].IsCooperating;
                 }
             }
         }
@@ -54,7 +43,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
         public EditListSuppliers(ref AdminLayerDb db, ref Database database) : base(ref db, ref database)
         {
             SelectedIndex = -1;
-            Suppliers = new List<Supplier>(_refDatabase.Suppliers!.OrderBy(b => b.SupplierName).ToList());
+            
         }
 
         public override void Hide()
@@ -80,21 +69,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
         protected override void SaveChangesFunction()
         {
             var index = SelectedIndex;
-            _refDb.UpdateSupplier(Suppliers![index].SupplierId, TextField1!, TextField2!, Flag);
+            _refDb.UpdateSupplier(_refDatabase.SortedSuppliers![index].SupplierId, TextField1!, TextField2!, Flag);
             _refDatabase.RefreshSuppliers();
-            RefreshSortedSuppliers();
-            var thisSupplier = Suppliers!.Find(s => s.SupplierName == TextField1! && s.ContactInfo == TextField2!);
-            SelectedIndex = Suppliers!.IndexOf(thisSupplier!);
-        }
-
-        private void RefreshSortedSuppliers()
-        {
-            Suppliers = new List<Supplier>(_refDatabase.Suppliers!.OrderBy(b => b.SupplierName).ToList());
-        }
-
-        public Action GetAction()
-        {
-            return RefreshSortedSuppliers;
+            var thisSupplier = _refDatabase.SortedSuppliers!.Find(s => s.SupplierName == TextField1! && s.ContactInfo == TextField2!);
+            SelectedIndex = _refDatabase.SortedSuppliers!.IndexOf(thisSupplier!);
         }
     }
 }

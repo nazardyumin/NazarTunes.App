@@ -154,7 +154,6 @@
                 <TabControl Grid.Row="1" HorizontalAlignment="Left" SelectedIndex="0" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" >
                     <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
                     <TabItem Header="Nomenclature DB">
-
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding CommonViewModel.Admin.TabNomenclatureDb.ButtonPanelHeight}" />
@@ -511,13 +510,9 @@
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                             </StackPanel>
                         </StackPanel>
-
                     </TabItem>
 
-
-
                     <TabItem Header="Suppliers">
-
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding CommonViewModel.Admin.TabSuppliers.ButtonPanelHeight}" />
@@ -527,7 +522,7 @@
                             <StackPanel Grid.Row="0" >
 
                                 <StackPanel Margin="8,10,0,0">
-                                    
+
                                     <StackPanel Orientation="Horizontal">
                                         <Button Content="Edit Suppliers"
                                                 Command="{Binding CommonViewModel.Admin.TabSuppliers.CommandOpenCloseEditSuppliers}"
@@ -539,7 +534,7 @@
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.Suppliers,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,10,0,0"
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.SortedSuppliers,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.SelectedIndex}">
                                             </ComboBox>
                                             <TextBox Width="200" Margin="5,0,0,0"
@@ -553,7 +548,7 @@
                                                         materialDesign:HintAssist.IsFloating="True"/>
                                             <CheckBox IsChecked="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.Flag, UpdateSourceTrigger=PropertyChanged}" 
                                                       Content="Cooperating" Cursor="Hand"/>
-                                            
+
                                             <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.CommandSaveChanges}"/>
@@ -580,7 +575,7 @@
 
                                         </StackPanel>
                                     </StackPanel>
-        
+
                                 </StackPanel>
                             </StackPanel>
 
@@ -589,23 +584,17 @@
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
-                                              CanUserDeleteRows="False">
+                                              CanUserDeleteRows="False"
+                                              ColumnWidth="Auto">
                                     <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Header="Supplier ID" Binding="{Binding SupplierId}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Contact Info" Binding="{Binding ContactInfo}" Width="Auto" IsReadOnly="True"/>
-                                        <DataGridCheckBoxColumn Header="Cooperating" Binding="{Binding IsCooperating}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Supplier ID" Binding="{Binding SupplierId}" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Contact Info" Binding="{Binding ContactInfo}"  IsReadOnly="True"/>
+                                        <DataGridCheckBoxColumn Header="Cooperating" Binding="{Binding IsCooperating}" IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
                         </Grid>
-
-
-
-
-
-
-
                     </TabItem>
 
 
@@ -615,7 +604,92 @@
 
 
                     <TabItem Header="Procurements">
+
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{Binding CommonViewModel.Admin.TabProcurements.ButtonPanelHeight}" />
+                                <RowDefinition  Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" >
+
+                                <StackPanel Margin="8,10,0,0">
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Add New Procurement"
+                                                Command="{Binding CommonViewModel.Admin.TabProcurements.CommandOpenCloseAddProcurement}"
+                                                Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.IsVisible}" Margin="0,20,0,20">
+
+                                        <StackPanel Orientation="Horizontal" >
+                                            
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="0,10,0,0"
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.SelectedRecordIndex}"
+                                                      materialDesign:HintAssist.Hint="Nomenclature"
+                                                      materialDesign:HintAssist.IsFloating="True">
+                                            </ComboBox>
+
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.ActiveSuppliers, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5,10,0,0"
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.SelectedSupplierIndex}"
+                                                      materialDesign:HintAssist.Hint="Supplier"
+                                                      materialDesign:HintAssist.IsFloating="True">
+                                            </ComboBox>
+
+                                            <TextBox Width="60" Margin="5,12,0,2"
+                                                     Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Amount, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="Amount"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                            <TextBox Width="100" Margin="10,0,0,0"
+                                                      Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Price1, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="Cost Price"
+                                                        materialDesign:HintAssist.IsFloating="True"
+                                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <TextBlock Text="," VerticalAlignment="Bottom" Margin="2,12,0,0"/>
+
+                                            <TextBox Width="50" Margin="2,0,0,0" 
+                                                       Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Price2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
+
+                                            <Button Content="Save" Margin="15,0,0,0" Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabProcurements.CommandSave}"/>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
+                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Procurements, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              HorizontalAlignment="Left"
+                                              AutoGenerateColumns="False" 
+                                              CanUserAddRows="False" 
+                                              CanUserDeleteRows="False"
+                                              ColumnWidth="Auto">
+                                    <DataGrid.Columns>
+                                        <materialDesign:DataGridTextColumn Header="Procurement ID" Binding="{Binding ProcurementId}" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Nomenclature" Binding="{Binding RecordInfo}" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}"  IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding Amount}"  IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Cost Price" Binding="{Binding CostPrice}"  IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="Date" Binding="{Binding Date}"  IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+                        </Grid>
+
+
                     </TabItem>
+                    
+                    
+                    
+                    
+                    
+                    
                     <TabItem Header="Promotions">
                     </TabItem>
                     <TabItem Header="Freeze Nomenclature">
