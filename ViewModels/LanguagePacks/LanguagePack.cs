@@ -1,7 +1,8 @@
-﻿using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
+using System.IO;
+using System.Windows.Shapes;
 
-namespace NazarTunes.Models.LanguagePacks
+namespace NazarTunes.ViewModels.LanguagePacks
 {
 
     public struct Authorization
@@ -18,15 +19,15 @@ namespace NazarTunes.Models.LanguagePacks
         public string ButtonRegisterText { get; set; }
         public string HelperTextInvalidCredentials { get; set; }
         public string HelperTextDeletedAccount { get; set; }
-        public string HelperTextPasswordsDontMatch{ get; set; }
+        public string HelperTextPasswordsDontMatch { get; set; }
         public string HelperTextUnexpectedError { get; set; }
         public string HelperTextOccupiedLogin { get; set; }
     }
     public class LanguagePack
     {
-       public Authorization Authorization {get;set;}
+        public Authorization Authorization { get; set; }
 
-       public static void CreateJson()
+        public static void CreateJson()
         {
             var langpack = new LanguagePack()
             {
@@ -50,19 +51,31 @@ namespace NazarTunes.Models.LanguagePacks
                 },
             };
 
-            
+
             var file = JsonSerializer.Serialize(langpack);
-            File.WriteAllText("EN.lang", file);
+            if(!Directory.Exists("Language"))
+            {
+                Directory.CreateDirectory("Language");
+            }
+            File.WriteAllText(@"Language\EN.lang", file);
         }
 
         public static LanguagePack Load(string path)
         {
-            //CreateJson();
+            CreateJson();
             var file = File.ReadAllText(path);
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }
-        
 
+        public static void SaveIndex(int index)
+        {
+            File.WriteAllText(@"Language\config", $"{index}");
+        }
+
+        public static int GetIndex()
+        {
+            return int.Parse(File.ReadAllText(@"Language\config"));
+        }
 
     }
 }

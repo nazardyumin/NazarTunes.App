@@ -1,8 +1,8 @@
 ﻿using NazarTunes.Models.DataTemplates;
-using NazarTunes.Models.LanguagePacks;
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.AdminLayer;
 using NazarTunes.ViewModels.Commands;
+using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Windows;
 
@@ -13,6 +13,8 @@ namespace NazarTunes.ViewModels
         private readonly CommonViewModel _commonViewModel;
 
         private readonly AuthorizationLayerDb _db;
+
+        private readonly LanguagePack _language;
 
         private string? _login;
         public string Login
@@ -108,8 +110,6 @@ namespace NazarTunes.ViewModels
         public MyCommand CommandRegister { get; }
 
         private bool _isRegistration;
-
-        private readonly LanguagePack _language;
 
         public AuthorizationLayerViewModel(ref CommonViewModel commonViewModel, ref LanguagePack language)
         {

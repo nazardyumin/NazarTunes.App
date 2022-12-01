@@ -1,4 +1,4 @@
-﻿using NazarTunes.Models.LanguagePacks;
+﻿using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
 using System.Windows.Documents;
@@ -32,7 +32,8 @@ namespace NazarTunes.ViewModels
             set
             {
                 SetField(ref _selectedLanguage, value);
-                Language = LanguagePack.Load($"{Languages[_selectedLanguage]}.lang");
+                Language = LanguagePack.Load($"Language\\{Languages[_selectedLanguage]}.lang");
+                LanguagePack.SaveIndex(_selectedLanguage);
             }
         }
 
@@ -40,8 +41,12 @@ namespace NazarTunes.ViewModels
         {
             CommonViewModel = new();
             Authorization = new(ref _commonViewModel!, ref _language!);
+
             Languages = new List<string>() { "EN", "RU"};
-            Language = LanguagePack.Load($"{Languages[_selectedLanguage]}.lang");
+            var index = LanguagePack.GetIndex();
+            SelectedLanguage = index;
+
+            Language = LanguagePack.Load($"Language\\{Languages[index]}.lang");
         }
     }
 }
