@@ -1,1 +1,47 @@
-{"Authorization":{"WelcomeText":"Welcome to NazarTunes!","RegistrationHeaderText":"Registration","LoginHintText":"Login","PasswordHintText":"Password","FirstNameHintText":"First Name","LastNameHintText":"Last Name","ButtonEnterText":"Enter","ButtonNoAccountText":"No account? Register!","ButtonCancelText":"Cancel","ButtonRegisterText":"Register","HelperTextInvalidCredentials":"Invalid login or password!","HelperTextDeletedAccount":"This account is deleted! Please contact 8-800-000-00-00!","HelperTextPasswordsDontMatch":"Passwords don\u0027t match!","HelperTextUnexpectedError":"Unexpected error! Try again later!","HelperTextOccupiedLogin":"This login is occupied!"}}
+{
+  "Authorization": {
+    "WelcomeText": "Welcome to NazarTunes!",
+    "RegistrationHeaderText": "Registration",
+    "LoginHintText": "Login",
+    "PasswordHintText": "Password",
+    "FirstNameHintText": "First Name",
+    "LastNameHintText": "Last Name",
+    "ButtonEnterText": "Enter",
+    "ButtonLogoutText": "Logout",
+    "ButtonNoAccountText": "No account? Register!",
+    "ButtonCancelText": "Cancel",
+    "ButtonRegisterText": "Register",
+    "HelperTextInvalidCredentials": "Invalid login or password!",
+    "HelperTextDeletedAccount": "This account is deleted! Please contact 8-800-000-00-00!",
+    "HelperTextPasswordsDontMatch": "Passwords don\u0027t match!",
+    "HelperTextUnexpectedError": "Unexpected error! Try again later!",
+    "HelperTextOccupiedLogin": "This login is occupied!"
+  },
+  "AdminTabNomenclatureDb": {
+    "Header": "Nomenclature DB",
+    "ButtonEditPerformersText": "Edit Performers",
+    "ChoosePerformerHintText": "Choose Performer",
+    "FirstNameHintText": "First Name",
+    "LastNameHintText": "Last Name",
+    "ButtonEditBandsText": "Edit Bands",
+    "ChooseBandHintText": "Choose Band",
+    "BandNameHintText": "Band Name",
+    "ButtonEditGenresText": "Edit Genres",
+    "ChooseGenreHintText": "Choose Genre",
+    "GenreNameHintText": "Genre",
+    "ButtonSaveChangesText": "Save Changes",
+    "ColumnIdHeader": "ID",
+    "ColumnTitleHeader": "Title",
+    "ColumnBandHeader": "Band",
+    "ColumnPerformerHeader": "Performer",
+    "ColumnTracksHeader": "Tracks",
+    "ColumnGenreHeader": "Genre",
+    "ColumnTypeHeader": "Type",
+    "ColumnPublisherHeader": "Publisher",
+    "ColumnYearHeader": "Year",
+    "ColumnAmountHeader": "Amount",
+    "ColumnSoldHeader": "Sold",
+    "ColumnPriceHeader": "Price",
+    "ColumnAvailableHeader": "Available"
+  }
+}

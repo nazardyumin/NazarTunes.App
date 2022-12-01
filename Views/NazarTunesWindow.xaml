@@ -38,7 +38,7 @@
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <ComboBox ItemsSource="{Binding Languages}" SelectedIndex="{Binding SelectedLanguage}" Cursor="Hand" Width="35" 
+                    <ComboBox ItemsSource="{Binding ListLanguages}" SelectedIndex="{Binding SelectedLanguage}" Cursor="Hand" Width="35" 
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top"
                               Margin="0,10,20,0"/>
@@ -147,7 +147,7 @@
                                Margin="12,0,0,0"/>
 
                     <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,5,0">
-                        <ComboBox ItemsSource="{Binding Languages}" SelectedIndex="{Binding SelectedLanguage}" Cursor="Hand" Width="35" 
+                        <ComboBox ItemsSource="{Binding ListLanguages}" SelectedIndex="{Binding SelectedLanguage}" Cursor="Hand" Width="35" 
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top"
                               Margin="0,3,40,0"/>
@@ -159,13 +159,13 @@
                                    VerticalAlignment="Center" Width="Auto" 
                                    Style="{StaticResource MaterialDesignButtonTextBlock}"
                                    Margin="3,0,5,0"/>
-                        <Button Content="Logout" Command="{Binding CommonViewModel.CommandLogout}" Style="{StaticResource MaterialDesignFlatLightButton}"/>
+                        <Button Content="{Binding Language.Authorization.ButtonLogoutText, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CommonViewModel.CommandLogout}" Style="{StaticResource MaterialDesignFlatLightButton}"/>
                     </StackPanel>
                 </Grid>
 
                 <TabControl Grid.Row="1" HorizontalAlignment="Left" SelectedIndex="0" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" >
                     <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
-                    <TabItem Header="Nomenclature DB">
+                    <TabItem Header="{Binding Language.AdminTabNomenclatureDb.Header, UpdateSourceTrigger=PropertyChanged}">
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding CommonViewModel.Admin.TabNomenclatureDb.ButtonPanelHeight}" />
@@ -176,13 +176,13 @@
 
                                 <StackPanel Margin="8,10,0,0">
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Content="Edit Performers"
+                                        <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonEditPerformersText, UpdateSourceTrigger=PropertyChanged}"
                                                 Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditPerformers}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
-                                        <Button Content="Edit Bands" Margin="5,0,0,0"
+                                        <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonEditBandsText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
                                                 Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditBands}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
-                                        <Button Content="Edit Genres" Margin="5,0,0,0"
+                                        <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonEditGenresText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
                                                 Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditGenres}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                     </StackPanel>
@@ -191,17 +191,19 @@
                                         <StackPanel Orientation="Horizontal" >
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Performers,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.SelectedIndex}">
+                                                <!--Add hint text-->
                                             </ComboBox>
+                                            
                                             <TextBox Width="100" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="First Name"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.FirstNameHintText, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
                                             <TextBox Width="100" Margin="5,0,0,0"
                                                       Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.TextField2, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Last Name"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.LastNameHintText, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
-                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.CommandSaveChanges}"/>
 
@@ -212,14 +214,16 @@
                                         <StackPanel Orientation="Horizontal" >
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Bands}" Width="200" Margin="0,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.SelectedIndex}" >
+                                                <!--Add hint text-->
                                             </ComboBox>
+                                            
                                             <TextBox Width="205" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Band Name"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.BandNameHintText, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
 
-                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.CommandSaveChanges}"/>
 
@@ -230,20 +234,25 @@
                                         <StackPanel Orientation="Horizontal" >
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Genres}" Width="200" Margin="0,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.SelectedIndex}">
+                                                <!--Add hint text-->
                                             </ComboBox>
                                             <TextBox Width="90" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Genre Name"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.GenreNameHintText, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
 
-                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.CommandSaveChanges}"/>
 
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+                            </StackPanel>
+                            
+                            <StackPanel Visibility="Hidden">
+                                <TextBlock x:Name="ID"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
@@ -253,19 +262,39 @@
                                               CanUserAddRows="False" 
                                               CanUserDeleteRows="False">
                                     <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Header="ID" Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Title" Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Band" Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Performer" Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Tracks" Binding="{Binding Record.TrackAmount}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Genre" Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Type" Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Publisher" Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Year" Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Sold" Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Price" Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
-                                        <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding ElementName=ID, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </materialDesign:DataGridTextColumn>
+                                                                           
+                                                                        
+
+                                        
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnTitleHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True" />
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnBandHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.BandsToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnPerformerHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.PerformersToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnTracksHeader, UpdateSourceTrigger=PropertyChanged}"
+                                                                           Binding="{Binding Record.TrackAmount}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnGenreHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.GenresToString}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnTypeHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.MediaFormat}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnPublisherHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.Publisher}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnYearHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding Record.ReleaseYear}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnAmountHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnSoldHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding TotalItemsSold}" Width="Auto" IsReadOnly="True"/>
+                                        <materialDesign:DataGridTextColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnPriceHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                           Binding="{Binding SellPrice}" Width="Auto" IsReadOnly="True"/>
+                                        <DataGridCheckBoxColumn Header="{Binding Language.AdminTabNomenclatureDb.ColumnAvailableHeader, UpdateSourceTrigger=PropertyChanged}" 
+                                                                Binding="{Binding IsAvailable}" Width="Auto" IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>

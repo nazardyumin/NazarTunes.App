@@ -23,7 +23,7 @@ namespace NazarTunes.ViewModels
 
         public AuthorizationLayerViewModel Authorization { get; set; }
 
-        public List <string> Languages { get; set; }
+        public List <string> ListLanguages { get; set; }
 
         private int _selectedLanguage;
         public int SelectedLanguage
@@ -32,21 +32,21 @@ namespace NazarTunes.ViewModels
             set
             {
                 SetField(ref _selectedLanguage, value);
-                Language = LanguagePack.Load($"Language\\{Languages[_selectedLanguage]}.lang");
+                Language = LanguagePack.Load($"{ListLanguages[SelectedLanguage]}");
                 LanguagePack.SaveIndex(_selectedLanguage);
             }
         }
 
         public MainViewModel()
         {
+            ListLanguages = new List<string>() { "EN", "RU" };
+            SelectedLanguage = LanguagePack.GetIndex();
+            Language = LanguagePack.Load($"{ListLanguages[SelectedLanguage]}");
+
             CommonViewModel = new();
             Authorization = new(ref _commonViewModel!, ref _language!);
 
-            Languages = new List<string>() { "EN", "RU"};
-            var index = LanguagePack.GetIndex();
-            SelectedLanguage = index;
-
-            Language = LanguagePack.Load($"Language\\{Languages[index]}.lang");
+            
         }
     }
 }
