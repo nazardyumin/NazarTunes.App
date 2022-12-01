@@ -21,6 +21,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string HelperTextPasswordsDontMatch { get; set; }
         public string HelperTextUnexpectedError { get; set; }
         public string HelperTextOccupiedLogin { get; set; }
+        public string AdministratorModeHeader { get; set; }
     }
 
     public struct AdminTabNomenclatureDb
@@ -86,7 +87,8 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     HelperTextDeletedAccount = "This account is deleted! Please contact 8-800-000-00-00!",
                     HelperTextPasswordsDontMatch = "Passwords don't match!",
                     HelperTextUnexpectedError = "Unexpected error! Try again later!",
-                    HelperTextOccupiedLogin = "This login is occupied!"
+                    HelperTextOccupiedLogin = "This login is occupied!",
+                    AdministratorModeHeader = "Administrator Mode"
                 },
                 AdminTabNomenclatureDb = new AdminTabNomenclatureDb()
                 {
@@ -137,7 +139,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
 
         public static LanguagePack Load(string language)
         {
-            //CreateJson();
+            CreateJson();
             var file = File.ReadAllText($"Language\\{language}.lang");
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }

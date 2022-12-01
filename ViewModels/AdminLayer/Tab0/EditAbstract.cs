@@ -56,7 +56,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             else
             {
                 Show();
-                height = 100;
+                height = 120;
             }
             return height;
         }

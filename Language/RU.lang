@@ -7,6 +7,7 @@
     "FirstNameHintText": "Имя",
     "LastNameHintText": "Фамилия",
     "ButtonEnterText": "Войти",
+    "ButtonLogoutText": "Выйти",
     "ButtonNoAccountText": "Нет аккаунта? Зарегистрироваться!",
     "ButtonCancelText": "Отмена",
     "ButtonRegisterText": "Регистрация",
@@ -14,6 +15,34 @@
     "HelperTextDeletedAccount": "Этот аккаунт удален! Свяжитесь с нами 8-800-000-00-00!",
     "HelperTextPasswordsDontMatch": "Пароли не совпадают!",
     "HelperTextUnexpectedError": "Непредвиденная ошибка! Попробуйте позже!",
-    "HelperTextOccupiedLogin": "Это имя пользователя занято!"
+    "HelperTextOccupiedLogin": "Это имя пользователя занято!",
+    "AdministratorModeHeader": "Режим администратора"
+  },
+  "AdminTabNomenclatureDb": {
+    "Header": "БД товаров",
+    "ButtonEditPerformersText": "Ред. исполнителя",
+    "ChoosePerformerHintText": "Выберите исполнителя",
+    "FirstNameHintText": "Имя",
+    "LastNameHintText": "Фамилия",
+    "ButtonEditBandsText": "Ред. группу",
+    "ChooseBandHintText": "Выберите группу",
+    "BandNameHintText": "Название группы",
+    "ButtonEditGenresText": "Ред. жанр",
+    "ChooseGenreHintText": "Выберите жанр",
+    "GenreNameHintText": "Название жанра",
+    "ButtonSaveChangesText": "Сохранить изменения",
+    "ColumnIdHeader": "ID",
+    "ColumnTitleHeader": "Название",
+    "ColumnBandHeader": "Группа",
+    "ColumnPerformerHeader": "Исполнитель",
+    "ColumnTracksHeader": "Кол-во треков",
+    "ColumnGenreHeader": "Жанр",
+    "ColumnTypeHeader": "Формат",
+    "ColumnPublisherHeader": "Издатель",
+    "ColumnYearHeader": "Год",
+    "ColumnAmountHeader": "Кол-во",
+    "ColumnSoldHeader": "Продано",
+    "ColumnPriceHeader": "Цена",
+    "ColumnAvailableHeader": "Доступен"
   }
 }
