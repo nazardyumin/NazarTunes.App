@@ -44,16 +44,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             return int.Parse(SelectedId!) - 1;
         }
 
-        public bool SelectedIdContainsOnlyDigits()
-        {
-            var result = true;
-            foreach (var symbol in SelectedId!)
-            {
-                if (!char.IsDigit(symbol)) { result = false; break; }
-            }
-            return result;
-        }
-
         private string MakeColumn(List<string> list)
         {
             var str = new StringBuilder();

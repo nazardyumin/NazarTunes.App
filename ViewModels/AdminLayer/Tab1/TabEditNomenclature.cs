@@ -1,5 +1,6 @@
 ﻿using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
+using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
     {
         private readonly AdminLayerDb _refDb;
         private readonly Database _refDatabase;
+        private LanguagePack _language;
 
         private NomenclatureEditor? _selectedNomenclature;
         public NomenclatureEditor? SelectedNomenclature
@@ -28,7 +30,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
             set => SetField(ref _canChangeId, value);
         }
 
-        public TabEditNomenclature(ref AdminLayerDb db, ref Database database)
+        public TabEditNomenclature(ref AdminLayerDb db, ref Database database, ref LanguagePack language)
         {
             _refDb = db;
             _refDatabase = database;
@@ -48,25 +50,23 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
                 ClearFunction();
             }, _ => true);
             CanChangeId = true;
+
+            _language = language;
         }
 
         private void FindNomenclatureFunction()
         {
             if (SelectedNomenclature!.SelectedIdIsNotNullOrEmpty())
             {
-                if (SelectedNomenclature.SelectedIdContainsOnlyDigits())
+                var i = SelectedNomenclature.GetSelectedIndex();
+                if (i <= _refDatabase!.Nomenclatures!.Count - 1 && i >= 0)
                 {
-                    var i = SelectedNomenclature.GetSelectedIndex();
-                    if (i <= _refDatabase!.Nomenclatures!.Count - 1 && i >= 0)
-                    {
-                        SelectedNomenclature.Set(_refDatabase!.Nomenclatures[i]);
-                        CanChangeId = false;
-                    }
-                    else { SelectedNomenclature.HelperText = "Invalid ID!"; ClearFunction("error"); }
+                    SelectedNomenclature.Set(_refDatabase!.Nomenclatures[i]);
+                    CanChangeId = false;
                 }
-                else { SelectedNomenclature.HelperText = "This field may contain only digits!"; ClearFunction("error"); }
+                else { SelectedNomenclature.HelperText = _language.AdminTabEditAndNewNomenclature.HelperTextInvalidId; ClearFunction("error"); }
             }
-            else { SelectedNomenclature.HelperText = "Enter ID!"; ClearFunction("error"); }
+            else { SelectedNomenclature.HelperText = _language.AdminTabEditAndNewNomenclature.HelperTextEnterId; ClearFunction("error"); }
         }
 
         private void SaveChangesFunction()
@@ -273,6 +273,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         private void UpdateNomenclaturePrice(int idRecord, double price)
         {
             _refDb.UpdatePrice(idRecord, price);
+        }
+
+        public void RefreshLanguage(ref LanguagePack language)
+        {
+            _language = language;
         }
     }
 }

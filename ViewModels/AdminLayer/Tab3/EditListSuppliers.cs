@@ -52,6 +52,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab3
             TextField2 = string.Empty;
             IsVisible = Visibility.Collapsed;
             SelectedIndex = -1;
+            Flag = false;
         }
 
         protected override bool RefreshCanSaveChangesState()

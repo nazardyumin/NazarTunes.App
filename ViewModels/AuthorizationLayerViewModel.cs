@@ -14,7 +14,16 @@ namespace NazarTunes.ViewModels
 
         private readonly AuthorizationLayerDb _db;
 
-        private readonly LanguagePack _language;
+        private LanguagePack? _language;
+        public  LanguagePack Language
+        {
+            get => _language!;
+            set
+            {
+                SetField(ref _language, value);
+                _commonViewModel?.Admin?.RefreshLanguage(ref _language!);
+            }
+        }
 
         private string? _login;
         public string Login
@@ -145,7 +154,7 @@ namespace NazarTunes.ViewModels
             Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
 
             _isRegistration = false;
-            _language = language;
+            Language = language;
         }
 
         private void EnterFunction(string login, string password)
@@ -153,21 +162,21 @@ namespace NazarTunes.ViewModels
             var (correct_credentials, deleted_user, user) = _db.Authorization(login, password);
             if (!correct_credentials)
             {
-                HelperText = _language.Authorization.HelperTextInvalidCredentials;
+                HelperText = _language!.Authorization.HelperTextInvalidCredentials;
                 Login = Password = string.Empty;
             }
-            else if (deleted_user) HelperText = _language.Authorization.HelperTextDeletedAccount;
+            else if (deleted_user) HelperText = _language!.Authorization.HelperTextDeletedAccount;
             else
             {
                 _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
                 if (user!.GetType() == typeof(Admin))
                 {
-                    _commonViewModel.Admin = new AdminLayerViewModel((Admin)user);
+                    _commonViewModel.Admin = new AdminLayerViewModel((Admin)user, ref _language!);
                     _commonViewModel.AdminLayerVisibility = Visibility.Visible;
                 }
                 else
                 {
-                    _commonViewModel.Client = new ClientLayerViewModel((Client)user);
+                    _commonViewModel.Client = new ClientLayerViewModel((Client)user, ref _language!);
                     _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                 }
                 Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
@@ -178,7 +187,7 @@ namespace NazarTunes.ViewModels
         {
             if (Password != PasswordRepeat)
             {
-                HelperText = _language.Authorization.HelperTextPasswordsDontMatch;
+                HelperText = _language!.Authorization.HelperTextPasswordsDontMatch;
                 Password = PasswordRepeat = string.Empty;
             }
             else
@@ -186,7 +195,7 @@ namespace NazarTunes.ViewModels
                 var (client, ifSucceed) = _db.CreateClient(Login, Password, FirstName, LastName);
                 if (ifSucceed)
                 {
-                    _commonViewModel.Client = new ClientLayerViewModel(client!);
+                    _commonViewModel.Client = new ClientLayerViewModel(client!, ref _language!);
                     _commonViewModel.AuthorizationLayerVisibility = Visibility.Hidden;
                     _commonViewModel.ClientLayerVisibility = Visibility.Visible;
                     Login = Password = PasswordRepeat = FirstName = LastName = HelperText = string.Empty;
@@ -194,7 +203,7 @@ namespace NazarTunes.ViewModels
                 }
                 else
                 {
-                    HelperText = _language.Authorization.HelperTextUnexpectedError;
+                    HelperText = _language!.Authorization.HelperTextUnexpectedError;
                 }
             }
         }
@@ -227,7 +236,7 @@ namespace NazarTunes.ViewModels
             {
                 if (_db.IfLoginExists(Login))
                 {
-                    HelperText = _language.Authorization.HelperTextOccupiedLogin;
+                    HelperText = _language!.Authorization.HelperTextOccupiedLogin;
                     return false;
                 }
                 else if (Login == string.Empty || Password == string.Empty || PasswordRepeat == string.Empty ||
@@ -236,6 +245,10 @@ namespace NazarTunes.ViewModels
                 else return true;
             }
             return false;
+        }
+        public void RefreshLanguage(ref LanguagePack language)
+        {
+            Language = language;
         }
     }
 }

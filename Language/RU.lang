@@ -37,12 +37,65 @@
     "ColumnPerformerHeader": "Исполнитель",
     "ColumnTracksHeader": "Кол-во треков",
     "ColumnGenreHeader": "Жанр",
-    "ColumnTypeHeader": "Формат",
+    "ColumnTypeHeader": "Тип",
     "ColumnPublisherHeader": "Издатель",
     "ColumnYearHeader": "Год",
     "ColumnAmountHeader": "Кол-во",
     "ColumnSoldHeader": "Продано",
     "ColumnPriceHeader": "Цена",
     "ColumnAvailableHeader": "Доступен"
-  }
+  },
+  "AdminTabEditAndNewNomenclature": {
+    "HeaderEditNomenclatures": "Ред. товары",
+    "HeaderNewNomenclature": "Новый товар",
+    "AddBandHintText": "Добавить группу",
+    "AddPerformerHintText": "Добавить исполнителя",
+    "AddGenreHintText": "Добавить жанр",
+    "IdHintText": "ID",
+    "CoverPathHintText": "Путь к файлу обложки",
+    "TitleHintText": "Название",
+    "YearHintText": "Год",
+    "BandHintText": "Группа",
+    "PerformerHintText": "Исполнитель",
+    "GenreHintText": "Жанр",
+    "PublisherHintText": "Издатель",
+    "TypeHintText": "Тип",
+    "DurationHintText": "Время",
+    "PriceHintText": "Цена",
+    "TracksHintText": "Треки",
+    "ButtonFindText": "Найти",
+    "ButtonClearText": "Очистить",
+    "ButtonSaveText": "Сохранить",
+    "ButtonSaveChangesText": "Сохранить изменения",
+    "HelperTextInvalidId": "Неверный ID!",
+    "HelperTextEnterId": "Введите ID!"
+  },
+  "AdminTabSuppliers": {
+    "Header": "Поставщики",
+    "ButtonEditSuppliersText": "Ред. поставщиков",
+    "ButtonAddNewSupplierText": "Добавить поставщика",
+    "ChooseSupplierHintText": "Выбрать поставщика",
+    "SupplierHintTextAndHeader": "Поставщик",
+    "ContactInfoHintTextAndHeader": "Контактные данные",
+    "CooperatingHintTextAndHeader": "Сотрудничает",
+    "ButtonSaveText": "Сохранить",
+    "ButtonSaveChangesText": "Сохранить изменения",
+    "ColumnSupplierIdHeader": "ID поставщика"
+  },
+
+  "AdminTabProcurements": {
+    "Header": "Поставки",
+    "ButtonAddNewProcurementText": "Добавить новую поставку",
+    "NomenclatureHintTextAndHeader": "Товар",
+    "SupplierHintTextAndHeader": "Поставщик",
+    "AmountHintTextAndHeader": "Кол-во",
+    "CostPriceHintTextAndHeader": "Зак. цена",
+    "ColumnProcurementIdHeader": "ID поставки",
+    "ColumnDateHeader": "Дата",
+    "ButtonAddText": "Добавить"
+  },
+  "AdminTabPromotions": { "Header": "Акции" },
+  "AdminTabFreezeNomenclature": { "Header": "Отложить товар" },
+  "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
+
 }

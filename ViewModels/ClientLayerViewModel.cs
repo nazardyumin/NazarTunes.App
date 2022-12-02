@@ -1,5 +1,6 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
+using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.ObjectModel;
 
@@ -23,7 +24,7 @@ namespace NazarTunes.ViewModels
             set => SetField(ref _nomenclatures, value);
         }
 
-        public ClientLayerViewModel(Client client)
+        public ClientLayerViewModel(Client client, ref LanguagePack language)
         {
             _db = new();
             User = client;

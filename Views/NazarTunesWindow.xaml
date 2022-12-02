@@ -257,7 +257,7 @@
                             
                             <StackPanel Visibility="Hidden">
                                 <TextBlock x:Name="ID"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="Title"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnTitleHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="Title_"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnTitleHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Band"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnBandHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Performer"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnPerformerHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Tracks"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnTracksHeader, UpdateSourceTrigger=PropertyChanged}"/>
@@ -287,7 +287,7 @@
 
                                         <materialDesign:DataGridTextColumn Binding="{Binding Record.Title}" Width="Auto" IsReadOnly="True">
                                             <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding ElementName=Title, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding ElementName=Title_, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </materialDesign:DataGridTextColumn>
 
@@ -363,19 +363,20 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Edit Nomenclatures">
+                    <TabItem Header="{Binding Language.AdminTabEditAndNewNomenclature.HeaderEditNomenclatures, UpdateSourceTrigger=PropertyChanged}">
                         <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBox Width="70" Margin="0,0,20,0"
                                              Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SelectedId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             materialDesign:HintAssist.Hint="ID"
+                                             materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.IdHintText, UpdateSourceTrigger=PropertyChanged}"
                                              materialDesign:HintAssist.IsFloating="True"
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              Focusable="{Binding CommonViewModel.Admin.TabEditNomenclature.CanChangeId }"/>
-                                <Button Content="Find" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
-                                            Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandFindNomenclature}"/>
+                                <Button Content="{Binding Language.AdminTabEditAndNewNomenclature.ButtonFindText, UpdateSourceTrigger=PropertyChanged}" 
+                                        Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"
+                                        Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandFindNomenclature}"/>
                             </StackPanel>
-                            <TextBlock Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.HelperText}" Style="{StaticResource HelperTextStyle}"
+                            <TextBlock Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.HelperText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HelperTextStyle}"
                                 Margin="0,4,0,0"/>
 
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,15,0,0">
@@ -383,7 +384,7 @@
                                     <Image Source="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.ImagePath, TargetNullValue={x:Null}}"  HorizontalAlignment="Center" Width="300" Height="300"/>
                                     <TextBox Width="370" Margin="0,10,0,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CoverPath, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Cover Path"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.CoverPathHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                 </StackPanel>
@@ -393,12 +394,12 @@
                                         <TextBox Width="430" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         HorizontalAlignment="Left"
-                                        materialDesign:HintAssist.Hint="Title"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TitleHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         <TextBox Width="70"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Year"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.YearHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -406,12 +407,12 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                         <TextBox Width="300" AcceptsReturn="True" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Bands, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Band"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.BandHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         <TextBox Width="200" AcceptsReturn="True"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Performers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Performer"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PerformerHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -419,26 +420,26 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
                                         <TextBox Width="170" AcceptsReturn="True" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Genre"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.GenreHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                         <TextBox Width="163" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Publisher"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PublisherHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                         <TextBox Width="70" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.MediaFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Type"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TypeHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
 
                                         <TextBox Width="87"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.TotalDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Duration"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.DurationHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -446,7 +447,7 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBox Width="70" Margin="0,10,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.SellPrice1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Price"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PriceHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
@@ -458,29 +459,29 @@
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                        <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"
+                                        <Button Content="{Binding Language.AdminTabEditAndNewNomenclature.ButtonClearText, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandClear}"
                                                     IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanClear}"/>
-                                        <Button Content="Save Changes" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"
+                                        <Button Content="{Binding Language.AdminTabEditAndNewNomenclature.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabEditNomenclature.CommandSaveChanges}"
                                                     IsEnabled="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.CanSave}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <TextBox Width="350" AcceptsReturn="True" Margin="5,5,10,0"
                                         Text="{Binding CommonViewModel.Admin.TabEditNomenclature.SelectedNomenclature.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Tracks"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TracksHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                             </StackPanel>
                         </StackPanel>
                     </TabItem>
 
-                    <TabItem Header="New Nomenclature">
+                    <TabItem Header="{Binding Language.AdminTabEditAndNewNomenclature.HeaderNewNomenclature, UpdateSourceTrigger=PropertyChanged}">
                         <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
 
                             <StackPanel Orientation="Horizontal" Margin="5,5,0,20" HorizontalAlignment="Center">
 
                                 <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.BandsFromDb, UpdateSourceTrigger=PropertyChanged}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedBand}"
-                                                       materialDesign:HintAssist.Hint="Add Band"
+                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.AddBandHintText, UpdateSourceTrigger=PropertyChanged}"
                                                        materialDesign:HintAssist.IsFloating="True"                                                    
                                                        Width="220" 
                                                        Margin="0,0,5,0">
@@ -493,7 +494,7 @@
 
                                 <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.PerformersFromDb, UpdateSourceTrigger=PropertyChanged}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedPerformer}"
-                                                       materialDesign:HintAssist.Hint="Add Performer"
+                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.AddPerformerHintText, UpdateSourceTrigger=PropertyChanged}"
                                                        materialDesign:HintAssist.IsFloating="True"                                                    
                                                        Width="170" 
                                                        Margin="0,0,5,0">
@@ -506,9 +507,9 @@
 
                                 <ComboBox ItemsSource="{Binding CommonViewModel.Admin.TabNewNomenclature.GenresFromDb, UpdateSourceTrigger=PropertyChanged}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabNewNomenclature.SelectedGenre}"
-                                                       materialDesign:HintAssist.Hint="Add Genre"
+                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.AddGenreHintText, UpdateSourceTrigger=PropertyChanged}"
                                                        materialDesign:HintAssist.IsFloating="True"                                                    
-                                                       Width="100"
+                                                       Width="120"
                                                        Margin="0,0,5,0">
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="SelectionChanged">
@@ -524,7 +525,7 @@
                                     <Image Source="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.ImagePath, TargetNullValue={x:Null}}" HorizontalAlignment="Center" Width="300" Height="300"/>
                                     <TextBox Width="370" Margin="0,10,0,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CoverPath, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Cover Path"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.CoverPathHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                 </StackPanel>
@@ -534,12 +535,12 @@
                                         <TextBox Width="430" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         HorizontalAlignment="Left"
-                                        materialDesign:HintAssist.Hint="Title"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TitleHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         <TextBox Width="70"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.ReleaseYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Year"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.YearHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -547,12 +548,12 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                         <TextBox Width="300" AcceptsReturn="True" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Bands, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Band"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.BandHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                         <TextBox Width="200" AcceptsReturn="True"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Performers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Performer"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PerformerHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -561,26 +562,26 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
                                         <TextBox Width="170" AcceptsReturn="True" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Genre"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.GenreHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                         <TextBox Width="163" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Publisher"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PublisherHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
                                         <TextBox Width="70" Margin="0,0,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.MediaFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Type"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TypeHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
 
                                         <TextBox Width="87"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.TotalDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Duration"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.DurationHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                                     </StackPanel>
@@ -588,7 +589,7 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBox Width="70" Margin="0,10,5,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.SellPrice1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Price"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.PriceHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
@@ -600,59 +601,62 @@
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                        <Button Content="Clear" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandClear}"
+                                        <Button Content="{Binding Language.AdminTabEditAndNewNomenclature.ButtonClearText, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,2,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandClear}"
                                                     IsEnabled="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CanClear}"/>
-                                        <Button Content="Save" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandSave}"
+                                        <Button Content="{Binding Language.AdminTabEditAndNewNomenclature.ButtonSaveText, UpdateSourceTrigger=PropertyChanged}" Margin="2,0,0,0" Command="{Binding CommonViewModel.Admin.TabNewNomenclature.CommandSave}"
                                                     IsEnabled="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.CanSave}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <TextBox Width="350" AcceptsReturn="True" Margin="5,5,10,0"
                                         Text="{Binding CommonViewModel.Admin.TabNewNomenclature.NewNomenclature.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="Tracks"
+                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabEditAndNewNomenclature.TracksHintText, UpdateSourceTrigger=PropertyChanged}"
                                         materialDesign:HintAssist.IsFloating="True"
                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
                             </StackPanel>
                         </StackPanel>
                     </TabItem>
 
-                    <TabItem Header="Suppliers">
+                    <TabItem Header="{Binding Language.AdminTabSuppliers.Header, UpdateSourceTrigger=PropertyChanged}">
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding CommonViewModel.Admin.TabSuppliers.ButtonPanelHeight}" />
                                 <RowDefinition  Height="*"/>
                             </Grid.RowDefinitions>
+                           
 
                             <StackPanel Grid.Row="0" >
 
                                 <StackPanel Margin="8,10,0,0">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Content="Edit Suppliers"
+                                        <Button Content="{Binding Language.AdminTabSuppliers.ButtonEditSuppliersText, UpdateSourceTrigger=PropertyChanged}"
                                                 Command="{Binding CommonViewModel.Admin.TabSuppliers.CommandOpenCloseEditSuppliers}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
-                                        <Button Content="Add New Supplier" Margin="5,0,0,0"
+                                        <Button Content="{Binding Language.AdminTabSuppliers.ButtonAddNewSupplierText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
                                                 Command="{Binding CommonViewModel.Admin.TabSuppliers.CommandOpenCloseAddSupplier}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                     </StackPanel>
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.SortedSuppliers,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,10,0,0"
-                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.SelectedIndex}">
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.SortedSuppliers,UpdateSourceTrigger=PropertyChanged}" Width="200"
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.SelectedIndex}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabSuppliers.ChooseSupplierHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      materialDesign:HintAssist.IsFloating="True">
                                             </ComboBox>
                                             <TextBox Width="200" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Supplier"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabSuppliers.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
                                             <TextBox Width="350" Margin="5,0,0,0"
                                                       Text="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.TextField2, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Contact Info"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabSuppliers.ContactInfoHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
                                             <CheckBox IsChecked="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.Flag, UpdateSourceTrigger=PropertyChanged}" 
-                                                      Content="Cooperating" Cursor="Hand"/>
+                                                      Content="{Binding Language.AdminTabSuppliers.CooperatingHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"/>
 
-                                            <Button Content="Save Changes" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabSuppliers.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabSuppliers.EditSuppliers.CommandSaveChanges}"/>
 
@@ -664,15 +668,15 @@
 
                                             <TextBox Width="200" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabSuppliers.AddSupplier.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Supplier"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabSuppliers.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
                                             <TextBox Width="350" Margin="5,0,0,0"
                                                       Text="{Binding CommonViewModel.Admin.TabSuppliers.AddSupplier.TextField2, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Contact Info"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabSuppliers.ContactInfoHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
-                                            <Button Content="Save" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabSuppliers.ButtonSaveText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabSuppliers.AddSupplier.CommandSaveChanges}"/>
 
@@ -682,20 +686,53 @@
                                 </StackPanel>
                             </StackPanel>
 
+                            <StackPanel Visibility="Hidden">
+                                <TextBlock x:Name="IdSupplier"  Text="{Binding Language.AdminTabSuppliers.ColumnSupplierIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="SupplierName"  Text="{Binding Language.AdminTabSuppliers.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="SupplierInfo"  Text="{Binding Language.AdminTabSuppliers.ContactInfoHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="Coop"  Text="{Binding Language.AdminTabSuppliers.CooperatingHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            </StackPanel>
+
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
-                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Suppliers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                
+                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Suppliers, UpdateSourceTrigger=PropertyChanged}"
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
-                                              CanUserDeleteRows="False"
-                                              ColumnWidth="Auto">
+                                              CanUserDeleteRows="False">
                                     <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Header="Supplier ID" Binding="{Binding SupplierId}" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Contact Info" Binding="{Binding ContactInfo}"  IsReadOnly="True"/>
-                                        <DataGridCheckBoxColumn Header="Cooperating" Binding="{Binding IsCooperating}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Binding="{Binding SupplierId}" IsReadOnly="True">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference IdSupplier}, Path=Text}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding SupplierName}" IsReadOnly="True">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference SupplierName}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding ContactInfo}"  IsReadOnly="True">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference SupplierInfo}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridCheckBoxColumn Binding="{Binding IsCooperating}" IsReadOnly="True">
+                                            <DataGridCheckBoxColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference Coop}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridCheckBoxColumn.Header>
+                                        </DataGridCheckBoxColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
+                                
+                                
+                                
+                                
+                                
+                                
                             </ScrollViewer>
                         </Grid>
                     </TabItem>
@@ -706,7 +743,7 @@
 
 
 
-                    <TabItem Header="Procurements">
+                    <TabItem Header="{Binding Language.AdminTabProcurements.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
                             <Grid.RowDefinitions>
@@ -719,7 +756,7 @@
                                 <StackPanel Margin="8,10,0,0">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Content="Add New Procurement"
+                                        <Button Content="{Binding Language.AdminTabProcurements.ButtonAddNewProcurementText, UpdateSourceTrigger=PropertyChanged}"
                                                 Command="{Binding CommonViewModel.Admin.TabProcurements.CommandOpenCloseAddProcurement}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                     </StackPanel>
@@ -727,27 +764,27 @@
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.IsVisible}" Margin="0,20,0,20">
 
                                         <StackPanel Orientation="Horizontal" >
-                                            
+
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="0,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.SelectedRecordIndex}"
-                                                      materialDesign:HintAssist.Hint="Nomenclature"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.NomenclatureHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
                                             </ComboBox>
 
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.ActiveSuppliers, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5,10,0,0"
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.SelectedSupplierIndex}"
-                                                      materialDesign:HintAssist.Hint="Supplier"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
                                             </ComboBox>
 
-                                            <TextBox Width="60" Margin="5,12,0,2"
+                                            <TextBox x:Name="ProcurementAmount" Width="60" Margin="5,12,0,2"
                                                      Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Amount, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Amount"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.AmountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
-                                            <TextBox Width="100" Margin="10,0,0,0"
+                                            <TextBox x:Name="ProcurementCostPrice" Width="100" Margin="10,0,0,0"
                                                       Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Price1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="Cost Price"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.CostPriceHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"
                                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
@@ -757,13 +794,22 @@
                                                        Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Price2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                      materialDesign:TextFieldAssist.HasOutlinedTextField="True"/>
 
-                                            <Button Content="Save" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabProcurements.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabProcurements.CommandSave}"/>
 
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+                            </StackPanel>
+                            
+                            <StackPanel Visibility="Hidden">
+
+                                <TextBlock x:Name="ProcurementID"  Text="{Binding Language.AdminTabProcurements.ColumnProcurementIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="ProcurementNomenclature"  Text="{Binding Language.AdminTabProcurements.NomenclatureHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="ProcurementSupplier"  Text="{Binding Language.AdminTabProcurements.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="ProcurementDate"  Text="{Binding Language.AdminTabProcurements.ColumnDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
+
                             </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
@@ -774,30 +820,58 @@
                                               CanUserDeleteRows="False"
                                               ColumnWidth="Auto">
                                     <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Header="Procurement ID" Binding="{Binding ProcurementId}" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Nomenclature" Binding="{Binding RecordInfo}" IsReadOnly="True" />
-                                        <materialDesign:DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}"  IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Amount" Binding="{Binding Amount}"  IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Cost Price" Binding="{Binding CostPrice}"  IsReadOnly="True"/>
-                                        <materialDesign:DataGridTextColumn Header="Date" Binding="{Binding Date}"  IsReadOnly="True"/>
+                                        <DataGridTextColumn Binding="{Binding ProcurementId}" IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementID}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding RecordInfo}" IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementNomenclature}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding SupplierName}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementSupplier}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Amount}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementAmount}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding CostPrice}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementCostPrice}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Date}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference ProcurementDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
                         </Grid>
+                    </TabItem>
 
 
+
+
+
+
+                    <TabItem Header="{Binding Language.AdminTabPromotions.Header, UpdateSourceTrigger=PropertyChanged}">
                     </TabItem>
-                    
-                    
-                    
-                    
-                    
-                    
-                    <TabItem Header="Promotions">
+                    <TabItem Header="{Binding Language.AdminTabFreezeNomenclature.Header, UpdateSourceTrigger=PropertyChanged}">
                     </TabItem>
-                    <TabItem Header="Freeze Nomenclature">
-                    </TabItem>
-                    <TabItem Header="Sales Report">
+                    <TabItem Header="{Binding Language.AdminTabSalesReport.Header, UpdateSourceTrigger=PropertyChanged}">
                     </TabItem>
                 </TabControl>
 

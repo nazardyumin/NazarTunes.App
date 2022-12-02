@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Text.Json;
 
 namespace NazarTunes.ViewModels.LanguagePacks
@@ -59,12 +60,97 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ColumnAvailableHeader { get; set; }
     }
 
+    public struct AdminTabEditAndNewNomenclature
+    {
+        public string HeaderEditNomenclatures { get; set; }
+        public string HeaderNewNomenclature { get; set; }
+        public string AddBandHintText { get; set; }
+        public string AddPerformerHintText { get; set; }
+        public string AddGenreHintText { get; set; }
+        public string IdHintText { get; set; }
+        public string CoverPathHintText { get; set; }
+        public string TitleHintText { get; set; }
+        public string YearHintText { get; set; }
+        public string BandHintText { get; set; }
+        public string PerformerHintText { get; set; }
+        public string GenreHintText { get; set; }
+        public string PublisherHintText { get; set; }
+        public string TypeHintText { get; set; }
+        public string DurationHintText { get; set; }
+        public string PriceHintText { get; set; }
+        public string TracksHintText { get; set; }
+        public string ButtonFindText { get; set; }
+        public string ButtonClearText { get; set; }
+        public string ButtonSaveText { get; set; }
+        public string ButtonSaveChangesText { get; set; }
+        public string HelperTextInvalidId { get; set; }
+        public string HelperTextEnterId { get; set; }
+    }
+
+    public struct AdminTabSuppliers
+    {
+        public string Header { get; set; }
+        public string ButtonEditSuppliersText { get; set; }
+        public string ButtonAddNewSupplierText { get; set; }
+        public string ChooseSupplierHintText { get; set; }
+        public string SupplierHintTextAndHeader { get; set; }
+        public string ContactInfoHintTextAndHeader { get; set; }       
+        public string CooperatingHintTextAndHeader { get; set; }
+        public string ButtonSaveText { get; set; }
+        public string ButtonSaveChangesText { get; set; }
+        public string ColumnSupplierIdHeader { get; set; }      
+    }
+
+    public struct AdminTabProcurements
+    {
+        public string Header { get; set; }
+        public string ButtonAddNewProcurementText { get; set; }
+        public string NomenclatureHintTextAndHeader { get; set; }
+        public string SupplierHintTextAndHeader { get; set; }
+        public string AmountHintTextAndHeader { get; set; }
+        public string CostPriceHintTextAndHeader { get; set; }
+        public string ColumnProcurementIdHeader { get; set; }
+        public string ColumnDateHeader { get; set; }
+        public string ButtonAddText { get; set; }
+    }
+
+    public struct AdminTabPromotions
+    {
+        public string Header { get; set; }
+        
+    }
+
+    public struct AdminTabFreezeNomenclature
+    {
+        public string Header { get; set; }
+
+    }
+
+    public struct AdminTabSalesReport
+    {
+        public string Header { get; set; }
+
+    }
+
 
     public class LanguagePack
     {
         public Authorization Authorization { get; set; }
 
         public AdminTabNomenclatureDb AdminTabNomenclatureDb { get; set; }
+
+        public AdminTabEditAndNewNomenclature AdminTabEditAndNewNomenclature { get; set; }
+
+        public AdminTabSuppliers AdminTabSuppliers { get; set; }
+
+        public AdminTabProcurements AdminTabProcurements { get; set; }
+
+        public AdminTabPromotions AdminTabPromotions { get; set; }
+
+        public AdminTabFreezeNomenclature AdminTabFreezeNomenclature { get; set; }
+
+        public AdminTabSalesReport AdminTabSalesReport { get; set; }
+
 
         public static void CreateJson()
         {
@@ -122,11 +208,82 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ColumnSoldHeader = "Sold",
                     ColumnPriceHeader = "Price",
                     ColumnAvailableHeader = "Available"
+                },
+                AdminTabEditAndNewNomenclature = new AdminTabEditAndNewNomenclature()
+                {
+                    HeaderEditNomenclatures = "Edit Nomenclatures",
+                    HeaderNewNomenclature = "New Nomenclature",
+                    AddBandHintText = "Add Band",
+                    AddPerformerHintText = "Add Performer",
+                    AddGenreHintText = "Add Genre",
+                    IdHintText = "ID",
+                    CoverPathHintText = "Cover Path",
+                    TitleHintText = "Title",
+                    YearHintText = "Year",
+                    BandHintText = "Band",
+                    PerformerHintText = "Performer",
+                    GenreHintText = "Genre",
+                    PublisherHintText = "Publisher",
+                    TypeHintText = "Type",
+                    DurationHintText = "Duration",
+                    PriceHintText = "Price",
+                    TracksHintText = "Tracks",
+                    ButtonFindText = "Find",
+                    ButtonClearText = "Clear",
+                    ButtonSaveText = "Save",
+                    ButtonSaveChangesText = "Save Changes",
+                    HelperTextInvalidId = "Invalid ID!",
+                    HelperTextEnterId = "Enter ID!"
+                },
+                AdminTabSuppliers = new AdminTabSuppliers()
+                {
+                    Header = "Suppliers",
+                    ButtonEditSuppliersText = "Edit Suppliers",
+                    ButtonAddNewSupplierText = "Add New Supplier",
+                    ChooseSupplierHintText = "Choose Supplier",
+                    SupplierHintTextAndHeader = "Supplier",
+                    ContactInfoHintTextAndHeader = "Contact Info",
+                    CooperatingHintTextAndHeader = "Cooperating",
+                    ButtonSaveText = "Save",
+                    ButtonSaveChangesText = "Save Changes",
+                    ColumnSupplierIdHeader = "Supplier ID"
+                },
+                AdminTabProcurements = new AdminTabProcurements()
+                {
+                    Header = "Procurements",
+                    ButtonAddNewProcurementText = "Add New Procurement",
+                    NomenclatureHintTextAndHeader = "Nomenclature",
+                    SupplierHintTextAndHeader = "Supplier",
+                    AmountHintTextAndHeader = "Amount",
+                    CostPriceHintTextAndHeader = "Cost Price",
+                    ColumnProcurementIdHeader = "Procurement ID",
+                    ColumnDateHeader = "Date",
+                    ButtonAddText = "Add"
+                },
+                AdminTabPromotions = new AdminTabPromotions()
+                {
+                    Header = "Promotions"
+                },
+                AdminTabFreezeNomenclature = new AdminTabFreezeNomenclature() 
+                {
+                    Header = "Freeze Nomenclature"
+                },
+                AdminTabSalesReport = new AdminTabSalesReport()
+                {
+                    Header = "Sales Report"
                 }
 
 
 
+
+
+
+
+
+
             };
+
+
 
 
             var file = JsonSerializer.Serialize(langpack);

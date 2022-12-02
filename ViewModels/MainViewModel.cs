@@ -1,7 +1,6 @@
 ﻿using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace NazarTunes.ViewModels
 {
@@ -34,6 +33,7 @@ namespace NazarTunes.ViewModels
                 SetField(ref _selectedLanguage, value);
                 Language = LanguagePack.Load($"{ListLanguages[SelectedLanguage]}");
                 LanguagePack.SaveIndex(_selectedLanguage);
+                Authorization?.RefreshLanguage(ref _language);
             }
         }
 
