@@ -6,6 +6,15 @@
         <Setter Property="Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-    </Style>        
+    </Style>
+    
+    <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+        <Setter Property="Foreground" Value="#FF7BBA2D"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#FF4D751C"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     
 </ResourceDictionary>

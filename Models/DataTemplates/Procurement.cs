@@ -14,9 +14,9 @@ namespace NazarTunes.Models.DataTemplates
         public int Amount { get; set; }
         public double CostPrice { get; set; }
         [Computed]
-        public string? Date 
+        public DateOnly? Date 
         {
-            get => DateOfProcurement.ToString("d"); 
+            get => new DateOnly(DateOfProcurement.Year, DateOfProcurement.Month, DateOfProcurement.Day); 
         }
     }
 }

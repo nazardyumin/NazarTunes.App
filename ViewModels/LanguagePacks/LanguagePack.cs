@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 
 namespace NazarTunes.ViewModels.LanguagePacks
@@ -296,7 +295,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
 
         public static LanguagePack Load(string language)
         {
-            CreateJson();
+            //CreateJson();
             var file = File.ReadAllText($"Language\\{language}.lang");
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }

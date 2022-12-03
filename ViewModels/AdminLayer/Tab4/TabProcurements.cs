@@ -46,7 +46,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab4
         {
             var (recordIndex, supplierIndex, date, amount, price) = AddProcurement!.GetFields();
             var recordId = _refDatabase!.Nomenclatures![recordIndex].Record!.Id;
-            var supplierId = _refDatabase!.SortedSuppliers![supplierIndex].SupplierId;
+            var supplierId = _refDatabase!.ActiveSuppliers![supplierIndex].SupplierId;
             _refDb.AddProcurement(recordId, supplierId, date, amount, price);
             AddProcurement.Clear();
             _refDatabase.RefreshProcurements();

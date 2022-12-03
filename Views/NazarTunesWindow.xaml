@@ -276,7 +276,8 @@
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
-                                              CanUserDeleteRows="False">
+                                              CanUserDeleteRows="False"
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                                     <DataGrid.Columns>
                                         
                                         <materialDesign:DataGridTextColumn Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True">
@@ -700,7 +701,8 @@
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
-                                              CanUserDeleteRows="False">
+                                              CanUserDeleteRows="False"
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding SupplierId}" IsReadOnly="True">
                                             <DataGridTextColumn.Header>
@@ -777,12 +779,12 @@
                                                       materialDesign:HintAssist.IsFloating="True">
                                             </ComboBox>
 
-                                            <TextBox x:Name="ProcurementAmount" Width="60" Margin="5,12,0,2"
+                                            <TextBox  Width="60" Margin="5,12,0,2"
                                                      Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Amount, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.AmountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
-                                            <TextBox x:Name="ProcurementCostPrice" Width="100" Margin="10,0,0,0"
+                                            <TextBox  Width="100" Margin="10,0,0,0"
                                                       Text="{Binding CommonViewModel.Admin.TabProcurements.AddProcurement.Price1, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="{Binding Language.AdminTabProcurements.CostPriceHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"
@@ -808,8 +810,9 @@
                                 <TextBlock x:Name="ProcurementID"  Text="{Binding Language.AdminTabProcurements.ColumnProcurementIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="ProcurementNomenclature"  Text="{Binding Language.AdminTabProcurements.NomenclatureHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="ProcurementSupplier"  Text="{Binding Language.AdminTabProcurements.SupplierHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="ProcurementAmount"  Text="{Binding Language.AdminTabProcurements.AmountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="ProcurementCostPrice"  Text="{Binding Language.AdminTabProcurements.CostPriceHintTextAndHeader , UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="ProcurementDate"  Text="{Binding Language.AdminTabProcurements.ColumnDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
-
                             </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
@@ -818,7 +821,8 @@
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
                                               CanUserDeleteRows="False"
-                                              ColumnWidth="Auto">
+                                              ColumnWidth="Auto"
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding ProcurementId}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
