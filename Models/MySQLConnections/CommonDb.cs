@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
 using NazarTunes.Models.DataTemplates;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -139,7 +140,7 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
-            return (int)returnParameter.Value;
+            return returnParameter.Value is DBNull ? 0 : (int)returnParameter.Value;
         }
 
         private List<Record> GetAllRecords()

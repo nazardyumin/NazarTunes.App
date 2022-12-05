@@ -94,7 +94,33 @@
     "ColumnDateHeader": "Дата",
     "ButtonAddText": "Добавить"
   },
-  "AdminTabPromotions": { "Header": "Акции" },
+  "AdminTabPromotions": {
+    "Header": "Акции",
+    "ButtonAddPromotionByGenreText": "Акция по жанру",
+    "ButtonAddPromotionByRecordText": "Акция по пластинке",
+    "ButtonAddPromotionByBandText": "Акция по группе",
+    "ButtonAddPromotionByPerformerText": "Акция по исполнителю",
+    "ButtonStartPromotionText": "Начать акцию",
+    "ButtonFinishPromotionText": "Завершить акцию",
+    "ButtonAddText": "Добавить",
+    "ChooseGenreHintText": "Выберите жанр",
+    "ChooseRecordHintText": "Выберите пластинку",
+    "ChoosePerformerHintText": "Выберите исполнителя",
+    "ChooseBandHintText": "Выберите группу",
+    "StartPromotionImmediatelyHintText": "Сразу же начать",
+    "ColumnPromotionIdHeader": "ID акции",
+    "ColumnPromotionSubjectHeader": "Суть акции",
+    "DiscountHintTextAndHeader": "Скидка (%)",
+    "ColumnPromotionIsStartedHeader": "Начата",
+    "ColumnPromotionIsFinishedHeader": "Завершена",
+    "ColumnPromotionStartDateHeader": "Дата начала",
+    "ColumnPromotionEndDateHeader": "Дата завершения",
+    "PromoByGenreRowText": "Акция на пластинки жанра: ",
+    "PromoByBandRowText": "Акция на пластинки группы: ",
+    "PromoByPerformerRowText": "Акция на пластинки исполнителя: ",
+    "PromoByRecordRowText": "Акция на пластинку: "
+
+  },
   "AdminTabFreezeNomenclature": { "Header": "Отложить товар" },
   "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
 

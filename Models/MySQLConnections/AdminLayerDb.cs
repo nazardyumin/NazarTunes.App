@@ -392,6 +392,66 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        private List<Promotion> GetPromotionsByGenre()
+        {
+            var sql = $"CALL procedure_get_all_promotions_by_genre();";
+            _db.Open();
+            var list = _db.Query<Promotion>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        private List<Promotion> GetPromotionsByBand()
+        {
+            var sql = $"CALL procedure_get_all_promotions_by_band();";
+            _db.Open();
+            var list = _db.Query<Promotion>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        private List<Promotion> GetPromotionsByPerformer()
+        {
+            var sql = $"CALL procedure_get_all_promotions_by_performer();";
+            _db.Open();
+            var list = _db.Query<Promotion>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        private List<Promotion> GetPromotionsByRecord()
+        {
+            var sql = $"CALL procedure_get_all_promotions_by_record();";
+            _db.Open();
+            var list = _db.Query<Promotion>(sql).ToList();
+            _db.Close();
+            return list;
+        }
+
+        public List<Promotion> GetPromotions()
+        {
+            var list = new List<Promotion>();
+            list.AddRange(GetPromotionsByGenre());
+            list.AddRange(GetPromotionsByBand());
+            list.AddRange(GetPromotionsByPerformer());
+            list.AddRange(GetPromotionsByRecord());
+            return list.OrderBy(p => p.DiscountPromotionId).ToList();
+        }
+
+        public void AddGenrePromo(int genreId, int discount, bool isStarted)
+        {
+            _cmd.CommandText = "procedure_create_new_promotion_by_genre";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_genre", genreId);
+            _cmd.Parameters.AddWithValue("new_discount", discount);
+            _cmd.Parameters.AddWithValue("new_is_started", isStarted);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
 
     }
 }

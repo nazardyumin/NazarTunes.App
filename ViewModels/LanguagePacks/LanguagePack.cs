@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Text.Json;
 
 namespace NazarTunes.ViewModels.LanguagePacks
@@ -116,7 +117,35 @@ namespace NazarTunes.ViewModels.LanguagePacks
     public struct AdminTabPromotions
     {
         public string Header { get; set; }
-        
+        public string ButtonAddPromotionByGenreText{ get; set; }
+        public string ButtonAddPromotionByRecordText { get; set; }
+        public string ButtonAddPromotionByBandText { get; set; }
+        public string ButtonAddPromotionByPerformerText { get; set; }
+        public string ButtonStartPromotionText { get; set; }
+        public string ButtonFinishPromotionText { get; set; }
+
+        public string ButtonAddText { get; set; }
+        public string ChooseGenreHintText { get; set; }
+        public string ChooseRecordHintText { get; set; }
+        public string ChoosePerformerHintText { get; set; }
+        public string ChooseBandHintText { get; set; }
+        public string StartPromotionImmediatelyHintText { get; set; }
+
+
+
+        public string ColumnPromotionIdHeader { get; set; }
+        public string ColumnPromotionSubjectHeader { get; set; }
+        public string DiscountHintTextAndHeader { get; set; }
+        public string ColumnPromotionIsStartedHeader { get; set; }
+        public string ColumnPromotionIsFinishedHeader { get; set; }
+        public string ColumnPromotionStartDateHeader { get; set; }
+        public string ColumnPromotionEndDateHeader { get; set; }
+
+        public string PromoByGenreRowText { get; set; }
+        public string PromoByBandRowText { get; set; }
+        public string PromoByPerformerRowText { get; set; }
+        public string PromoByRecordRowText { get; set; }
+
     }
 
     public struct AdminTabFreezeNomenclature
@@ -261,7 +290,36 @@ namespace NazarTunes.ViewModels.LanguagePacks
                 },
                 AdminTabPromotions = new AdminTabPromotions()
                 {
-                    Header = "Promotions"
+                    Header = "Promotions",
+                    ButtonAddPromotionByGenreText = "Add Genre Promo",
+                    ButtonAddPromotionByRecordText = "Add Record Promo",
+                    ButtonAddPromotionByBandText = "Add Band Promo",
+                    ButtonAddPromotionByPerformerText = "Add Performer Promo",
+                    ButtonStartPromotionText = "Start Promotion",
+                    ButtonFinishPromotionText = "Finish Promotion",
+
+
+                    ButtonAddText = "Add",
+                    ChooseGenreHintText = "Choose Genre",
+                    ChooseRecordHintText = "Choose Record",
+                    ChoosePerformerHintText = "Choose Performer",
+                    ChooseBandHintText = "Choose Band",
+                    StartPromotionImmediatelyHintText = "Start Immediately",
+
+
+
+                    ColumnPromotionIdHeader = "Promotion ID",
+                    ColumnPromotionSubjectHeader = "Promotion Subject",
+                    DiscountHintTextAndHeader = "Discount (%)",
+                    ColumnPromotionIsStartedHeader = "Started",
+                    ColumnPromotionIsFinishedHeader = "Finished",
+                    ColumnPromotionStartDateHeader = "Start Date",
+                    ColumnPromotionEndDateHeader = "End Date",
+                    PromoByGenreRowText = "Promotion for genre: ",
+                    PromoByBandRowText = "Promotion for band: ",
+                    PromoByPerformerRowText = "Promotion for performer: ",
+                    PromoByRecordRowText = "Promotion for record: "
+
                 },
                 AdminTabFreezeNomenclature = new AdminTabFreezeNomenclature() 
                 {
@@ -295,7 +353,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
 
         public static LanguagePack Load(string language)
         {
-            //CreateJson();
+            CreateJson();
             var file = File.ReadAllText($"Language\\{language}.lang");
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }
@@ -308,6 +366,17 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public static int GetIndex()
         {
             return int.Parse(File.ReadAllText(@"Language\config"));
+        }
+
+        public static (string promoByGenre, string promoByBand, string promoByPerformer, string promoByRecord) GetPromotionSubjects()
+        {
+            var index = int.Parse(File.ReadAllText(@"Language\config"));
+            LanguagePack lang;
+            if (index == 0)
+                lang = Load("EN");
+            else lang = Load("RU");
+
+            return (lang.AdminTabPromotions.PromoByGenreRowText, lang.AdminTabPromotions.PromoByBandRowText, lang.AdminTabPromotions.PromoByPerformerRowText, lang.AdminTabPromotions.PromoByRecordRowText);
         }
 
     }

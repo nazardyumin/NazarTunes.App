@@ -5,6 +5,7 @@ using NazarTunes.ViewModels.AdminLayer.Tab1;
 using NazarTunes.ViewModels.AdminLayer.Tab2;
 using NazarTunes.ViewModels.AdminLayer.Tab3;
 using NazarTunes.ViewModels.AdminLayer.Tab4;
+using NazarTunes.ViewModels.AdminLayer.Tab5;
 using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 
@@ -63,6 +64,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _tabProcurements, value);
         }
 
+        private TabPromotions? _tabPromotions;
+        public TabPromotions? TabPromotions
+        {
+            get => _tabPromotions;
+            set => SetField(ref _tabPromotions, value);
+        }
+
         public int SelectedTab { get; set; }
 
         public AdminLayerViewModel(Admin admin, ref LanguagePack language)
@@ -78,12 +86,14 @@ namespace NazarTunes.ViewModels.AdminLayer
             TabNewNomenclature = new(ref _db, ref _database!);
             TabSuppliers = new(ref _db, ref _database!);
             TabProcurements = new(ref _db, ref _database!);
+            TabPromotions = new(ref _db, ref _database!);
 
         }
 
         public void RefreshLanguage(ref LanguagePack language)
         {
             TabEditNomenclature!.RefreshLanguage(ref language);
+            Database!.RefreshPromotions();
         }
     }
 }

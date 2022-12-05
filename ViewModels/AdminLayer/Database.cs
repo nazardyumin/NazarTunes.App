@@ -1,5 +1,6 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
+using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,18 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _nomenclatures, value);
         }
 
-        private List<Band>? _band;
+        private List<Band>? _bands;
         public List<Band>? Bands
         {
-            get => _band;
-            set => SetField(ref _band, value);
+            get => _bands;
+            set => SetField(ref _bands, value);
         }
 
-        private List<Genre>? _genre;
+        private List<Genre>? _genres;
         public List<Genre>? Genres
         {
-            get => _genre;
-            set => SetField(ref _genre, value);
+            get => _genres;
+            set => SetField(ref _genres, value);
         }
 
         private List<Performer>? _performers;
@@ -66,6 +67,27 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _procurements, value);
         }
 
+        private List<Promotion>? _promotions;
+        public List<Promotion>? Promotions
+        {
+            get => _promotions;
+            set => SetField(ref _promotions, value);
+        }
+
+        private List<Promotion>? _promotionsAwaitingToStart;
+        public List<Promotion>? PromotionsAwaitingToStart
+        {
+            get => _promotionsAwaitingToStart;
+            set => SetField(ref _promotionsAwaitingToStart, value);
+        }
+
+        private List<Promotion>? _promotionsAwaitingToFinish;
+        public List<Promotion>? PromotionsAwaitingToFinish
+        {
+            get => _promotionsAwaitingToFinish;
+            set => SetField(ref _promotionsAwaitingToFinish, value);
+        }
+
         public Database(ref AdminLayerDb db)
         {
             _refDb = db;
@@ -77,7 +99,11 @@ namespace NazarTunes.ViewModels.AdminLayer
             SortedSuppliers = new List<Supplier>(Suppliers!.OrderBy(b => b.SupplierName).ToList());
             ActiveSuppliers = SortedSuppliers!.Where(s => s.IsCooperating).ToList();
             Procurements = new List<Procurement>(_refDb.GetAllProcurements());
-            AddRecordInfoToProcurementAndGetListRecords();       
+            AddRecordInfoToProcurement();
+            Promotions = _refDb.GetPromotions();
+            AddRecordInfoToPromotions();
+            PromotionsAwaitingToStart = Promotions.Where(p => !p.IsStarted && !p.IsFinished).ToList();
+            PromotionsAwaitingToFinish = Promotions.Where(p => p.IsStarted && !p.IsFinished).ToList();
         }
 
         public void RefreshNomenclaturesAndLists()
@@ -87,6 +113,7 @@ namespace NazarTunes.ViewModels.AdminLayer
             Genres = new List<Genre>(_refDb.GetAllGenres());
             Performers = new List<Performer>(_refDb.GetAllPerformers());
         }
+
         public void RefreshNomenclaturesOnly()
         {
             Nomenclatures = new List<Nomenclature>(_refDb.GetAllNomenclatures());
@@ -99,17 +126,38 @@ namespace NazarTunes.ViewModels.AdminLayer
             ActiveSuppliers = SortedSuppliers!.Where(s => s.IsCooperating).ToList();
         }
 
-        private void AddRecordInfoToProcurementAndGetListRecords()
+        private void AddRecordInfoToProcurement()
         {
             foreach (var proc in Procurements!)
             {
                 proc.RecordInfo = Nomenclatures!.Find((n) => n.Record!.Id == proc.RecordId)!.Record!.ToString();
             }
         }
+
         public void RefreshProcurements()
         {
             Procurements = new List<Procurement>(_refDb.GetAllProcurements());
-            AddRecordInfoToProcurementAndGetListRecords();
+            AddRecordInfoToProcurement();
+        }
+
+        public void RefreshPromotions()
+        {
+            Promotions = _refDb.GetPromotions();
+            AddRecordInfoToPromotions();
+            PromotionsAwaitingToStart = Promotions.Where(p => !p.IsStarted && !p.IsFinished).ToList();
+            PromotionsAwaitingToFinish = Promotions.Where(p => p.IsStarted && !p.IsFinished).ToList();
+        }
+
+        private void AddRecordInfoToPromotions()
+        {
+            foreach (var promo in Promotions!)
+            {
+                if (promo.RecordId is not null)
+                {
+                    var nomenclature = Nomenclatures!.First(n => n.Record!.Id == promo.RecordId);
+                    promo.RecordInfo = nomenclature.Record!.ToString();
+                }
+            }
         }
     }
 }
