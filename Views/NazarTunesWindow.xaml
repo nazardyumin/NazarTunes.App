@@ -880,19 +880,19 @@
                                                 Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseAddGenrePromo}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                         <Button Content="{Binding Language.AdminTabPromotions.ButtonAddPromotionByBandText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
-                                                Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditBands}"
+                                                Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseAddBandPromo}" 
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                         <Button Content="{Binding Language.AdminTabPromotions.ButtonAddPromotionByPerformerText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
-                                                Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditGenres}"
+                                                Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseAddPerformerPromo}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                         <Button Content="{Binding Language.AdminTabPromotions.ButtonAddPromotionByRecordText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
-                                                Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditGenres}"
+                                                Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseAddRecordPromo}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                         <Button Content="{Binding Language.AdminTabPromotions.ButtonStartPromotionText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
-                                                Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditGenres}"
+                                                Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseStartPromo}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                         <Button Content="{Binding Language.AdminTabPromotions.ButtonFinishPromotionText, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"
-                                                Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenCloseEditGenres}"
+                                                Command="{Binding CommonViewModel.Admin.TabPromotions.CommandOpenCloseFinishPromo}"
                                                 Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
                                     </StackPanel>
 
@@ -920,48 +920,132 @@
 
                                         </StackPanel>
                                     </StackPanel>
+                                    
 
-                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.IsVisible}" Margin="0,20,0,20">
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
                                             <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Bands}" Width="200" 
-                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.SelectedIndex}"
-                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.ChooseBandHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.SelectedIndex}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.SelectedBand}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChooseBandHintText, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
 
                                             </ComboBox>
 
-                                            <TextBox Width="205" Margin="5,0,0,0"
-                                                     Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.BandNameHintText, UpdateSourceTrigger=PropertyChanged}"
+                                            <TextBox Width="80" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.Discount, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.DiscountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
+                                            <CheckBox Width="130" Margin="5,0,0,0"
+                                                     IsChecked="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.StartPromo, UpdateSourceTrigger=PropertyChanged}"
+                                                     Content="{Binding Language.AdminTabPromotions.StartPromotionImmediatelyHintText, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                            <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                                                    Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.CommandSaveChanges}"/>
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.CommandAdd}"/>
+
 
                                         </StackPanel>
                                     </StackPanel>
 
-                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.IsVisible}" Margin="0,20,0,20">
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Genres}" Width="200" 
-                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.SelectedIndex}"
-                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.ChooseGenreHintText, UpdateSourceTrigger=PropertyChanged}"
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Performers}" Width="200" 
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.SelectedIndex}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.SelectedPerformer}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePerformerHintText, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
+
                                             </ComboBox>
-                                            <TextBox Width="120" Margin="5,0,0,0"
-                                                     Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.TextField1, UpdateSourceTrigger=PropertyChanged}"
-                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.GenreNameHintText, UpdateSourceTrigger=PropertyChanged}"
+
+                                            <TextBox Width="80" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.Discount, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.DiscountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
 
+                                            <CheckBox Width="130" Margin="5,0,0,0"
+                                                     IsChecked="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.StartPromo, UpdateSourceTrigger=PropertyChanged}"
+                                                     Content="{Binding Language.AdminTabPromotions.StartPromotionImmediatelyHintText, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                            <Button Content="{Binding Language.AdminTabNomenclatureDb.ButtonSaveChangesText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                                                    Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditGenres.CommandSaveChanges}"/>
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.AddPerformerPromo.CommandAdd}"/>
+
 
                                         </StackPanel>
                                     </StackPanel>
+
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.IsVisible}" Margin="0,20,0,20">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures}" Width="350" 
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.SelectedIndex}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.SelectedNomenclature}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChooseRecordHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      materialDesign:HintAssist.IsFloating="True">
+
+                                            </ComboBox>
+
+                                            <TextBox Width="80" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.Discount, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.DiscountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                            <CheckBox Width="130" Margin="5,0,0,0"
+                                                     IsChecked="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.StartPromo, UpdateSourceTrigger=PropertyChanged}"
+                                                     Content="{Binding Language.AdminTabPromotions.StartPromotionImmediatelyHintText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.CommandAdd}"/>
+
+
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.IsVisible}" Margin="0,20,0,20">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToStart}" Width="350" 
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedIndex}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedPromotion}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      materialDesign:HintAssist.IsFloating="True">
+
+                                            </ComboBox>
+
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonStartText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.CommandStartOrFinish}"/>
+
+
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.IsVisible}" Margin="0,20,0,20">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToFinish}" Width="380" 
+                                                      SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedIndex}"
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedPromotion}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      materialDesign:HintAssist.IsFloating="True">
+
+                                            </ComboBox>
+
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonFinishText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.CommandStartOrFinish}"/>
+
+
+                                        </StackPanel>
+                                    </StackPanel>
+
+
+
+
+
+
+
+
                                 </StackPanel>
                                
                             </StackPanel>
@@ -1010,17 +1094,17 @@
                                             </DataGridCheckBoxColumn.Header>
                                         </DataGridCheckBoxColumn>
 
-                                        <DataGridCheckBoxColumn Binding="{Binding IsFinished}"  IsReadOnly="True" >
-                                            <DataGridCheckBoxColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsFinished}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </DataGridCheckBoxColumn.Header>
-                                        </DataGridCheckBoxColumn>
-
                                         <DataGridTextColumn Binding="{Binding DateStart}"  IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
                                                 <TextBlock Text="{Binding Source={x:Reference PromotionStartDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
+
+                                        <DataGridCheckBoxColumn Binding="{Binding IsFinished}"  IsReadOnly="True" >
+                                            <DataGridCheckBoxColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsFinished}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridCheckBoxColumn.Header>
+                                        </DataGridCheckBoxColumn>
 
                                         <DataGridTextColumn Binding="{Binding DateEnd}"  IsReadOnly="True" >
                                             <DataGridTextColumn.Header>

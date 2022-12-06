@@ -120,7 +120,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
             SelectedIndex = -1;
             Discount = string.Empty;
             StartPromo = false;
-            IsVisible = Visibility.Collapsed;
         }
     }
 }

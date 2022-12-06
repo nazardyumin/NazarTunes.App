@@ -46,7 +46,7 @@ namespace NazarTunes.Models.MySQLConnections
             _cmd.CommandType = CommandType.StoredProcedure;
             _cmd.Parameters.Clear();
 
-            _cmd.Parameters.AddWithValue("id", id);
+            _cmd.Parameters.AddWithValue("id_performer", id);
             _cmd.Parameters.AddWithValue("new_first_name", newFirstName);
             _cmd.Parameters.AddWithValue("new_last_name", newLastName);
 

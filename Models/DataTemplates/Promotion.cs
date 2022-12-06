@@ -50,5 +50,17 @@ namespace NazarTunes.Models.DataTemplates
                 return EndDate == date ? null : new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
             }
         }
+
+        public override string ToString()
+        {
+            if (IsStarted)
+            {
+                return $"(ID {DiscountPromotionId}) {PromotionSubject}  -{Discount}%  ({DateStart})";
+            }
+            else
+            {
+                return $"(ID {DiscountPromotionId}) {PromotionSubject}  -{Discount}%";
+            }
+        }
     }
 }

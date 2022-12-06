@@ -1,5 +1,6 @@
 ﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
+using System.Windows;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab5
 {
@@ -17,14 +18,17 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
         public override void Hide()
         {
             Clear();
+            IsVisible = Visibility.Collapsed;
             SelectedGenre = null;
         }
 
         protected override void AddFunction()
         {
             _refDb.AddGenrePromo(SelectedGenre!.GenreId, int.Parse(Discount!), StartPromo);
+            Clear();
+            SelectedGenre = null;
             _refDatabase.RefreshPromotions();
-            _refDatabase.RefreshNomenclaturesOnly();
+            _refDatabase.RefreshNomenclaturesOnly(); 
         }
     }
 }

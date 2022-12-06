@@ -131,7 +131,9 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ChooseBandHintText { get; set; }
         public string StartPromotionImmediatelyHintText { get; set; }
 
-
+        public string ChoosePromotionHintText { get; set; }
+        public string ButtonStartText { get; set; }
+        public string ButtonFinishText { get; set; }
 
         public string ColumnPromotionIdHeader { get; set; }
         public string ColumnPromotionSubjectHeader { get; set; }
@@ -145,7 +147,6 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string PromoByBandRowText { get; set; }
         public string PromoByPerformerRowText { get; set; }
         public string PromoByRecordRowText { get; set; }
-
     }
 
     public struct AdminTabFreezeNomenclature
@@ -305,6 +306,12 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ChoosePerformerHintText = "Choose Performer",
                     ChooseBandHintText = "Choose Band",
                     StartPromotionImmediatelyHintText = "Start Immediately",
+
+
+
+                    ChoosePromotionHintText = "Choose Promotion",
+                    ButtonStartText = "Start",
+                    ButtonFinishText = "Finish",
 
 
 
