@@ -24,7 +24,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
 
         protected override void AddFunction()
         {
-            //_refDb.AddRecordPromo(SelectedNomenclature!.NomenclatureId, int.Parse(Discount!), StartPromo);
+            _refDb.AddRecordPromo(SelectedNomenclature!.NomenclatureId, int.Parse(Discount!), StartPromo);
             Clear();
             SelectedNomenclature = null;
             _refDatabase.RefreshPromotions();

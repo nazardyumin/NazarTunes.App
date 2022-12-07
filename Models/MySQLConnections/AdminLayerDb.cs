@@ -453,5 +453,76 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public void AddBandPromo(int bandId, int discount, bool isStarted)
+        {
+            _cmd.CommandText = "procedure_create_new_promotion_by_band";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_band", bandId);
+            _cmd.Parameters.AddWithValue("new_discount", discount);
+            _cmd.Parameters.AddWithValue("new_is_started", isStarted);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void AddPerformerPromo(int performerId, int discount, bool isStarted)
+        {
+            _cmd.CommandText = "procedure_create_new_promotion_by_performer";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_performer", performerId);
+            _cmd.Parameters.AddWithValue("new_discount", discount);
+            _cmd.Parameters.AddWithValue("new_is_started", isStarted);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void AddRecordPromo(int recordId, int discount, bool isStarted)
+        {
+            _cmd.CommandText = "procedure_create_new_promotion_by_record";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_record", recordId);
+            _cmd.Parameters.AddWithValue("new_discount", discount);
+            _cmd.Parameters.AddWithValue("new_is_started", isStarted);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void StartPromotion(int promoId)
+        {
+            _cmd.CommandText = "procedure_start_promotion";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("promotion_id", promoId);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
+        public void FinishPromotion(int promoId)
+        {
+            _cmd.CommandText = "procedure_finish_promotion";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("promotion_id", promoId);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
     }
 }

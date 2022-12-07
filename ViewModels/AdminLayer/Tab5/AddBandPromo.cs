@@ -24,7 +24,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
 
         protected override void AddFunction()
         {
-            //_refDb.AddBandPromo(SelectedBand!.BandId, int.Parse(Discount!), StartPromo);
+            _refDb.AddBandPromo(SelectedBand!.BandId, int.Parse(Discount!), StartPromo);
             Clear();
             SelectedBand = null;
             _refDatabase.RefreshPromotions();

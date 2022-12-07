@@ -100,13 +100,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
 
         private void StartOrFinishFunction()
         {
-            if (_key)  //if true start promo
+            if (_key)
             {
-                
+                _refDb.StartPromotion(SelectedPromotion!.DiscountPromotionId);
             }
-            else // else finish promo
+            else
             {
-
+                _refDb.FinishPromotion(SelectedPromotion!.DiscountPromotionId);
             }
 
             SelectedIndex = -1;

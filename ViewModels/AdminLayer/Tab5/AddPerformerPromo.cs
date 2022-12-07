@@ -24,7 +24,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
 
         protected override void AddFunction()
         {
-            //_refDb.AddPerformerPromo(SelectedPerformer!.PerformerId, int.Parse(Discount!), StartPromo);
+            _refDb.AddPerformerPromo(SelectedPerformer!.PerformerId, int.Parse(Discount!), StartPromo);
             Clear();
             SelectedPerformer = null;
             _refDatabase.RefreshPromotions();

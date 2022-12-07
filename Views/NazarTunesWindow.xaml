@@ -1005,7 +1005,7 @@
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToStart}" Width="350" 
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToStart}" Width="500" 
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedIndex}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedPromotion}"
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"
@@ -1023,7 +1023,7 @@
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToFinish}" Width="380" 
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToFinish}" Width="500" 
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedIndex}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedPromotion}"
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"
