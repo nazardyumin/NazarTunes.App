@@ -267,6 +267,7 @@
                                 <TextBlock x:Name="Year"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnYearHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Amount"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnAmountHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Sold"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnSoldHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="Frozen"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnFrozenHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Price"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnPriceHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Available"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnAvailableHeader, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
@@ -337,6 +338,12 @@
                                         <materialDesign:DataGridTextColumn Binding="{Binding TotalAmount}" Width="Auto" IsReadOnly="True">
                                             <DataGridTextColumn.Header>
                                                 <TextBlock Text="{Binding ElementName=Amount, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </materialDesign:DataGridTextColumn>
+
+                                        <materialDesign:DataGridTextColumn Binding="{Binding TotalItemsFrozen}" Width="Auto" IsReadOnly="True">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding ElementName=Frozen, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </materialDesign:DataGridTextColumn>
 
@@ -1005,7 +1012,7 @@
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToStart}" Width="500" 
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToStart}" Width="700" 
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedIndex}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.StartPromo.SelectedPromotion}"
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"
@@ -1023,7 +1030,7 @@
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToFinish}" Width="500" 
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.PromotionsAwaitingToFinish}" Width="700" 
                                                       SelectedIndex="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedIndex}"
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabPromotions.FinishPromo.SelectedPromotion}"
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabPromotions.ChoosePromotionHintText, UpdateSourceTrigger=PropertyChanged}"

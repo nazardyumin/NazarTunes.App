@@ -41,6 +41,7 @@
     "ColumnPublisherHeader": "Издатель",
     "ColumnYearHeader": "Год",
     "ColumnAmountHeader": "Кол-во",
+    "ColumnFrozenHeader": "Отложено",
     "ColumnSoldHeader": "Продано",
     "ColumnPriceHeader": "Цена",
     "ColumnAvailableHeader": "Доступен"

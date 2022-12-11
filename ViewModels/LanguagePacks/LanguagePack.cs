@@ -55,7 +55,8 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ColumnPublisherHeader { get; set; }
         public string ColumnYearHeader { get; set; }
         public string ColumnAmountHeader { get; set; }
-        public string ColumnSoldHeader { get; set; }
+        public string ColumnFrozenHeader { get; set; }
+        public string ColumnSoldHeader { get; set; }     
         public string ColumnPriceHeader { get; set; }
         public string ColumnAvailableHeader { get; set; }
     }
@@ -234,6 +235,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ColumnPublisherHeader = "Publisher",
                     ColumnYearHeader = "Year",
                     ColumnAmountHeader = "Amount",
+                    ColumnFrozenHeader = "Frozen",
                     ColumnSoldHeader = "Sold",
                     ColumnPriceHeader = "Price",
                     ColumnAvailableHeader = "Available"

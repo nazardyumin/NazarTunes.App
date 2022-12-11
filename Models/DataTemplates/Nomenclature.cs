@@ -10,6 +10,7 @@ namespace NazarTunes.Models.DataTemplates
         public int TotalAmount { get; set; }
         public double SellPrice { get; set; }
         public int TotalItemsSold { get; set; }
+        public int TotalItemsFrozen { get; set; }
         public bool IsAvailable { get; set; }
 
         public override string ToString()

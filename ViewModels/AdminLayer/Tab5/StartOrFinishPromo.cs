@@ -11,6 +11,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
         private readonly AdminLayerDb _refDb;
         private readonly Database _refDatabase;
 
+        private readonly bool _key;
+
         private int _selectedIndex;
         public int SelectedIndex
         {
@@ -40,8 +42,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
         }
 
         public MyCommand? CommandStartOrFinish { get; }
-
-        private readonly bool _key;
 
         public StartOrFinishPromo(ref AdminLayerDb db, ref Database database, bool key)
         {
@@ -114,6 +114,5 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab5
             _refDatabase.RefreshPromotions();
             _refDatabase.RefreshNomenclaturesOnly();
         }
-
     }
 }

@@ -7,5 +7,6 @@
         public double TotalAmountSpent { get; set; }
         public int PersonalDiscount { get; set; }
         public bool IsSubscribed { get; set; }
+        public bool HasFrozenItems { get; set; }
     }
 }
