@@ -746,6 +746,7 @@
                         </Grid>
                     </TabItem>
 
+                    
                     <TabItem Header="{Binding Language.AdminTabProcurements.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
@@ -865,13 +866,10 @@
                                 </DataGrid>
                             </ScrollViewer>
                         </Grid>
+                        
                     </TabItem>
 
-
-
-
-
-
+                    
                     <TabItem Header="{Binding Language.AdminTabPromotions.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
@@ -1124,18 +1122,161 @@
                             </ScrollViewer>
                         </Grid>
 
-
-
                     </TabItem>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                   
+                                        
                     <TabItem Header="{Binding Language.AdminTabFreezeNomenclature.Header, UpdateSourceTrigger=PropertyChanged}">
+
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{Binding CommonViewModel.Admin.TabFreezeNomenclature.ButtonPanelHeight}" />
+                                <RowDefinition  Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" >
+                                <StackPanel Margin="8,10,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="{Binding Language.AdminTabFreezeNomenclature.Header, UpdateSourceTrigger=PropertyChanged}"
+                                                Command="{Binding CommonViewModel.Admin.TabFreezeNomenclature.CommandOpenCloseFreezeNomenclature}"
+                                                Style="{StaticResource MaterialDesignFlatDarkBgButton}" Cursor="Hand"/>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.IsVisible}" Margin="0,20,0,20">
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                            <TextBox Width="90" Margin="0,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.ClientId, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.ClientIdHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                            <TextBox Width="170" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.ClientsPhone, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.ClientsPhoneHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                            <TextBox Width="200" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.ClientsEmail, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.ClientsEmailHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+                                            <StackPanel Margin="15,0,0,0" Width="90">
+                                                <Button Content="{Binding Language.AdminTabFreezeNomenclature.ButtonFindText, UpdateSourceTrigger=PropertyChanged}"  Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.CommandFindClient}"/>
+                                                <TextBlock Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.HelperTextSearchClient, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HelperTextStyle}"
+                                                           Margin="0,2,0,0"/>
+                                            </StackPanel>
+
+                                            <TextBlock Width="170" Margin="15,0,0,0" Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.ClientsFullName, UpdateSourceTrigger=PropertyChanged}"
+                                                       VerticalAlignment="Center" Foreground="#FF7BBA2D"
+                                                       FontSize="16"/>
+
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" >
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures}" Width="350" 
+                                                      SelectedItem="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.SelectedNomenclature}"
+                                                      materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.ChooseNomenclatureHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                      materialDesign:HintAssist.IsFloating="True">
+
+                                            </ComboBox>
+
+                                            <TextBox Width="80" Margin="5,0,0,0"
+                                                     Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.Amount, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.AmountHintText, UpdateSourceTrigger=PropertyChanged}"
+                                                        materialDesign:HintAssist.IsFloating="True"/>
+
+                                            <CheckBox Width="130" Margin="5,0,0,0"
+                                                     IsChecked="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.StartPromo, UpdateSourceTrigger=PropertyChanged}"
+                                                     Content="{Binding Language.AdminTabPromotions.StartPromotionImmediatelyHintText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                                    Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.CommandAdd}"/>
+
+
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <!--<StackPanel Visibility="Hidden">
+
+                                <TextBlock x:Name="PromotionID"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionSubject"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionSubjectHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionDiscount"  Text="{Binding Language.AdminTabPromotions.DiscountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionIsStarted"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIsStartedHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionIsFinished"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIsFinishedHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionStartDate"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionStartDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="PromotionEndDate"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionEndDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>-->
+
+                            <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
+                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Promotions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              HorizontalAlignment="Left"
+                                              AutoGenerateColumns="False" 
+                                              CanUserAddRows="False" 
+                                              CanUserDeleteRows="False"
+                                              ColumnWidth="Auto"
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding DiscountPromotionId}" IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionID}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding PromotionSubject}" IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionSubject}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Discount}" IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionDiscount}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridCheckBoxColumn Binding="{Binding IsStarted}"  IsReadOnly="True" >
+                                            <DataGridCheckBoxColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsStarted}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridCheckBoxColumn.Header>
+                                        </DataGridCheckBoxColumn>
+
+                                        <DataGridTextColumn Binding="{Binding DateStart}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionStartDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridCheckBoxColumn Binding="{Binding IsFinished}"  IsReadOnly="True" >
+                                            <DataGridCheckBoxColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsFinished}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridCheckBoxColumn.Header>
+                                        </DataGridCheckBoxColumn>
+
+                                        <DataGridTextColumn Binding="{Binding DateEnd}"  IsReadOnly="True" >
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="{Binding Source={x:Reference PromotionEndDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+                        </Grid>
+
                     </TabItem>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <TabItem Header="{Binding Language.AdminTabSalesReport.Header, UpdateSourceTrigger=PropertyChanged}">
                     </TabItem>
                 </TabControl>

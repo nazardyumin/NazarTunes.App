@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 
 namespace NazarTunes.ViewModels.LanguagePacks
@@ -153,6 +152,16 @@ namespace NazarTunes.ViewModels.LanguagePacks
     public struct AdminTabFreezeNomenclature
     {
         public string Header { get; set; }
+
+        public string ClientIdHintText { get; set; }
+        public string ClientsPhoneHintText { get; set; }
+        public string ClientsEmailHintText { get; set; }
+        public string ChooseNomenclatureHintText { get; set; }
+        public string AmountHintText { get; set; }
+        public string ButtonFindText { get; set; }
+        public string HelperTextClientsNotFound { get; set; }
+
+
 
     }
 
@@ -332,7 +341,14 @@ namespace NazarTunes.ViewModels.LanguagePacks
                 },
                 AdminTabFreezeNomenclature = new AdminTabFreezeNomenclature() 
                 {
-                    Header = "Freeze Nomenclature"
+                    Header = "Freeze Nomenclature",
+                    ChooseNomenclatureHintText = "Choose Nomenclature",
+                    AmountHintText = "Amount",
+                    ClientIdHintText = "Client ID",
+                    ClientsPhoneHintText = "Phone Number",
+                    ClientsEmailHintText = "Email",
+                    ButtonFindText = "Find",
+                    HelperTextClientsNotFound = "Client's not found!"
                 },
                 AdminTabSalesReport = new AdminTabSalesReport()
                 {
@@ -386,6 +402,17 @@ namespace NazarTunes.ViewModels.LanguagePacks
             else lang = Load("RU");
 
             return (lang.AdminTabPromotions.PromoByGenreRowText, lang.AdminTabPromotions.PromoByBandRowText, lang.AdminTabPromotions.PromoByPerformerRowText, lang.AdminTabPromotions.PromoByRecordRowText);
+        }
+
+        public static string GetClientsNotFoundHelperText()
+        {
+            var index = int.Parse(File.ReadAllText(@"Language\config"));
+            LanguagePack lang;
+            if (index == 0)
+                lang = Load("EN");
+            else lang = Load("RU");
+
+            return lang.AdminTabFreezeNomenclature.HelperTextClientsNotFound;
         }
 
     }

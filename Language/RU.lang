@@ -125,7 +125,16 @@
     "PromoByRecordRowText": "Акция на пластинку: "
 
   },
-  "AdminTabFreezeNomenclature": { "Header": "Отложить товар" },
+  "AdminTabFreezeNomenclature": {
+    "Header": "Отложить товар",
+    "ClientIdHintText": "ID клиента",
+    "ClientsPhoneHintText": "Номер телефона клиента",
+    "ClientsEmailHintText": "Email клиента",
+    "ChooseNomenclatureHintText": "Выберите товар",
+    "AmountHintText": "Кол-во",
+    "ButtonFindText": "Найти",
+    "HelperTextClientsNotFound": "Клиент не найден!"
+  },
   "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
 
 }

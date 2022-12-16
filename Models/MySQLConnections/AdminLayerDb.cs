@@ -524,5 +524,46 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public bool CheckIfClientExists(int idClient, string clientsPhone, string clientsEmail)
+        {
+            _cmd.CommandText = "function_check_if_client_exists";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_client", idClient);
+            _cmd.Parameters.AddWithValue("clients_phone", clientsPhone);
+            _cmd.Parameters.AddWithValue("clients_email", clientsEmail);
+
+            var exists = _cmd.Parameters.Add("@ReturnVal", MySqlDbType.Int32);
+            exists.Direction = ParameterDirection.ReturnValue;
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+            return (int)exists.Value == 1;
+        }
+
+        public (int id, string clientsFullName) GetClientsFullNameAndId(int idClient, string clientsPhone, string clientsEmail)
+        {
+            _cmd.CommandText = "procedure_get_clients_full_name_and_id";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_client", idClient);
+            _cmd.Parameters.AddWithValue("clients_phone", clientsPhone);
+            _cmd.Parameters.AddWithValue("clients_email", clientsEmail);
+
+            var getId = _cmd.Parameters.Add("id", MySqlDbType.Int32);
+            getId.Direction = ParameterDirection.Output;
+            var getFirstName = _cmd.Parameters.Add("clients_first_name", MySqlDbType.VarChar);
+            getFirstName.Direction = ParameterDirection.Output;
+            var getLastName = _cmd.Parameters.Add("clients_last_name", MySqlDbType.VarChar);
+            getLastName.Direction = ParameterDirection.Output;
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+
+            return ((int)getId.Value, $"{(string)getFirstName.Value} {(string)getLastName.Value}");
+        }
     }
 }
