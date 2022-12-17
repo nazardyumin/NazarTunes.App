@@ -133,7 +133,9 @@
     "ChooseNomenclatureHintText": "Выберите товар",
     "AmountHintText": "Кол-во",
     "ButtonFindText": "Найти",
-    "HelperTextClientsNotFound": "Клиент не найден!"
+    "ButtonFreezeText": "Отложить",
+    "HelperTextClientsNotFound": "Клиент не найден!",
+    "HelperTextEnteredAmountExceedsActual": "Введённое кол-во превышает актуальное!"
   },
   "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
 

@@ -1,5 +1,4 @@
-﻿using MySqlX.XDevAPI.Common;
-using NazarTunes.Models.DataTemplates;
+﻿using NazarTunes.Models.DataTemplates;
 using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.LanguagePacks;
@@ -19,7 +18,7 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             get => _clientId;
             set
             {
-                RemoveLettersOrSymbols(ref value!);
+                RemoveLettersOrSymbols(ref value!, "cut digits");
                 SetField(ref _clientId, value);
                 if (_clientId!.Length > 0)
                 {
@@ -27,8 +26,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
                 }
                 CommandFindClient?.OnCanExecuteChanged();
                 HelperTextSearchClient = string.Empty;
+                HelperTextAmountExceeds = string.Empty;
                 ClientsFullName = string.Empty;
                 _actualClientId = 0;
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
             }
         }
 
@@ -46,8 +47,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
                 }
                 CommandFindClient?.OnCanExecuteChanged();
                 HelperTextSearchClient = string.Empty;
+                HelperTextAmountExceeds = string.Empty;
                 ClientsFullName = string.Empty;
                 _actualClientId = 0;
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
             }
         }
 
@@ -64,8 +67,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
                 }
                 CommandFindClient?.OnCanExecuteChanged();
                 HelperTextSearchClient = string.Empty;
+                HelperTextAmountExceeds = string.Empty;
                 ClientsFullName = string.Empty;
                 _actualClientId = 0;
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
             }
         }
 
@@ -82,7 +87,12 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
         public Nomenclature? SelectedNomenclature
         {
             get => _selectedNomenclature;
-            set => SetField(ref _selectedNomenclature, value);
+            set
+            {
+                SetField(ref _selectedNomenclature, value);
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
+                HelperTextAmountExceeds = string.Empty;
+            }
         }
 
         private string? _amount;
@@ -91,8 +101,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             get => _amount;
             set
             {
-                RemoveLettersOrSymbols(ref value!);
+                RemoveLettersOrSymbols(ref value!, "cut digits", "remove zero");
                 SetField(ref _amount, value);
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
+                HelperTextAmountExceeds = string.Empty;
             }
         }
 
@@ -103,6 +115,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             set => SetField(ref _helperTextSearchClient, value);
         }
 
+        private string? _helperTextAmountExceeds;
+        public string HelperTextAmountExceeds
+        {
+            get => _helperTextAmountExceeds!;
+            set => SetField(ref _helperTextAmountExceeds, value);
+        }
+
         private Visibility _isVisible;
         public Visibility IsVisible
         {
@@ -111,18 +130,24 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
         }
 
         public MyCommand CommandFindClient { get; }
+        public MyCommand CommandFreezeNomenclature { get; }
 
         public FreezeNomenclature(ref AdminLayerDb db, ref Database database)
         {
             _refDb = db;
             _refDatabase = database;
 
-            ClientId = ClientsPhone = ClientsEmail = string.Empty;
+            ClientId = ClientsPhone = ClientsEmail = Amount = string.Empty;
 
             CommandFindClient = new(_ =>
             {
                 FindClientFunction();
             }, _ => RefreshCanFindState());
+
+            CommandFreezeNomenclature = new(_ =>
+            {
+                FreezeNomenclatureFunction();
+            }, _ => RefreshFreezeNomenclatureState());
 
             IsVisible = Visibility.Collapsed;        
         }
@@ -133,12 +158,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             if (IsVisible == Visibility.Visible)
             {
                 Hide();
+                Clear();
                 height = 47;
             }
             else
             {
                 Show();
-                height = 150;
+                height = 160;
             }
             return height;
         }
@@ -153,14 +179,21 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             IsVisible = Visibility.Collapsed;
         }
 
-        private void RemoveLettersOrSymbols(ref string str)
+        private void RemoveLettersOrSymbols(ref string str, string? key = null, string? removeZero = null)
         {
             if (!string.IsNullOrEmpty(str))
             {
-                if (str.Length > 10) str = str.Remove(10); 
+                if (key is not null && str.Length > 10)
+                {
+                    str = str.Remove(10);
+                }
                 for (int i = 0; i < str.Length; i++)
                 {
                     if (!char.IsDigit(str[i])) str = str.Remove(i, 1);
+                }
+                if (removeZero is not null && str.Length == 1 && str[0]=='0')
+                {
+                    str = str.Remove(0);
                 }
             }
         }
@@ -178,12 +211,43 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             {
                 var result = _refDb.GetClientsFullNameAndId(id, ClientsPhone!, ClientsEmail!);
                 ClientsFullName = result.clientsFullName;
-                _actualClientId = result.id; //reset after add new frozem item!!!
+                _actualClientId = result.id; //reset after adding new frozem item!!!
+                CommandFreezeNomenclature?.OnCanExecuteChanged();
             }
             else
             {
                 HelperTextSearchClient = LanguagePack.GetClientsNotFoundHelperText();
             }
+        }
+
+        private bool RefreshFreezeNomenclatureState()
+        {
+            if (_actualClientId!=0 && SelectedNomenclature is not null && !string.IsNullOrEmpty(Amount)) return true;
+            else return false;
+        }
+
+        private void FreezeNomenclatureFunction()
+        {
+            if (!_refDb.CheckIfEnteredAmountExceedsActual(SelectedNomenclature!.NomenclatureId, int.Parse(Amount!)))
+            {
+                _refDb.AddNewFrozenItem(SelectedNomenclature!.NomenclatureId, _actualClientId, int.Parse(Amount!));
+                //TODO rewrite triggers, now it's not correct!
+                _refDatabase.RefreshNomenclaturesOnly();
+                Clear(); 
+            }
+            else
+            {
+                Amount = string.Empty;
+                HelperTextAmountExceeds = LanguagePack.GetEnteredAmountHelperText();               
+            }
+            
+        }
+
+        private void Clear()
+        {
+            ClientId = ClientsPhone = ClientsEmail = ClientsFullName = HelperTextSearchClient = HelperTextAmountExceeds = Amount = string.Empty;
+            SelectedNomenclature = null;
+            _actualClientId = 0;
         }
     }
 }

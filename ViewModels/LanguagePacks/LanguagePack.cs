@@ -159,7 +159,9 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ChooseNomenclatureHintText { get; set; }
         public string AmountHintText { get; set; }
         public string ButtonFindText { get; set; }
+        public string ButtonFreezeText { get; set; }
         public string HelperTextClientsNotFound { get; set; }
+        public string HelperTextEnteredAmountExceedsActual { get; set; }
 
 
 
@@ -348,7 +350,9 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ClientsPhoneHintText = "Phone Number",
                     ClientsEmailHintText = "Email",
                     ButtonFindText = "Find",
-                    HelperTextClientsNotFound = "Client's not found!"
+                    ButtonFreezeText = "Freeze",
+                    HelperTextClientsNotFound = "Client's not found!",
+                    HelperTextEnteredAmountExceedsActual = "Entered amount exceeds actual!"
                 },
                 AdminTabSalesReport = new AdminTabSalesReport()
                 {
@@ -413,6 +417,17 @@ namespace NazarTunes.ViewModels.LanguagePacks
             else lang = Load("RU");
 
             return lang.AdminTabFreezeNomenclature.HelperTextClientsNotFound;
+        }
+
+        public static string GetEnteredAmountHelperText()
+        {
+            var index = int.Parse(File.ReadAllText(@"Language\config"));
+            LanguagePack lang;
+            if (index == 0)
+                lang = Load("EN");
+            else lang = Load("RU");
+
+            return lang.AdminTabFreezeNomenclature.HelperTextEnteredAmountExceedsActual;
         }
 
     }

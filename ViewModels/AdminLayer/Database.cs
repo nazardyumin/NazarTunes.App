@@ -18,6 +18,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _nomenclatures, value);
         }
 
+        private List<Nomenclature>? _activeNomenclatures;
+        public List<Nomenclature>? ActiveNomenclatures
+        {
+            get => _activeNomenclatures;
+            set => SetField(ref _activeNomenclatures, value);
+        }
+
         private List<Band>? _bands;
         public List<Band>? Bands
         {
@@ -92,6 +99,7 @@ namespace NazarTunes.ViewModels.AdminLayer
         {
             _refDb = db;
             Nomenclatures = new List<Nomenclature>(_refDb.GetAllNomenclatures());
+            ActiveNomenclatures = Nomenclatures.Where(n => n.IsAvailable).ToList();
             Bands = new List<Band>(_refDb.GetAllBands());
             Genres = new List<Genre>(_refDb.GetAllGenres());
             Performers = new List<Performer>(_refDb.GetAllPerformers());
@@ -117,6 +125,7 @@ namespace NazarTunes.ViewModels.AdminLayer
         public void RefreshNomenclaturesOnly()
         {
             Nomenclatures = new List<Nomenclature>(_refDb.GetAllNomenclatures());
+            ActiveNomenclatures = Nomenclatures.Where(n => n.IsAvailable).ToList();
         }
 
         public void RefreshSuppliers()

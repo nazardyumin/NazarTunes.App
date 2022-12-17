@@ -1162,36 +1162,41 @@
                                                 <Button Content="{Binding Language.AdminTabFreezeNomenclature.ButtonFindText, UpdateSourceTrigger=PropertyChanged}"  Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                                                     Command="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.CommandFindClient}"/>
-                                                <TextBlock Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.HelperTextSearchClient, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HelperTextStyle}"
+                                                <TextBlock Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.HelperTextSearchClient, UpdateSourceTrigger=PropertyChanged}" 
+                                                           Style="{StaticResource HelperTextStyle}"
                                                            Margin="0,2,0,0"/>
                                             </StackPanel>
 
                                             <TextBlock Width="170" Margin="15,0,0,0" Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.ClientsFullName, UpdateSourceTrigger=PropertyChanged}"
-                                                       VerticalAlignment="Center" Foreground="#FF7BBA2D"
-                                                       FontSize="16"/>
+                                                       VerticalAlignment="Top" Foreground="#FF7BBA2D"
+                                                       FontSize="23"/>
 
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" >
-                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.Nomenclatures}" Width="350" 
+                                            <ComboBox ItemsSource="{Binding CommonViewModel.Admin.Database.ActiveNomenclatures}" Width="385" 
                                                       SelectedItem="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.SelectedNomenclature}"
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.ChooseNomenclatureHintText, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
 
                                             </ComboBox>
 
-                                            <TextBox Width="80" Margin="5,0,0,0"
+                                            <TextBox Width="80" Margin="5,0,0,0" VerticalAlignment="Center"
                                                      Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.Amount, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="{Binding Language.AdminTabFreezeNomenclature.AmountHintText, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.IsFloating="True"/>
-
-                                            <CheckBox Width="130" Margin="5,0,0,0"
-                                                     IsChecked="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.StartPromo, UpdateSourceTrigger=PropertyChanged}"
-                                                     Content="{Binding Language.AdminTabPromotions.StartPromotionImmediatelyHintText, UpdateSourceTrigger=PropertyChanged}"/>
-
-                                            <Button Content="{Binding Language.AdminTabPromotions.ButtonAddText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
+                                            <StackPanel>
+                                                <Button Content="{Binding Language.AdminTabFreezeNomenclature.ButtonFreezeText, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" Cursor="Hand"
                                                     Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                                                    Command="{Binding CommonViewModel.Admin.TabPromotions.AddRecordPromo.CommandAdd}"/>
+                                                    Width="100"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.CommandFreezeNomenclature}"/>
+                                                <TextBlock Text="{Binding CommonViewModel.Admin.TabFreezeNomenclature.FreezeNomenclature.HelperTextAmountExceeds, UpdateSourceTrigger=PropertyChanged}" 
+                                                           Style="{StaticResource HelperTextStyle}"
+                                                           Margin="15,2,0,0"/>
+                                            </StackPanel>
+
+                                         
 
 
                                         </StackPanel>

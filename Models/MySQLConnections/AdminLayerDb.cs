@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
 using NazarTunes.Models.DataTemplates;
+using Org.BouncyCastle.Asn1.Mozilla;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -564,6 +565,38 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
 
             return ((int)getId.Value, $"{(string)getFirstName.Value} {(string)getLastName.Value}");
+        }
+
+        public bool CheckIfEnteredAmountExceedsActual(int idNomenclature, int amount)
+        {
+            _cmd.CommandText = "function_check_if_entered_amount_exceeds_actual";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_nomenclature", idNomenclature);
+            _cmd.Parameters.AddWithValue("entered_amount", amount);
+
+            var exceeds = _cmd.Parameters.Add("@ReturnVal", MySqlDbType.Int32);
+            exceeds.Direction = ParameterDirection.ReturnValue;
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+            return (int)exceeds.Value == 1;
+        }
+
+        public void AddNewFrozenItem(int idNomenclature,int idClient, int amount)
+        {
+            _cmd.CommandText = "procedure_add_new_frozen_item";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_nomenclature", idNomenclature);
+            _cmd.Parameters.AddWithValue("id_client", idClient);
+            _cmd.Parameters.AddWithValue("new_amount", amount);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
         }
     }
 }
