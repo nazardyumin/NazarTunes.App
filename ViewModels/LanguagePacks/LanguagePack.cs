@@ -162,6 +162,9 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ButtonFreezeText { get; set; }
         public string HelperTextClientsNotFound { get; set; }
         public string HelperTextEnteredAmountExceedsActual { get; set; }
+        public string ColumnIdHeader { get; set; }
+        public string ColumnNomenclatureHeader { get; set; }
+        public string ColumnClientHeader { get; set; }
 
 
 
@@ -172,7 +175,6 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string Header { get; set; }
 
     }
-
 
     public class LanguagePack
     {
@@ -191,7 +193,6 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public AdminTabFreezeNomenclature AdminTabFreezeNomenclature { get; set; }
 
         public AdminTabSalesReport AdminTabSalesReport { get; set; }
-
 
         public static void CreateJson()
         {
@@ -352,26 +353,16 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ButtonFindText = "Find",
                     ButtonFreezeText = "Freeze",
                     HelperTextClientsNotFound = "Client's not found!",
-                    HelperTextEnteredAmountExceedsActual = "Entered amount exceeds actual!"
+                    HelperTextEnteredAmountExceedsActual = "Entered amount exceeds actual!",
+                    ColumnIdHeader = "ID",
+                    ColumnNomenclatureHeader = "Nomenclature",
+                    ColumnClientHeader = "Client"
                 },
                 AdminTabSalesReport = new AdminTabSalesReport()
                 {
                     Header = "Sales Report"
                 }
-
-
-
-
-
-
-
-
-
             };
-
-
-
-
             var file = JsonSerializer.Serialize(langpack);
             if(!Directory.Exists("Language"))
             {
@@ -382,7 +373,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
 
         public static LanguagePack Load(string language)
         {
-            CreateJson();
+            //CreateJson();
             var file = File.ReadAllText($"Language\\{language}.lang");
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }

@@ -136,6 +136,7 @@ namespace NazarTunes.Models.MySQLConnections
                 IsSubscribed = (int)getIsSubscribed.Value == 1
             };
         }
+
         private string GetRole(string login, string password)
         {
             _cmd.CommandText = "function_get_role";

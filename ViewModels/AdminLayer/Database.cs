@@ -25,6 +25,13 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _activeNomenclatures, value);
         }
 
+        private List<FrozenNomenclature>? _frozenNomenclatures;
+        public List<FrozenNomenclature>? FrozenNomenclatures
+        {
+            get => _frozenNomenclatures;
+            set => SetField(ref _frozenNomenclatures, value);
+        }
+
         private List<Band>? _bands;
         public List<Band>? Bands
         {
@@ -100,6 +107,8 @@ namespace NazarTunes.ViewModels.AdminLayer
             _refDb = db;
             Nomenclatures = new List<Nomenclature>(_refDb.GetAllNomenclatures());
             ActiveNomenclatures = Nomenclatures.Where(n => n.IsAvailable).ToList();
+            FrozenNomenclatures = _refDb.GetFrozenNomenclatures();
+            AddNomenclatureInfoToFrozenNomenclatures();
             Bands = new List<Band>(_refDb.GetAllBands());
             Genres = new List<Genre>(_refDb.GetAllGenres());
             Performers = new List<Performer>(_refDb.GetAllPerformers());
@@ -126,6 +135,8 @@ namespace NazarTunes.ViewModels.AdminLayer
         {
             Nomenclatures = new List<Nomenclature>(_refDb.GetAllNomenclatures());
             ActiveNomenclatures = Nomenclatures.Where(n => n.IsAvailable).ToList();
+            FrozenNomenclatures = _refDb.GetFrozenNomenclatures();
+            AddNomenclatureInfoToFrozenNomenclatures();
         }
 
         public void RefreshSuppliers()
@@ -166,6 +177,14 @@ namespace NazarTunes.ViewModels.AdminLayer
                     var nomenclature = Nomenclatures!.First(n => n.Record!.Id == promo.RecordId);
                     promo.RecordInfo = nomenclature.Record!.ToString();
                 }
+            }
+        }
+
+        private void AddNomenclatureInfoToFrozenNomenclatures()
+        {
+            foreach(var n in FrozenNomenclatures!)
+            {
+                n.NomenclatureInfo = Nomenclatures!.First(nom => nom.NomenclatureId == n.NomenclatureId).ToString();
             }
         }
     }

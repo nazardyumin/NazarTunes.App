@@ -231,7 +231,6 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             if (!_refDb.CheckIfEnteredAmountExceedsActual(SelectedNomenclature!.NomenclatureId, int.Parse(Amount!)))
             {
                 _refDb.AddNewFrozenItem(SelectedNomenclature!.NomenclatureId, _actualClientId, int.Parse(Amount!));
-                //TODO rewrite triggers, now it's not correct!
                 _refDatabase.RefreshNomenclaturesOnly();
                 Clear(); 
             }

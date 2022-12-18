@@ -133,7 +133,10 @@
     "ButtonFindText": "Find",
     "ButtonFreezeText": "Freeze",
     "HelperTextClientsNotFound": "Client\u0027s not found!",
-    "HelperTextEnteredAmountExceedsActual": "Entered amount exceeds actual!"
+    "HelperTextEnteredAmountExceedsActual": "Entered amount exceeds actual!",
+    "ColumnIdHeader": "ID",
+    "ColumnNomenclatureHeader": "Nomenclature",
+    "ColumnClientHeader": "Client"
   },
   "AdminTabSalesReport": { "Header": "Sales Report" }
 }

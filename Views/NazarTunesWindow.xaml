@@ -1195,10 +1195,7 @@
                                                            Style="{StaticResource HelperTextStyle}"
                                                            Margin="15,2,0,0"/>
                                             </StackPanel>
-
-                                         
-
-
+                                      
                                         </StackPanel>
                                     </StackPanel>
 
@@ -1206,19 +1203,16 @@
 
                             </StackPanel>
 
-                            <!--<StackPanel Visibility="Hidden">
+                            <StackPanel Visibility="Hidden">
 
-                                <TextBlock x:Name="PromotionID"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionSubject"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionSubjectHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionDiscount"  Text="{Binding Language.AdminTabPromotions.DiscountHintTextAndHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionIsStarted"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIsStartedHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionIsFinished"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionIsFinishedHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionStartDate"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionStartDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="PromotionEndDate"  Text="{Binding Language.AdminTabPromotions.ColumnPromotionEndDateHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                            </StackPanel>-->
+                                <TextBlock x:Name="FrozenNomenclatureID"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="FrozenNomenclature"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnNomenclatureHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="FrozenNomenclatureClient"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnClientHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock x:Name="FrozenNomenclatureAmount"  Text="{Binding Language.AdminTabFreezeNomenclature.AmountHintText, UpdateSourceTrigger=PropertyChanged}"/>         
+                            </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
-                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Promotions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.FrozenNomenclatures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
@@ -1226,45 +1220,27 @@
                                               ColumnWidth="Auto"
                                               ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Binding="{Binding DiscountPromotionId}" IsReadOnly="True" >
+                                        <DataGridTextColumn Binding="{Binding FrozenNomenclatureId}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionID}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Source={x:Reference FrozenNomenclatureID}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
 
-                                        <DataGridTextColumn Binding="{Binding PromotionSubject}" IsReadOnly="True" >
+                                        <DataGridTextColumn Binding="{Binding NomenclatureInfo}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionSubject}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Source={x:Reference FrozenNomenclature}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
 
-                                        <DataGridTextColumn Binding="{Binding Discount}" IsReadOnly="True" >
+                                        <DataGridTextColumn Binding="{Binding ClientInfo}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionDiscount}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Source={x:Reference FrozenNomenclatureClient}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
 
-                                        <DataGridCheckBoxColumn Binding="{Binding IsStarted}"  IsReadOnly="True" >
-                                            <DataGridCheckBoxColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsStarted}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </DataGridCheckBoxColumn.Header>
-                                        </DataGridCheckBoxColumn>
-
-                                        <DataGridTextColumn Binding="{Binding DateStart}"  IsReadOnly="True" >
+                                        <DataGridTextColumn Binding="{Binding Amount}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionStartDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </DataGridTextColumn.Header>
-                                        </DataGridTextColumn>
-
-                                        <DataGridCheckBoxColumn Binding="{Binding IsFinished}"  IsReadOnly="True" >
-                                            <DataGridCheckBoxColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionIsFinished}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </DataGridCheckBoxColumn.Header>
-                                        </DataGridCheckBoxColumn>
-
-                                        <DataGridTextColumn Binding="{Binding DateEnd}"  IsReadOnly="True" >
-                                            <DataGridTextColumn.Header>
-                                                <TextBlock Text="{Binding Source={x:Reference PromotionEndDate}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Source={x:Reference FrozenNomenclatureAmount}, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
 

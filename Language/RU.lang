@@ -135,7 +135,10 @@
     "ButtonFindText": "Найти",
     "ButtonFreezeText": "Отложить",
     "HelperTextClientsNotFound": "Клиент не найден!",
-    "HelperTextEnteredAmountExceedsActual": "Введённое кол-во превышает актуальное!"
+    "HelperTextEnteredAmountExceedsActual": "Введённое кол-во превышает актуальное!",
+    "ColumnIdHeader": "ID",
+    "ColumnNomenclatureHeader": "Товар",
+    "ColumnClientHeader": "Клиент"
   },
   "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
 

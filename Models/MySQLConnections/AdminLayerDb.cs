@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Sockets;
 
 namespace NazarTunes.Models.MySQLConnections
 {
@@ -597,6 +598,36 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
+        }
+
+        public List<FrozenNomenclature> GetFrozenNomenclatures()
+        {
+            var sql = $"CALL procedure_get_all_frozen_nomenclatures();";
+            _db.Open();
+            var list = _db.Query<FrozenNomenclature>(sql).ToList();
+            _db.Close();
+            foreach(var n in list)
+            {
+                n.ClientInfo = GetClientInfo(n.ClientId);
+            }
+            return list;
+        }
+
+
+        private string GetClientInfo(int id_client)
+        {
+            _cmd.CommandText = "function_get_client_info";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_client", id_client);
+
+            var info = _cmd.Parameters.Add("@ReturnVal", MySqlDbType.Text);
+            info.Direction = ParameterDirection.ReturnValue;
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+            return (string)info.Value;
         }
     }
 }
