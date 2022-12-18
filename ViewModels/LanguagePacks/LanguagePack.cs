@@ -58,6 +58,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ColumnSoldHeader { get; set; }     
         public string ColumnPriceHeader { get; set; }
         public string ColumnAvailableHeader { get; set; }
+        public string ContextMenuItemOpenNomenclatureInEditorText { get; set; }
     }
 
     public struct AdminTabEditAndNewNomenclature
@@ -251,7 +252,8 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     ColumnFrozenHeader = "Frozen",
                     ColumnSoldHeader = "Sold",
                     ColumnPriceHeader = "Price",
-                    ColumnAvailableHeader = "Available"
+                    ColumnAvailableHeader = "Available",
+                    ContextMenuItemOpenNomenclatureInEditorText = "Edit this nomenclature"
                 },
                 AdminTabEditAndNewNomenclature = new AdminTabEditAndNewNomenclature()
                 {

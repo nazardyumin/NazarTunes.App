@@ -279,5 +279,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab1
         {
             _language = language;
         }
+
+        public void OpenNomenclatureFromDbInEditor(int? nomenclatureId = null)
+        {
+            if (nomenclatureId is not null) SelectedNomenclature!.SelectedId = nomenclatureId.ToString();
+            FindNomenclatureFunction();
+        }
     }
 }

@@ -44,7 +44,8 @@
     "ColumnFrozenHeader": "Отложено",
     "ColumnSoldHeader": "Продано",
     "ColumnPriceHeader": "Цена",
-    "ColumnAvailableHeader": "Доступен"
+    "ColumnAvailableHeader": "Доступен",
+    "ContextMenuItemOpenNomenclatureInEditorText": "Редактировать этот товар"
   },
   "AdminTabEditAndNewNomenclature": {
     "HeaderEditNomenclatures": "Ред. товары",

@@ -1,6 +1,8 @@
-﻿using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.DataTemplates;
+using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
+using System;
 
 namespace NazarTunes.ViewModels.AdminLayer.Tab0
 {
@@ -27,9 +29,17 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set => SetField(ref _editGenres, value);
         }
 
+        private Nomenclature? _selectedNomenclature;
+        public Nomenclature? SelectedNomenclature
+        {
+            get => _selectedNomenclature;
+            set => SetField(ref _selectedNomenclature, value);
+        }
+
         public MyCommand CommandOpenCloseEditPerformers { get; }
         public MyCommand CommandOpenCloseEditBands { get; }
         public MyCommand CommandOpenCloseEditGenres { get; }
+        public MyCommand CommandOpenNomenclatureInEditor { get; }
 
         private int _buttonPanelHeight;
         public int ButtonPanelHeight
@@ -38,7 +48,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             set => SetField(ref _buttonPanelHeight, value);
         }
 
-        public TabNomenclatureDb(ref AdminLayerDb db, ref Database database)
+        private readonly Action<int?> _switchSelectedTab;
+        private readonly Action<int?> _openNomenclatureInEditor;
+
+        public TabNomenclatureDb(ref AdminLayerDb db, ref Database database, Action<int?> switchSelectedTab, Action<int?> openNomenclatureInEditor)
         {
             EditPerformers = new(ref db, ref database);
             EditBands = new(ref db, ref database);
@@ -58,6 +71,14 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             {
                 OpenCloseEditGenresFunction();
             }, _ => true);
+
+            CommandOpenNomenclatureInEditor = new(_ =>
+            {
+                OpenNomenclatureInEditorFunction();
+            }, _ => true);
+
+            _switchSelectedTab = switchSelectedTab;
+            _openNomenclatureInEditor = openNomenclatureInEditor;
 
             ButtonPanelHeight = 47;
         }
@@ -81,6 +102,13 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab0
             EditPerformers!.Hide();
             EditBands!.Hide();
             ButtonPanelHeight = EditGenres!.OpenClose();
+        }
+
+        private void OpenNomenclatureInEditorFunction()
+        {
+            _switchSelectedTab.Invoke(1);
+            _openNomenclatureInEditor.Invoke(SelectedNomenclature!.NomenclatureId);
+            SelectedNomenclature = null;
         }
     }
 }

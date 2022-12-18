@@ -163,7 +163,7 @@
                     </StackPanel>
                 </Grid>
 
-                <TabControl Grid.Row="1" HorizontalAlignment="Left" SelectedIndex="0" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" >
+                <TabControl Grid.Row="1" HorizontalAlignment="Left" SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab, UpdateSourceTrigger=PropertyChanged}" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" >
                     <!--SelectedIndex="{Binding CommonViewModel.Admin.SelectedTab}"-->
                     <TabItem Header="{Binding Language.AdminTabNomenclatureDb.Header, UpdateSourceTrigger=PropertyChanged}">
                         <Grid >
@@ -194,7 +194,7 @@
                                                       materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.ChoosePerformerHintText, UpdateSourceTrigger=PropertyChanged}"
                                                       materialDesign:HintAssist.IsFloating="True">
                                             </ComboBox>
-                                            
+
                                             <TextBox Width="100" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditPerformers.TextField1, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.FirstNameHintText, UpdateSourceTrigger=PropertyChanged}"
@@ -219,7 +219,7 @@
                                                       materialDesign:HintAssist.IsFloating="True">
 
                                             </ComboBox>
-                                            
+
                                             <TextBox Width="205" Margin="5,0,0,0"
                                                      Text="{Binding CommonViewModel.Admin.TabNomenclatureDb.EditBands.TextField1, UpdateSourceTrigger=PropertyChanged}"
                                                         materialDesign:HintAssist.Hint="{Binding Language.AdminTabNomenclatureDb.BandNameHintText, UpdateSourceTrigger=PropertyChanged}"
@@ -254,7 +254,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                            
+
                             <StackPanel Visibility="Hidden">
                                 <TextBlock x:Name="ID"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="Title_"  Text="{Binding Language.AdminTabNomenclatureDb.ColumnTitleHeader, UpdateSourceTrigger=PropertyChanged}"/>
@@ -278,9 +278,19 @@
                                               AutoGenerateColumns="False" 
                                               CanUserAddRows="False" 
                                               CanUserDeleteRows="False"
-                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                                              SelectedItem="{Binding CommonViewModel.Admin.TabNomenclatureDb.SelectedNomenclature}">
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding CommonViewModel.Admin.TabNomenclatureDb.CommandOpenNomenclatureInEditor}">
+                                                <MenuItem.Header>
+                                                    <TextBlock Text="{Binding Language.AdminTabNomenclatureDb.ContextMenuItemOpenNomenclatureInEditorText, UpdateSourceTrigger=PropertyChanged}"/>
+                                                </MenuItem.Header>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
                                     <DataGrid.Columns>
-                                        
+
                                         <materialDesign:DataGridTextColumn Binding="{Binding NomenclatureId}" Width="Auto" IsReadOnly="True">
                                             <DataGridTextColumn.Header>
                                                 <TextBlock Text="{Binding ElementName=ID, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
@@ -364,12 +374,13 @@
                                                 <TextBlock Text="{Binding ElementName=Available, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
                                             </DataGridCheckBoxColumn.Header>
                                         </DataGridCheckBoxColumn>
-                                        
+
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
                         </Grid>
                     </TabItem>
+
 
                     <TabItem Header="{Binding Language.AdminTabEditAndNewNomenclature.HeaderEditNomenclatures, UpdateSourceTrigger=PropertyChanged}">
                         <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
@@ -481,6 +492,7 @@
                             </StackPanel>
                         </StackPanel>
                     </TabItem>
+
 
                     <TabItem Header="{Binding Language.AdminTabEditAndNewNomenclature.HeaderNewNomenclature, UpdateSourceTrigger=PropertyChanged}">
                         <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center">
@@ -624,13 +636,13 @@
                         </StackPanel>
                     </TabItem>
 
+
                     <TabItem Header="{Binding Language.AdminTabSuppliers.Header, UpdateSourceTrigger=PropertyChanged}">
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding CommonViewModel.Admin.TabSuppliers.ButtonPanelHeight}" />
                                 <RowDefinition  Height="*"/>
                             </Grid.RowDefinitions>
-                           
 
                             <StackPanel Grid.Row="0" >
 
@@ -703,7 +715,7 @@
                             </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
-                                
+
                                 <DataGrid ItemsSource="{Binding CommonViewModel.Admin.Database.Suppliers, UpdateSourceTrigger=PropertyChanged}"
                                               HorizontalAlignment="Left"
                                               AutoGenerateColumns="False" 
@@ -735,18 +747,14 @@
                                             </DataGridCheckBoxColumn.Header>
                                         </DataGridCheckBoxColumn>
                                     </DataGrid.Columns>
+
                                 </DataGrid>
-                                
-                                
-                                
-                                
-                                
-                                
                             </ScrollViewer>
                         </Grid>
+
                     </TabItem>
 
-                    
+
                     <TabItem Header="{Binding Language.AdminTabProcurements.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
@@ -806,7 +814,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                            
+
                             <StackPanel Visibility="Hidden">
 
                                 <TextBlock x:Name="ProcurementID"  Text="{Binding Language.AdminTabProcurements.ColumnProcurementIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
@@ -866,10 +874,10 @@
                                 </DataGrid>
                             </ScrollViewer>
                         </Grid>
-                        
+
                     </TabItem>
 
-                    
+
                     <TabItem Header="{Binding Language.AdminTabPromotions.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
@@ -925,7 +933,7 @@
 
                                         </StackPanel>
                                     </StackPanel>
-                                    
+
 
                                     <StackPanel Visibility="{Binding CommonViewModel.Admin.TabPromotions.AddBandPromo.IsVisible}" Margin="0,20,0,20">
                                         <StackPanel Orientation="Horizontal" >
@@ -1052,7 +1060,7 @@
 
 
                                 </StackPanel>
-                               
+
                             </StackPanel>
 
                             <StackPanel Visibility="Hidden">
@@ -1123,8 +1131,8 @@
                         </Grid>
 
                     </TabItem>
-                   
-                                        
+
+
                     <TabItem Header="{Binding Language.AdminTabFreezeNomenclature.Header, UpdateSourceTrigger=PropertyChanged}">
 
                         <Grid >
@@ -1195,7 +1203,7 @@
                                                            Style="{StaticResource HelperTextStyle}"
                                                            Margin="15,2,0,0"/>
                                             </StackPanel>
-                                      
+
                                         </StackPanel>
                                     </StackPanel>
 
@@ -1208,7 +1216,7 @@
                                 <TextBlock x:Name="FrozenNomenclatureID"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnIdHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="FrozenNomenclature"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnNomenclatureHeader, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock x:Name="FrozenNomenclatureClient"  Text="{Binding Language.AdminTabFreezeNomenclature.ColumnClientHeader, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock x:Name="FrozenNomenclatureAmount"  Text="{Binding Language.AdminTabFreezeNomenclature.AmountHintText, UpdateSourceTrigger=PropertyChanged}"/>         
+                                <TextBlock x:Name="FrozenNomenclatureAmount"  Text="{Binding Language.AdminTabFreezeNomenclature.AmountHintText, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                             <ScrollViewer Margin="5,13,17,0" Grid.Row="1" >
@@ -1229,6 +1237,7 @@
                                             </MenuItem>
                                         </ContextMenu>
                                     </DataGrid.ContextMenu>
+
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding FrozenNomenclatureId}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>
@@ -1260,26 +1269,14 @@
                         </Grid>
 
                     </TabItem>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
                     <TabItem Header="{Binding Language.AdminTabSalesReport.Header, UpdateSourceTrigger=PropertyChanged}">
+
+
                     </TabItem>
+
                 </TabControl>
-
-
-
-
-
-
-
-
-
 
             </Grid>
         </Border>

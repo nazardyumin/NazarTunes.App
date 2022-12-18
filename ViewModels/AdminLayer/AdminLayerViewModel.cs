@@ -9,6 +9,8 @@ using NazarTunes.ViewModels.AdminLayer.Tab5;
 using NazarTunes.ViewModels.AdminLayer.Tab6;
 using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
+using Org.BouncyCastle.Security.Certificates;
+using System;
 
 namespace NazarTunes.ViewModels.AdminLayer
 {
@@ -79,7 +81,12 @@ namespace NazarTunes.ViewModels.AdminLayer
             set => SetField(ref _tabFreezeNomenclature, value);
         }
 
-        public int SelectedTab { get; set; }
+        private int _selectedTab;
+        public int SelectedTab
+        {
+            get => _selectedTab;
+            set => SetField(ref _selectedTab, value);
+        }
 
         public AdminLayerViewModel(Admin admin, ref LanguagePack language)
         {
@@ -89,8 +96,8 @@ namespace NazarTunes.ViewModels.AdminLayer
 
             SelectedTab = 0;
 
-            TabNomenclatureDb = new(ref _db, ref _database!);
             TabEditNomenclature = new(ref _db, ref _database!, ref language);
+            TabNomenclatureDb = new(ref _db, ref _database!, SwitchSelectedTab, TabEditNomenclature.OpenNomenclatureFromDbInEditor);
             TabNewNomenclature = new(ref _db, ref _database!);
             TabSuppliers = new(ref _db, ref _database!);
             TabProcurements = new(ref _db, ref _database!);
@@ -103,6 +110,11 @@ namespace NazarTunes.ViewModels.AdminLayer
         {
             TabEditNomenclature!.RefreshLanguage(ref language);
             Database!.RefreshPromotions();
+        }
+
+        private void SwitchSelectedTab(int? index = null)
+        {
+            if (index is not null) SelectedTab = (int)index;
         }
     }
 }

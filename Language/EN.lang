@@ -44,7 +44,8 @@
     "ColumnFrozenHeader": "Frozen",
     "ColumnSoldHeader": "Sold",
     "ColumnPriceHeader": "Price",
-    "ColumnAvailableHeader": "Available"
+    "ColumnAvailableHeader": "Available",
+    "ContextMenuItemOpenNomenclatureInEditorText": "Edit this nomenclature"
   },
   "AdminTabEditAndNewNomenclature": {
     "HeaderEditNomenclatures": "Edit Nomenclatures",
