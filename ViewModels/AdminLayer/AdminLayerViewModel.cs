@@ -9,8 +9,6 @@ using NazarTunes.ViewModels.AdminLayer.Tab5;
 using NazarTunes.ViewModels.AdminLayer.Tab6;
 using NazarTunes.ViewModels.LanguagePacks;
 using NazarTunes.ViewModels.Notifiers;
-using Org.BouncyCastle.Security.Certificates;
-using System;
 
 namespace NazarTunes.ViewModels.AdminLayer
 {
@@ -103,7 +101,6 @@ namespace NazarTunes.ViewModels.AdminLayer
             TabProcurements = new(ref _db, ref _database!);
             TabPromotions = new(ref _db, ref _database!);
             TabFreezeNomenclature = new(ref _db, ref _database!);
-
         }
 
         public void RefreshLanguage(ref LanguagePack language)
