@@ -1218,7 +1218,17 @@
                                               CanUserAddRows="False" 
                                               CanUserDeleteRows="False"
                                               ColumnWidth="Auto"
-                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                                              SelectedItem="{Binding CommonViewModel.Admin.TabFreezeNomenclature.SelectedFrozenNomenclature}">
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding CommonViewModel.Admin.TabFreezeNomenclature.CommandUnfreezeNomenclature}">
+                                                <MenuItem.Header>
+                                                    <TextBlock Text="{Binding Language.AdminTabFreezeNomenclature.ContextMenuUnfreezeHeader, UpdateSourceTrigger=PropertyChanged}"/>
+                                                </MenuItem.Header>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding FrozenNomenclatureId}" IsReadOnly="True" >
                                             <DataGridTextColumn.Header>

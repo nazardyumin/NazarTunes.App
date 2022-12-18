@@ -600,6 +600,19 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
+        public void UnfreezeNomenclature(int idFrozenNomenclature)
+        {
+            _cmd.CommandText = "procedure_unfreeze_nomenclature";
+            _cmd.CommandType = CommandType.StoredProcedure;
+            _cmd.Parameters.Clear();
+
+            _cmd.Parameters.AddWithValue("id_frozen_nomenclature", idFrozenNomenclature);
+
+            _db.Open();
+            _cmd.ExecuteNonQuery();
+            _db.Close();
+        }
+
         public List<FrozenNomenclature> GetFrozenNomenclatures()
         {
             var sql = $"CALL procedure_get_all_frozen_nomenclatures();";

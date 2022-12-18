@@ -136,7 +136,8 @@
     "HelperTextEnteredAmountExceedsActual": "Entered amount exceeds actual!",
     "ColumnIdHeader": "ID",
     "ColumnNomenclatureHeader": "Nomenclature",
-    "ColumnClientHeader": "Client"
+    "ColumnClientHeader": "Client",
+    "ContextMenuUnfreezeHeader": "Unfreeze this nomenclature"
   },
   "AdminTabSalesReport": { "Header": "Sales Report" }
 }

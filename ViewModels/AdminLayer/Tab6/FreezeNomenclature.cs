@@ -248,5 +248,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             SelectedNomenclature = null;
             _actualClientId = 0;
         }
+
+        public void UnfreezeNomenclatureFunction(int frozenNomenclatureId)
+        {
+            _refDb.UnfreezeNomenclature(frozenNomenclatureId);
+            _refDatabase.RefreshNomenclaturesOnly();
+        }
     }
 }

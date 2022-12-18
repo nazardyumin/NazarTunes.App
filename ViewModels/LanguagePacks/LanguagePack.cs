@@ -165,6 +165,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
         public string ColumnIdHeader { get; set; }
         public string ColumnNomenclatureHeader { get; set; }
         public string ColumnClientHeader { get; set; }
+        public string ContextMenuUnfreezeHeader { get; set; }
 
 
 
@@ -356,7 +357,8 @@ namespace NazarTunes.ViewModels.LanguagePacks
                     HelperTextEnteredAmountExceedsActual = "Entered amount exceeds actual!",
                     ColumnIdHeader = "ID",
                     ColumnNomenclatureHeader = "Nomenclature",
-                    ColumnClientHeader = "Client"
+                    ColumnClientHeader = "Client",
+                    ContextMenuUnfreezeHeader = "Unfreeze this nomenclature"
                 },
                 AdminTabSalesReport = new AdminTabSalesReport()
                 {
@@ -373,7 +375,7 @@ namespace NazarTunes.ViewModels.LanguagePacks
 
         public static LanguagePack Load(string language)
         {
-            //CreateJson();
+            CreateJson();
             var file = File.ReadAllText($"Language\\{language}.lang");
             return JsonSerializer.Deserialize<LanguagePack>(file)!;
         }

@@ -138,7 +138,8 @@
     "HelperTextEnteredAmountExceedsActual": "Введённое кол-во превышает актуальное!",
     "ColumnIdHeader": "ID",
     "ColumnNomenclatureHeader": "Товар",
-    "ColumnClientHeader": "Клиент"
+    "ColumnClientHeader": "Клиент",
+    "ContextMenuUnfreezeHeader": "Отменить откладку этого товара"
   },
   "AdminTabSalesReport": { "Header": "Отчёт о продажах" }
 

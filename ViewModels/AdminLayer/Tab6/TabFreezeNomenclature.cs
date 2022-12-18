@@ -1,4 +1,5 @@
-﻿using NazarTunes.Models.MySQLConnections;
+﻿using NazarTunes.Models.DataTemplates;
+using NazarTunes.Models.MySQLConnections;
 using NazarTunes.ViewModels.Commands;
 using NazarTunes.ViewModels.Notifiers;
 
@@ -15,7 +16,15 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             set => SetField(ref _buttonPanelHeight, value);
         }
 
+        private FrozenNomenclature? _selectedFrozenNomenclature;
+        public FrozenNomenclature? SelectedFrozenNomenclature
+        {
+            get => _selectedFrozenNomenclature;
+            set => SetField(ref _selectedFrozenNomenclature, value);
+        }
+
         public MyCommand CommandOpenCloseFreezeNomenclature { get; }
+        public MyCommand CommandUnfreezeNomenclature { get; }
 
         public TabFreezeNomenclature(ref AdminLayerDb db, ref Database database)
         {
@@ -24,6 +33,11 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab6
             CommandOpenCloseFreezeNomenclature = new(_ =>
             {
                 ButtonPanelHeight = FreezeNomenclature.OpenClose();
+            }, _ => true);
+
+            CommandUnfreezeNomenclature = new(_ =>
+            {
+                FreezeNomenclature.UnfreezeNomenclatureFunction(SelectedFrozenNomenclature!.FrozenNomenclatureId);
             }, _ => true);
 
             ButtonPanelHeight = 47;
