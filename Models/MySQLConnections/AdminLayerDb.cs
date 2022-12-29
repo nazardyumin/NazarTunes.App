@@ -307,7 +307,7 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Close();
         }
 
-        public int CreateNewNomenclatureAndGetId(string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover)
+        public int CreateNewNomenclatureAndGetId(string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover, double newPrice)
         {
             _cmd.CommandText = "procedure_create_record_and_get_id";
             _cmd.CommandType = CommandType.StoredProcedure;
@@ -326,6 +326,8 @@ namespace NazarTunes.Models.MySQLConnections
             _db.Open();
             _cmd.ExecuteNonQuery();
             _db.Close();
+
+            UpdatePrice((int)getId.Value, newPrice);
 
             return (int)getId.Value;
         }

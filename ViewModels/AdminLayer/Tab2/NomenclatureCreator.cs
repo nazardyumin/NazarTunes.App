@@ -26,10 +26,10 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab2
             return MakeList(Genres!);
         }
 
-        public (string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover) GetFieldsToCreate()
+        public (string newTitle, string newDuration, string newPublisher, string newYear, string newFormat, string newCover, double newPrice) GetFieldsToCreate()
         {
             CoverPath ??= string.Empty;
-            return (Title!, FormatDuration(TotalDuration!), Publisher!, ReleaseYear!, MediaFormat!, CoverPath!);
+            return (Title!, FormatDuration(TotalDuration!), Publisher!, ReleaseYear!, MediaFormat!, CoverPath!, GetPrice());
         }
 
         public void Clear()

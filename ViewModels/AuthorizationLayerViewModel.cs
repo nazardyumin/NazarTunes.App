@@ -246,6 +246,7 @@ namespace NazarTunes.ViewModels
             }
             return false;
         }
+
         public void RefreshLanguage(ref LanguagePack language)
         {
             Language = language;

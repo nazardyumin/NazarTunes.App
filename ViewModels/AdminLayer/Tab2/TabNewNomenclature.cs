@@ -152,8 +152,8 @@ namespace NazarTunes.ViewModels.AdminLayer.Tab2
 
         private void SaveFunction()
         {
-            var (newTitle, newDuration, newPublisher, newYear, newFormat, newCover) = NewNomenclature!.GetFieldsToCreate();
-            var id = _refDb.CreateNewNomenclatureAndGetId(newTitle, newDuration, newPublisher, newYear, newFormat, newCover);
+            var (newTitle, newDuration, newPublisher, newYear, newFormat, newCover, newPrice) = NewNomenclature!.GetFieldsToCreate();
+            var id = _refDb.CreateNewNomenclatureAndGetId(newTitle, newDuration, newPublisher, newYear, newFormat, newCover, newPrice);
             CreatePerformerItems(id, NewNomenclature.GetPerformers());
             CreateBandItems(id, NewNomenclature.GetBands());
             CreateGenreItems(id, NewNomenclature.GetGenres());
